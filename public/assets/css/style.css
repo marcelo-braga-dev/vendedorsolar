@@ -1,0 +1,54 @@
+.navbar-vertical.navbar-expand-md .navbar-nav .nav .nav-link {
+    padding-left: 1.75rem;
+    padding-top: 0.25rem;
+}
+
+.navbar-vertical .navbar-nav .nav-link[data-toggle='collapse']:after {
+    color: inherit;
+}
+
+.navbar-vertical.navbar-expand-md .navbar-nav .nav-link.active:before {
+    border-left: 0px solid white;
+    border-right: 0px solid #f5f5f5;
+}
+
+/* Works on Firefox */
+#sidenav-main {
+    scrollbar-width: thin;
+    scrollbar-color: blue orange;
+}
+
+/* Works on Chrome, Edge, and Safari */
+#sidenav-main::-webkit-scrollbar {
+    width: 8px;
+}
+
+#sidenav-main::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#sidenav-main::-webkit-scrollbar-thumb {
+    background-color: rgba(185, 185, 185, 0.73);
+    border-radius: 20px;
+}
+
+/*Input select2*/
+.select2-container--default .select2-selection--single {
+    border: 0 !important;
+}
+
+.select2 {
+    box-shadow: 0 1px 3px rgb(50 50 93 / 15%), 0 1px 0 rgb(0 0 0 / 2%) !important;
+    border-radius: 5px;
+    padding: 9px !important;
+
+}
+.select2-selection__rendered {
+    color: #8898aa !important;
+}
+.select2-selection__arrow {
+    top: 10px !important;
+}
+.select2-search__field {
+    border: 0;
+}

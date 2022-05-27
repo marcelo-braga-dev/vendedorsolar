@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Integracoes;
+
+use App\Http\Controllers\Controller;
+use App\Models\IntegracaoAldo;
+use App\Models\Produtos;
+use App\src\Integracoes\Aldo\IntegrarAldo;
+use App\src\Integracoes\Aldo\Produtos\Infos\ReferenciasAldo;
+use Illuminate\Http\Request;
+
+class AldoController extends Controller
+{
+    public function index()
+    {
+        $chavesIntegracao = new IntegracaoAldo();
+
+        $chaves = $chavesIntegracao->chaves();
+
+        return view('pages.admin.integracoes.aldo.index', compact('chaves'));
+    }
+
+    public function pesquisar()
+    {
+        $integracao = new IntegrarAldo();
+        $dados = $integracao->pesquisar();
+
+        $produtos = [];
+
+        $items = Produtos::get(['id', 'nome', 'tipo']);
+
+        foreach ($items as $item) {
+            $produtos[$item->tipo][$item->id] = $item->nome;
+        }
+
+        return view('pages.admin.integracoes.aldo.pesquisar', compact('dados', 'produtos'));
+    }
+
+    public function store(Request $request)
+    {
+        $referencias = new ReferenciasAldo();
+        $referencias->update($request);
+
+        return redirect()->route('admin.integracoes.aldo.index');
+    }
+
+    public function integrar()
+    {
+        $integracao = new IntegrarAldo();
+        $integracao->integrar();
+    }
+}
