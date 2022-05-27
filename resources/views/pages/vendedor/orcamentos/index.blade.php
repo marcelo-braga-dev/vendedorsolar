@@ -35,6 +35,13 @@
                 {{ $orcamentos }}
             </x-slot>
         </x-tables.table-clickable>
+        @if ($orcamentos->isEmpty())
+            <div class="row">
+                <div class="col-auto mx-auto mb-3">
+                    <small>Não há histórico de orçamentos</small>
+                </div>
+            </div>
+        @endif
     </x-body>
 </x-layout>
 

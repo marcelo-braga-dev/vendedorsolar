@@ -184,6 +184,10 @@
                                     <td>Direção da Instalação</td>
                                     <td>{{ ucfirst($orcamento->orientacao) }}</td>
                                 </tr>
+                                <tr>
+                                    <td>Irradiação Solar</td>
+                                    <td>{{ getIrradiacao($orcamento->cidades) }}</td>
+                                </tr>
                             </x-slot>
                         </x-tables.table-default>
                     </div>

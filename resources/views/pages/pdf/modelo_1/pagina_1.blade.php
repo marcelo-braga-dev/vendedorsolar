@@ -32,7 +32,7 @@
                     </h3>
                 </div>
                 <div class="col text-right">
-                    <a class="btn btn-primary btn-sm" href="/">Baixar PDF</a>
+                    {{--                    <a class="btn btn-primary btn-sm" href="/">Baixar PDF</a>--}}
                 </div>
             </div>
         </div>
@@ -84,9 +84,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Potência do Kit</h5>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Potência total do Kit</h5>
                                     <span class="h2 font-weight-bold mb-0">
-                                            {{ $kit->potencia_kit }} <small>kWp</small>
+                                            {{ convert_float_money($kit->potencia_kit * $orcamento->qtd_kits, 2)  }} <small>kWp</small>
                                         </span>
                                 </div>
                                 <div class="col-auto">
@@ -107,23 +107,23 @@
                         <div class="card-body">
                             <div class="row justify-content-between">
                                 <div class="col-auto">
-                                    <p>Cliente: {{ get_nome_cliente($orcamento->clientes_id) }}</p>
-                                    <form method="POST" action="{{ route('orcamento.pdf') }}" target="_blank">
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $orcamento->id }}">
-                                        <input type="hidden" name="grafico_geracao" id="grafico_geracao">
-                                        <input type="hidden" name="grafico_payback" id="grafico_payback">
-                                        <button type="submit" class="btn btn-primary">
-                                            Abrir PDF
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="col-auto text-muted">
+                                    <h2>Cliente: {{ get_nome_cliente($orcamento->clientes_id) }}</h2>
                                     <small class="d-block">ID do Orçamento: #{{ $orcamento->id }}</small>
                                     <small class="d-block">Status: {{ $orcamento->status }}</small>
                                     <small class="d-block">
                                         Data Criação: {{ date('d/m/Y H:i', strtotime($orcamento->created_at)) }}
                                     </small>
+                                </div>
+                                <div class="col-auto text-muted align-self-center">
+                                    <form method="POST" action="{{ route('orcamento.pdf') }}" target="_blank">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $orcamento->id }}">
+                                        <input type="hidden" name="grafico_geracao" id="grafico_geracao">
+                                        <input type="hidden" name="grafico_payback" id="grafico_payback">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-file-pdf"></i> Abrir PDF
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -139,17 +139,29 @@
                             <x-tables.table-default>
                                 <x-slot name="head">Informações do Local da Instalação</x-slot>
                                 <x-slot name="body">
+                                    @if ($metas['consumo'])
+                                        <tr>
+                                            <td>Média Consumo</td>
+                                            <td>{{ $metas['consumo'] }} kWh/mês</td>
+                                        </tr>
+                                    @endif
+                                    @if ($metas['consumo_fora_ponta'])
+                                        <tr>
+                                            <td>Média Consumo <br>Fora da Ponta</td>
+                                            <td>{{ $metas['consumo_fora_ponta'] }} kWh/mês</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Média Consumo <br>na Ponta</td>
+                                            <td>{{ $metas['consumo_ponta'] }} kWh/mês</td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <td>Localidade</td>
-                                        <td></td>
+                                        <td>{{ getCidadeEstado($orcamento->cidade) }}</td>
                                     </tr>
                                     <tr>
                                         <td>Tensão</td>
                                         <td>{{ $orcamento->tensao }} V</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Média Consumo</td>
-                                        <td>{{ $orcamento->consumo }} kWh/mês</td>
                                     </tr>
                                     <tr>
                                         <td>Estrutura</td>
@@ -157,11 +169,11 @@
                                     </tr>
                                     <tr>
                                         <td>Direção da Instalação</td>
-                                        <td>{{ $orcamento->orientacao }}</td>
+                                        <td>{{ ucfirst($orcamento->orientacao) }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Irradiação Solar</td>
-                                        <td></td>
+                                        <td>Irradiação Solar (Média Anual) </td>
+                                        <td>{{ str_replace('.', '.', getIrradiacao($orcamento->cidade)) }} kWh/m²</td>
                                     </tr>
                                 </x-slot>
                             </x-tables.table-default>
@@ -171,8 +183,8 @@
                 <div class="col-md-6">
                     <div class="card shadow">
                         <div class="card-body pb-0">
-                            <small class="d-block">Modelo do Kit</small>
-                            <p>{{ $kit->modelo }}</p>
+                            <small class="d-block">Kits Fotovoltaicos</small>
+                            <p>{{ $orcamento->qtd_kits }}x {{ $kit->modelo }}</p>
                             <x-tables.table-default>
                                 <x-slot name="head"></x-slot>
                                 <x-slot name="body">
@@ -181,8 +193,8 @@
                                         <td>#{{ $kit->id }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Potência do Kit</td>
-                                        <td>{{ $kit->potencia_kit }} kWp</td>
+                                        <td>Potência total do Kit</td>
+                                        <td>{{ convert_float_money($kit->potencia_kit * $orcamento->qtd_kits, 2)  }} kWp</td>
                                     </tr>
                                     <tr>
                                         <td>Potência dos Painéis</td>
@@ -204,11 +216,13 @@
                             </x-tables.table-default>
                             <div class="row text-center mb-3 px-5">
                                 <div class="col-6">
-                                    <img class="img-thumbnail" src="{{ $imagens[$kit->marca_inversor]['logo'] }}"/>
-                                    <span class="d-block" style="font-size:12px">Inversor</span>
+                                    <img class="img-thumbnail" alt="Logo do Painel"
+                                         src="{{ asset('storage') . '/' . $imagens[$kit->marca_painel]['logo'] }}"/>
+                                    <span class="d-block" style="font-size:12px">Painéis</span>
                                 </div>
                                 <div class="col-6">
-                                    <img class="img-thumbnail" src="{{ $imagens[$kit->marca_painel]['logo'] }}"/>
+                                    <img class="img-thumbnail" alt="Logo do Inversor"
+                                         src="{{ asset('storage') . '/' . $imagens[$kit->marca_inversor]['logo'] }}"/>
                                     <span class="d-block" style="font-size:12px">Inversor</span>
                                 </div>
                                 <div class="col-6"></div>
@@ -217,6 +231,40 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Produtos --}}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h3>Quantidade de Kits: {{ $orcamento->qtd_kits }} kits</h3>
+                            <h4>Produtos de cada Kit</h4>
+                            @php($linhas = explode('<br />', nl2br($kit->produtos)))
+                            <ul>
+                                @foreach($linhas as $linha)
+                                    <li>{{ $linha }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Trafo --}}
+            @if(!empty($trafo))
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h4>Transformador</h4>
+                                <small class="d-block">modelo</small>
+                                <span class="d-block">{{ $trafo->modelo }}</span>
+                                <span>Valor: R$ {{ convert_float_money($trafo->preco_cliente) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             {{-- Graficos Geracao --}}
             <div class="card shadow mb-4">

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Kits;
 use App\Models\Orcamentos;
+use App\Models\OrcamentosMetas;
 use App\Models\Produtos;
+use App\Models\Trafos;
 
 class OrcamentoApiController extends Controller
 {
@@ -20,16 +22,15 @@ class OrcamentoApiController extends Controller
         $kits = new Kits();
         $kit = $kits->newQuery()->findOrFail($orcamento->kits_id);
 
-        $res = [
-            'cliente' => get_nome_cliente($orcamento->clientes_id),
-            'orcamento' => $orcamento,
-            'kit' => $kit
-        ];
+        $trafos = new Trafos();
+        $trafo = $trafos->newQuery()->find($orcamento->trafo);
 
         $produtos = new Produtos();
         $imagens = $produtos->getImagensNome();
 
+        $metas = (new OrcamentosMetas())->getMetas($orcamento->id);
+
         return view('pages.pdf.modelo_1.pagina_1',
-            compact('orcamento', 'kit', 'imagens'));
+            compact('orcamento', 'kit', 'trafo', 'imagens', 'metas'));
     }
 }
