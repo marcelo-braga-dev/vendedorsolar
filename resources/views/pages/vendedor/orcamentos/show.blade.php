@@ -186,7 +186,7 @@
                                 </tr>
                                 <tr>
                                     <td>Irradiação Solar</td>
-                                    <td>{{ getIrradiacao($orcamento->cidades) }}</td>
+                                    <td>{{ convert_float_money(getIrradiacao($orcamento->cidade)) }} kWh/m²</td>
                                 </tr>
                             </x-slot>
                         </x-tables.table-default>

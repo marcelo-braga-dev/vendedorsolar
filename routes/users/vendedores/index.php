@@ -10,5 +10,6 @@ Route::group([
     include_once 'clientes.php';
     include_once 'perfil.php';
     include_once 'mensagens.php';
+    include_once 'financeiro.php';
 }
 );

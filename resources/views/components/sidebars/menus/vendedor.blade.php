@@ -110,6 +110,28 @@
         </div>
     </li>
 
+    {{-- Perfil --}}
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"
+           aria-expanded="true"
+           aria-controls="navbar-financeiro">
+            <i class="fas fa-dollar-sign"></i>
+            <span class="nav-link-text">
+                Financeiro
+            </span>
+        </a>
+        <div class="collapse ml-4 @if(MENU == 'financeiro') show @endif" id="navbar-financeiro">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU == 'faturamento') active @endif"
+                       href="{{ route('vendedor.financeiro.faturamento.index') }}">
+                        Faturamento
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
     {{-- Mensagens --}}
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-mensagens" data-toggle="collapse" role="button"
@@ -146,8 +168,6 @@
                 Sua Conta
             </span>
         </a>
-
-        {{-- Perfil --}}
         <div class="collapse ml-4 @if(MENU == 'perfil') show @endif" id="navbar-perfil">
             <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
