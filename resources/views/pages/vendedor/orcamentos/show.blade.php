@@ -142,6 +142,25 @@
             </div>
         </div>
 
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Comissão</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}</span>
+                        <span class="d-block">Sua margem de comissão: {{ $orcamento->taxa_comissao }}%</span>
+                        <span class="d-block">Comissão:
+                            R$ {{ convert_float_money($orcamento->preco_cliente * $orcamento->taxa_comissao /100) }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Info Estabelecimento --}}
         <div class="row">
             <div class="col-md-6 mb-3">
