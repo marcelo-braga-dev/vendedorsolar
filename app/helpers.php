@@ -186,3 +186,16 @@ if (!function_exists('getIrradiacao')) {
         return $valor->media ?? 0;
     }
 }
+
+if (!function_exists('getLogoPrincipal')) {
+    function getLogoPrincipal()
+    {
+        $configs = new \App\Models\Configs();
+        $logo = $configs->newQuery()
+            ->where('meta', '=', 'logo_principal')
+            ->first();
+
+        if (empty($logo->value)) return '';
+        return asset($logo->value);
+    }
+}

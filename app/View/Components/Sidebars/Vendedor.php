@@ -24,9 +24,6 @@ class Vendedor extends Component
      */
     public function render()
     {
-        $config = new Configs();
-        $logo = $config->getInfo('logo');
-
-        return view('components.sidebars.vendedor', compact('logo'));
+        return view('components.sidebars.vendedor');
     }
 }

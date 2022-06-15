@@ -6,7 +6,7 @@
         </button>
 
         <a href="{{ route('home') }}" class="d-none d-md-block">
-            <img class="px-5" src="{{ asset('storage') }}/plataforma/logo_trans_1.png" alt="logo" style="width: 100%">
+            <img class="px-5" src="{{ getLogoPrincipal() }}" alt="logo" style="width: 100%">
         </a>
 
         <ul class="nav align-items-center d-md-none">
