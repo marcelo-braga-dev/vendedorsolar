@@ -1,10 +1,11 @@
 <x-layout menu="integracoes" submenu="aldo">
-    <x-body title="Integracão Aldo - Pesquisar">
+    <x-body title="Integracão Aldo - Atualizar Campos">
         {{-- Inversores --}}
         <form method="POST" action="{{ route('admin.integracoes.aldo.store') }}">
             @csrf @method('put')
             <div class="row">
-                <div class="col">
+                <div class="col-12">
+                    <h3>Inversores</h3>
                     <x-tables.table-default>
                         <x-slot name="head">
                             <tr>
@@ -15,13 +16,17 @@
                         <x-slot name="body">
                             @foreach($dados['inversores'] as $index => $item)
                                 <tr>
-                                    <td style="white-space: normal">{{ $index }}</td>
+                                    <td style="white-space: normal">
+                                        {{ $index }}
+                                    </td>
                                     <td>
                                         <x-inputs.select label="" name="inversores[{{$index}}]" required>
                                             <option value=""></option>
                                             @foreach($produtos['inversor'] as $id => $produto)
                                                 <option value="{{ $id }}"
-                                                        @if ($item == $id) selected @endif>{{ $produto }}</option>
+                                                        @if ($item == $id) selected @endif>
+                                                    {{ $produto }}
+                                                </option>
                                             @endforeach
                                         </x-inputs.select>
                                     </td>
@@ -35,7 +40,8 @@
             {{-- Paineis --}}
             <hr>
             <div class="row">
-                <div class="col">
+                <div class="col-12">
+                    <h3>Painéis</h3>
                     <x-tables.table-default>
                         <x-slot name="head">
                             <tr>
@@ -75,7 +81,8 @@
 
             {{-- Estruturas --}}
             <div class="row">
-                <div class="col">
+                <div class="col-12">
+                    <h3>Estruturas</h3>
                     <x-tables.table-default>
                         <x-slot name="head">
                             <tr>

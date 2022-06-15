@@ -33,14 +33,13 @@ class IntegrarAldo
 
     private function indices()
     {
-        $indices = new ReferenciasAldo();
-        return $indices->get();
+        return (new ReferenciasAldo())->get();
     }
 
     public function integrar()
     {
         set_time_limit(0);
-        echo 'INICIO: ' . date('H:i:s') . '<br>';
+        echo 'INICIO: ' . date('d/m H:i:s') . '<br>';
 
         // $dirXML = app_path('src\Integracoes\Aldo\RepositorioZip\extract\Shares\Integracao\221726.xml');
         $dirXML = $this->getZip();

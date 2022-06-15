@@ -22,13 +22,16 @@ class AldoController extends Controller
 
     public function pesquisar()
     {
-        $integracao = new IntegrarAldo();
-        $dados = $integracao->pesquisar();
+        try {
+            $dados = (new IntegrarAldo())->pesquisar();
+        } catch (\DomainException $e) {
+            modalErro($e->getMessage());
+            return redirect()->route('admin.integracoes.aldo.index');
+        }
+
+        $items = (new Produtos())->newQuery()->get(['id', 'nome', 'tipo']);
 
         $produtos = [];
-
-        $items = Produtos::get(['id', 'nome', 'tipo']);
-
         foreach ($items as $item) {
             $produtos[$item->tipo][$item->id] = $item->nome;
         }
@@ -46,7 +49,6 @@ class AldoController extends Controller
 
     public function integrar()
     {
-        $integracao = new IntegrarAldo();
-        $integracao->integrar();
+        (new IntegrarAldo())->integrar();
     }
 }

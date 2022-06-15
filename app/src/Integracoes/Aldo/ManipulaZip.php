@@ -9,12 +9,14 @@ use ZipArchive;
 
 class ManipulaZip
 {
-    private string $path = __DIR__ . '/RepositorioZip/';
-    private string $nameFile = 'xml_aldo.zip';
+    private string $pathFile;
+    private string $pathExtract;
 
     public function __construct()
     {
         if (!extension_loaded('zip')) exit('Extencao Zip nao encontrada');
+        $this->pathFile = storage_path('integracao-aldo\xml_aldo.zip');
+        $this->pathExtract = storage_path('integracao-aldo');
     }
 
     public function extractZip($dadosArquivo): string
@@ -22,33 +24,30 @@ class ManipulaZip
         $this->armazenarZip($dadosArquivo);
 
         $zip = new ZipArchive();
-        $zip->open($this->path . $this->nameFile);
+        $zip->open($this->pathFile);
 
-        $zip->extractTo($this->path . 'extract');
+        $zip->extractTo($this->pathExtract);
         $zip->close();
 
-        return $this->localizarXML($this->path . 'extract');
+        return $this->localizarXML($this->pathExtract);
     }
 
     private function armazenarZip($dadosArquivo)
     {
-        file_put_contents($this->path . $this->nameFile, $dadosArquivo);
+        if(file_exists($this->pathFile)) unlink($this->pathFile);
+        file_put_contents($this->pathFile, $dadosArquivo);
     }
 
-    private function localizarXML(string $dir): string
+    private function localizarXML(string $dir)
     {
-        $arquivo = '';
-
         $directory_iterator = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
         $iterator = new RecursiveIteratorIterator($directory_iterator);
 
         foreach ($iterator as $file) {
             $diretorioAtual = dirname($file);
             $path = glob($diretorioAtual . '/*.xml', GLOB_BRACE);
-            if (!empty($path)) $arquivo = implode($path);
+            if (!empty($path)) return implode($path);
         }
-
-        return $arquivo;
     }
 
     public function removerXML()
@@ -62,6 +61,6 @@ class ManipulaZip
             if ($dir != $original) rmdir($dir);
         }
 
-        //delTree($this->path, $this->path);
+        delTree($this->pathExtract, $this->pathExtract);
     }
 }
