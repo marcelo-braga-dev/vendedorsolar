@@ -11,17 +11,15 @@
         </a>
 
         <ul class="nav align-items-center d-md-none">
-            <x-navbars.menus-dropdown.vendedor />
+            <x-navbars.menus-dropdown.vendedor></x-navbars.menus-dropdown.vendedor>
         </ul>
 
-        <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-            <!-- Collapse header -->
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{ getLogoPrincipal() }}">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -34,22 +32,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Form -->
-            <form class="mt-4 mb-3 d-md-none">
-                <div class="input-group input-group-rounded input-group-merge">
-                    <input type="search" class="form-control form-control-rounded form-control-prepended"
-                           placeholder="xXx{{ __('Search') }}" aria-label="Search">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <span class="fa fa-search"></span>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <x-sidebars.menus.vendedor />
-
+            <x-sidebars.menus.vendedor></x-sidebars.menus.vendedor>
         </div>
     </div>
 </nav>

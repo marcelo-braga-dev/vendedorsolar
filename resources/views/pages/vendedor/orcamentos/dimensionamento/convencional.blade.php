@@ -62,13 +62,27 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row border-bottom mb-3">
                 <div class="col-12 col-md-3">
                     <x-inputs.input-box-right label="Média Consumo Mensal" box="kWh/mês" type="number" name="consumo"
-                                              id="consumo" value=""/>
+                                              id="consumo" value=""></x-inputs.input-box-right>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-md-3">
 
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <x-inputs.input label="Qtd. de Kits"
+                                    type="number" name="qtd_kits" id="qtd_kits" value="1"></x-inputs.input>
+                </div>
+                <div class="col-6 col-md-2">
+                    <label class="form-control-label mb-3">Verificar Trafo?</label>
+                    <label class="custom-toggle ml-4">
+                        <input type="checkbox" id="trafo" checked>
+                        <span class="custom-toggle-slider rounded-circle" data-label-off="Não" data-label-on="Sim"></span>
+                    </label>
                 </div>
             </div>
 
@@ -118,7 +132,8 @@
                                 'orientacao': $('#orientacao').val(),
                                 'consumo': $('#consumo').val(),
                                 'cliente': $('#cliente').val(),
-                                'verificar_trafo': true
+                                'qtd_kits': $('#qtd_kits').val(),
+                                'verificar_trafo': $('#trafo').is(':checked')
                             }, function (result) {
                                 $('#alert').hide();
                                 $('#form-dimensionamento').toggle();

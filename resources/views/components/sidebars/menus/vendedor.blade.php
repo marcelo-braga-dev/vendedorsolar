@@ -1,4 +1,4 @@
-<ul class="navbar-nav">
+<ul class="navbar-nav mb-md-5">
     {{-- Clientes --}}
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-clientes" data-toggle="collapse" role="button"

@@ -14,6 +14,8 @@ class Convencional extends Dimensionamento
     private $potencia;
     private $tensao;
     private $estrutura;
+    private $qtdKits;
+    private $incluirTrafo;
 
     public function __construct(DadosDimensionamento $dados)
     {
@@ -22,6 +24,8 @@ class Convencional extends Dimensionamento
         $this->correcao = $dados->getCorrecaoCalculo();
         $this->tensao = $dados->getTensao();
         $this->estrutura = $dados->getEstrutura();
+        $this->qtdKits = $dados->getQtdKits();
+        $this->incluirTrafo = $dados->getIncluirTrafo();
     }
 
     public function calcularGeracao(float $potenciaKit): float
@@ -64,11 +68,12 @@ class Convencional extends Dimensionamento
 
     public function getQtdKits(): int
     {
-        return 1;
+        return $this->qtdKits;
     }
 
     public function getIncluirTrafo(): bool
     {
-        return true;
+        if ($this->incluirTrafo == 'true') return true;
+        return false;
     }
 }

@@ -1,5 +1,5 @@
 <h6 class="navbar-heading text-muted">Admin</h6>
-<ul class="navbar-nav mb-6">
+<ul class="navbar-nav mb-md-5">
     {{--Usuaios --}}
     <li class="nav-item">
         <a class="nav-link text-primary" href="#navbar-dimensionamento" data-toggle="collapse"
@@ -64,7 +64,7 @@
            aria-expanded="true" aria-controls="navbar-orcamentos">
             <i class="fas fa-folder-open"></i>
             <span class="nav-link-text">
-                Orcamentos
+                Orçamentos
             </span>
         </a>
 
@@ -73,7 +73,7 @@
                 <li class="nav-item">
                     <a class="nav-link @if(empty($_GET['status']) && SUBMENU === 'todos_orcamentos') active @endif"
                        href="{{ route('admin.orcamentos.index') }}">
-                        Todos Orcamentos
+                        Todos Orçamentos
                     </a>
                 </li>
                 <li class="nav-item">
