@@ -58,7 +58,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-3">
-                    <x-inputs.input-box-right label="Potencia" type="number" box="kWp"
+                    <x-inputs.input-box-right label="Potência" type="number" box="kWp"
                                               name="potencia" step="0.01" required></x-inputs.input-box-right>
                 </div>
                 <div class="col-3">

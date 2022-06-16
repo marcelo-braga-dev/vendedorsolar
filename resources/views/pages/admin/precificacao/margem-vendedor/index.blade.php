@@ -29,14 +29,23 @@
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Margem</th>
+                            <th></th>
                         </tr>
                     </x-slot>
                     <x-slot name="body">
                         @foreach($margens as $vendedor)
                             <tr class="text-center">
-                                <th>#{{ $vendedor->id }}</th>
+                                <th>#{{ $vendedor->users_id }}</th>
                                 <td>{{ nomeUsuario($vendedor->users_id) }}</td>
                                 <th>{{ $vendedor->margem }}%</th>
+                                <th>
+                                    <form method="POST"
+                                          action="{{ route('admin.precificacao.vendedor.destroy', $vendedor->id) }}"> @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </th>
                             </tr>
                         @endforeach
                     </x-slot>

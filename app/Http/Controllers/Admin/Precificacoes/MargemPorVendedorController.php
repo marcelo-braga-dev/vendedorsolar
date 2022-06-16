@@ -31,4 +31,15 @@ class MargemPorVendedorController
         modalSucesso('Margem atualizada com sucesso!');
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        $margem = new MargemVendaPorVendedor();
+        $margem->newQuery()
+            ->findOrFail($id)
+            ->delete();
+
+        modalSucesso('Margem deletada com sucesso!');
+        return redirect()->back();
+    }
 }

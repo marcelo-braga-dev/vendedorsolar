@@ -28,6 +28,7 @@
                         <tr class="text-center">
                             <th>Estruturas</th>
                             <th>Margem</th>
+                            <th></th>
                         </tr>
                     </x-slot>
                     <x-slot name="body">
@@ -35,6 +36,14 @@
                             <tr class="text-center">
                                 <td>{{ $nomeEstruturas[$margem->estruturas_id] }}</td>
                                 <th>{{ $margem->margem }}%</th>
+                                <th>
+                                    <form method="POST"
+                                          action="{{ route('admin.precificacao.estrutura.destroy', $margem->id) }}"> @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </th>
                             </tr>
                         @endforeach
                     </x-slot>

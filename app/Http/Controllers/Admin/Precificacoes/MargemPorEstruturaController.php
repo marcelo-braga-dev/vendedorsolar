@@ -39,4 +39,15 @@ class MargemPorEstruturaController
         modalSucesso('Margem atualizada com sucesso!');
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        $margemEstruturas = new MargemVendaEstruturas();
+        $margemEstruturas->newQuery()
+            ->findOrFail($id)
+            ->delete();
+
+        modalSucesso('Margem deletada com sucesso!');
+        return redirect()->back();
+    }
 }
