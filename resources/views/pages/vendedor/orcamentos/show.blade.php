@@ -2,20 +2,20 @@
     <x-body title="Informações do Orçamento">
         <div class="row mb-4 justify-content-end">
             <div class="col-md-auto mb-3">
-                <a class="btn btn-primary btn-block"
+                <a class="btn btn-primary btn-block btn-sm"
                    href="{{ route('vendedor.orcamento.vistoria.show', $orcamento->id) }}">
-                    Vistoria
+                    <i class="fas fa-camera"></i> Vistoria
                 </a>
             </div>
             <div class="col-md-auto mb-3">
-                <a class="btn btn-primary btn-block"
+                <a class="btn btn-primary btn-block btn-sm"
                    href="{{ route('vendedor.orcamento.aprovacao.show', $orcamento->id) }}">
-                    Enviar para Aprovação
+                    <i class="fas fa-check"></i> Dados para Aprovação
                 </a>
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col mb-3">
+            <div class="col-12 col-md-4 mb-3">
                 <div class="card card-stats shadow">
                     <!-- Card body -->
                     <div class="card-body">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-md-4 mb-3">
                 <div class="card card-stats shadow">
                     <!-- Card body -->
                     <div class="card-body">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col mb-3">
+            <div class="col-12 col-md-4 mb-3">
                 <div class="card card-stats shadow">
                     <div class="card-body">
                         <div class="row">

@@ -1,7 +1,7 @@
 <x-layout menu="dimensionamento" submenu="convencional">
     <x-body title="Gerar Proposta - Sistema Convencional" url-button="">
         <form action="{{ route('vendedor.dimensionamento.convencional.create') }}" id="form-dimensionamento"> @csrf
-            <div class="row border-bottom mb-3">
+            <div class="form-row border-bottom mb-3">
                 {{-- Cliente --}}
                 <div class="col-md-6">
                     <x-inputs.select label="Cliente" name="cliente" id="cliente">
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="row border-bottom mb-3">
+            <div class="form-row border-bottom mb-3">
                 <div class="col-6 col-md-3">
                     <x-inputs.select label="Estrutura" name="estrutura" id="estrutura">
                         <option></option>
@@ -51,7 +51,7 @@
                     </x-inputs.select>
                 </div>
                 <div class="col-12 col-md-3">
-                    <x-inputs.select label="Orientação da Instalação" name="orientacao" id="orientacao">
+                    <x-inputs.select label="Direção da Instalação" name="orientacao" id="orientacao">
                         <option></option>
                         <option value="desconsiderar">Desconsiderar</option>
                         <option value="norte">Norte</option>
@@ -62,18 +62,15 @@
                 </div>
             </div>
 
-            <div class="row border-bottom mb-3">
-                <div class="col-12 col-md-3">
+            <div class="form-row border-bottom mb-3">
+                <div class="col-8 col-md-3">
                     <x-inputs.input-box-right label="Média Consumo Mensal" box="kWh/mês" type="number" name="consumo"
                                               id="consumo" value=""></x-inputs.input-box-right>
                 </div>
-                <div class="col-md-3">
-
-                </div>
             </div>
 
-            <div class="row">
-                <div class="col-6 col-md-2">
+            <div class="form-row">
+                <div class="col-4 col-md-2">
                     <x-inputs.input label="Qtd. de Kits"
                                     type="number" name="qtd_kits" id="qtd_kits" value="1"></x-inputs.input>
                 </div>
@@ -86,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="row px-6" id="alert" style="display: none">
+            <div class="row px-6 border-bottom" id="alert" style="display: none">
                 <div class="alert alert-danger col-12 text-center">Preencha todos os campos.</div>
             </div>
 

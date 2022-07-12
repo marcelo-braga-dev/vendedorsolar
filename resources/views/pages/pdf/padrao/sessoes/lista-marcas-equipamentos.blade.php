@@ -2,7 +2,7 @@
 <div class="body">
     <h4>Equipamentos</h4>
     <p>
-        Aliada com os principais fabricantes do Setor Fotovoltaico, proporcionando aos seus clientes
+        A Energia Solar Bahia aliada com os principais fabricantes do Setor Fotovoltaico, proporciona aos seus clientes
         a entrega dos materiais do mais alto desempenho, com certificações Internacionais e INMETRO.
     </p><br>
     <img src="storage/orcamentos/bahia-solar/lista-produtos.jpg">

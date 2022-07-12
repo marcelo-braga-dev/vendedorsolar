@@ -17,7 +17,7 @@ class IntegrarAldo
 
         $separar = new SeparaProdutosXML($dirXML, $indices, $tags);
         $separar->executar();
-        (new ManipulaZip())->removerXML();
+        //(new ManipulaZip())->removerXML();
 
         return $tags->getInfos();
     }

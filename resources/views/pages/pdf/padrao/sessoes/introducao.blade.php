@@ -5,7 +5,7 @@
                 <span><b>Cliente</b></span>
             </th>
             <th>
-                <span><b>Representante</b></span>
+                <span><b>Vendedor</b></span>
             </th>
         </tr>
         <tr style="border:1px solid white;">
@@ -26,8 +26,8 @@
         </tr>
     </table>
     <br>
-    <div class="bg-principalx" style="text-align: center; padding: 15px">
-        <span style="font-size:24px; color: orange">
+    <div class="bg-principal" style="text-align: center; padding: 15px">
+        <span style="font-size:18px; color: white">
             Valor Total da Proposta: <b>R$ {{ $orcamento->preco_cliente }}</b>
         </span>
     </div>

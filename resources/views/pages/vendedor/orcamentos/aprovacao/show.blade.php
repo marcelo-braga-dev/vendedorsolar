@@ -4,7 +4,7 @@
         <x-body title="Informações do Cliente do Financiamento"
                 url-button="{{ route('vendedor.orcamento.show', $id) }}">
             <h5>Pessoa Física</h5>
-            <div class="row mb-4">
+            <div class="form-row mb-4">
                 <div class="col-md-6">
                     <x-inputs.input label="Nome" type="text" name="nome_financiador"
                                     value="{{ $dados['nome_financiador'] ?? '' }}"></x-inputs.input>
@@ -20,7 +20,7 @@
             </div>
 
             <h5>Pessoa Jurídica</h5>
-            <div class="row mb-4">
+            <div class="form-row mb-4">
                 <div class="col-3">
                     <x-inputs.input label="CNPJ" type="" name="cnpj_financiador"
                                     value="{{ $dados['cnpj_financiador'] ?? '' }}"></x-inputs.input>
@@ -40,7 +40,7 @@
             </div>
             <hr>
             <h5>Endereço</h5>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md-3">
                     <x-inputs.input label="Cep" type="" name="cep_financiador"
                                     value="{{ $dados['cep_financiador'] ?? '' }}"></x-inputs.input>
@@ -50,7 +50,7 @@
                                     value="{{ $dados['rua_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md-2">
                     <x-inputs.input label="Número" type="" name="numero_financiador"
                                     value="{{ $dados['numero_financiador'] ?? '' }}"></x-inputs.input>
@@ -70,7 +70,7 @@
             </div>
             <hr>
             <h5>Contato</h5>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md-6">
                     <x-inputs.input label="Email" type="" name="email_financiador"
                                     value="{{ $dados['email_financiador'] ?? '' }}"></x-inputs.input>
@@ -88,7 +88,7 @@
 
         <x-body.card title="Informações do Proprietário do Imóvel">
             <h5>Pessoa Física</h5>
-            <div class="row mb-4">
+            <div class="form-row mb-4">
                 <div class="col-md-6">
                     <x-inputs.input label="Nome" type="" name="nome_proprietario"
                                     value="{{ $dados['nome_proprietario'] ?? '' }}"></x-inputs.input>
@@ -104,7 +104,7 @@
             </div>
 
             <h5>Pessoa Jurídica</h5>
-            <div class="row mb-4">
+            <div class="form-row mb-4">
                 <div class="col-3">
                     <x-inputs.input label="CNPJ" type="" name="cnpj_proprietario"
                                     value="{{ $dados['cnpj_proprietario'] ?? '' }}"></x-inputs.input>
@@ -124,7 +124,7 @@
             </div>
             <hr>
             <h5>Documentos Pessoais</h5>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-4">
                     <x-inputs.file label="CNH" name="img_cnh_proprietario"
                                    url="{{ $dados['img_cnh_proprietario'] ?? '' }}"></x-inputs.file>
@@ -142,7 +142,7 @@
 
         <x-body.card title="Endereço da Instalação (Onde o material será entregue)">
             <h5>Informação da concessionária</h5>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md-5">
                     <x-inputs.input label="Número do Registro na Concessionária" type="" name="registro_instalacao"
                                     value="{{ $dados['registro_instalacao'] ?? '' }}"></x-inputs.input>
@@ -154,7 +154,7 @@
             </div>
             <hr>
             <h5>Endereço</h5>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md-3">
                     <x-inputs.input label="Cep" type="" name="cep_instalacao"
                                     value="{{ $dados['cep_instalacao'] ?? '' }}"></x-inputs.input>
@@ -164,7 +164,7 @@
                                     value="{{ $dados['rua_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
             </div>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-md-2">
                     <x-inputs.input label="Número" type="" name="numero_instalacao"
                                     value="{{ $dados['numero_instalacao'] ?? '' }}"></x-inputs.input>
@@ -184,7 +184,7 @@
             </div>
         </x-body.card>
         <x-body.card>
-            <div class="row">
+            <div class="form-row">
                 <div class="col-auto mx-auto">
                     <button class="btn btn-primary">Enviar para Aprovação</button>
                 </div>

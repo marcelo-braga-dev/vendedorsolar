@@ -1,7 +1,7 @@
 <x-layout menu="dimensionamento" submenu="demanda">
     <x-body title="Gerar Proposta - Sistema com Demanda" url-button="">
         <form action="{{ route('vendedor.dimensionamento.convencional.create') }}" id="form-dimensionamento"> @csrf
-            <div class="row border-bottom mb-3">
+            <div class="form-row border-bottom mb-3">
                 {{-- Cliente --}}
                 <div class="col-md-6">
                     <x-inputs.select label="Cliente" name="cliente" id="cliente">
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="row border-bottom mb-3">
+            <div class="form-row border-bottom mb-3">
                 <div class="col-6 col-md-3">
                     <x-inputs.select label="Estrutura" name="estrutura" id="estrutura">
                         <option></option>
@@ -60,7 +60,7 @@
                         @endforeach
                     </x-inputs.select>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-12 col-md-3">
                     <x-inputs.select label="Concessionária" name="concessionaria" id="concessionaria">
                         <option></option>
                         @foreach ($concessionarias as $item)
@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="row border-bottom mb-3">
+            <div class="form-row border-bottom mb-3">
                 <div class="col-md-3">
                     <x-inputs.input-box-right label="Consumo Fora de Ponta" box="kWh"
                                               type="number" name="consumo_fora_ponta"
@@ -89,11 +89,11 @@
             </div>
 
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-6 col-md-2">
                     <x-inputs.input label="Qtd. de Kits"
                                     type="number" name="qtd_kits" id="qtd_kits" value="1"></x-inputs.input>
                 </div>
-                <div class="col-md-2">
+                <div class="col-6 col-md-2">
                     <label class="form-control-label mb-3">Incluir Trafo?</label>
                     <label class="custom-toggle">
                         <input type="checkbox" id="trafo" checked>

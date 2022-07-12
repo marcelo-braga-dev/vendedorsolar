@@ -1,15 +1,14 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
-    <x-body title="Seus Clientes Cadastrados" class="p-0">
+    <x-body title="Orçamentos Gerados" class="p-0">
         <x-tables.table-clickable>
             <x-slot name="head">
                 <tr>
                     <th>ID</th>
+                    <th>Data</th>
                     <th>Cliente</th>
                     <th>Valor</th>
-                    <th>Consumo</th>
-                    <th>Geração</th>
+                    <th>Dados</th>
                     <th>Status</th>
-                    <th>Criado Dia</th>
                     <th></th>
                 </tr>
             </x-slot>
@@ -17,12 +16,19 @@
                 @foreach($orcamentos as $orcamento)
                     <tr>
                         <th>#{{ $orcamento->id }}</th>
-                        <td>{{ get_nome_cliente($orcamento->clientes_id) }}</td>
+                        <td>
+                            {{ date('d/m/y', strtotime($orcamento->created_at) ) }}<br>
+                            {{ date('H:i:s', strtotime($orcamento->created_at) ) }}
+                        </td>
+                        <td style="white-space: normal">
+                            <b>{{ get_nome_cliente($orcamento->clientes_id) }}</b>
+                        </td>
                         <td>R$ {{ convert_float_money($orcamento->preco_cliente) }}</td>
-                        <td>{{ $orcamento->consumo }} kWh/mês</td>
-                        <td>{{ $orcamento->geracao }} kWh/mês</td>
+                        <td>
+                            @if ($orcamento->consumo) Consumo: {{ $orcamento->consumo }} kWh/mês<br>@endif
+                            Geração: {{ $orcamento->geracao }} kWh/mês
+                        </td>
                         <td>{{ $orcamento->status }}</td>
-                        <td>{{ date('d/m/y H:i', strtotime($orcamento->created_at) ) }}</td>
                         <td>
                             <a href="{{ route('vendedor.orcamento.show', $orcamento->id) }}">
                                 Ver

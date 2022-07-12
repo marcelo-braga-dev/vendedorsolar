@@ -3,7 +3,8 @@
         <b>Apresentação:</b>
     </span><br>
     <p style="text-align: justify;">
-        &nbsp;&nbsp;&nbsp;Temos vários serviços executados como subestação,
+        &nbsp;&nbsp;&nbsp;A ENERGIA SOLAR BAHIA faz parte da SKZ Engenharia, empresa com mais de 10 anos de atuação do
+        setor elétrico e de construção civil. Sediada em Salvador-BA, temos vários serviços executados como subestação,
         redes de distribuição subterrâneas, serviços de construção e reforma em geral. Devido a nossa intenção de
         trabalharmos com energias renováveis, estamos projetando e instalando sistemas fotovoltaicos para residências,
         comércios e indústrias. Entendemos que o sistema fotovoltaico apresenta um ótimo custo benefício, possibilitando
@@ -12,7 +13,7 @@
 
     <div style="text-align: center">
         <span>Como funciona um sistema fotovoltaico:</span>
-        <img src="storage/proposta-comercial/padrao/images/como-funciona-sistema-fotovoltaico-energia-solar.jpg" alt="Como Funciona" width="85%">
+        <img src="storage/orcamentos/bahia-solar/como-funciona.jpg" alt="Como Funciona" width="85%">
     </div>
 </div>
 
