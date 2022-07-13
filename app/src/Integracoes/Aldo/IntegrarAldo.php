@@ -42,15 +42,15 @@ class IntegrarAldo
         set_time_limit(0);
         $historico = $this->iniciarHistorico();
 
+        $historico->update(['status' => '[2/5] Importando arquivo XML na Aldo.']);
         $dirXML = $this->getZip();
         $indices = $this->indices();
-        $historico->update(['status' => '[2/5] Arquivo XML importado.']);
 
+        $historico->update(['status' => '[3/5] Início cadastrar/atualizar kits.']);
         $erros = $this->kits($dirXML, $indices);
-        $historico->update(['status' => '[3/5] Kits cadastrados/atualizados.', 'alertas' => $erros]);
 
+        $historico->update(['status' => '[4/5] Atualização dos status dos kits.', 'alertas' => $erros]);
         $this->atualizaStatus($dirXML, $indices);
-        $historico->update(['status' => '[4/5] Atualização dos status dos kits.']);
 
         (new ManipulaZip())->removerXML();
         $historico->update(['status' => 'Finalizado com sucesso.']);

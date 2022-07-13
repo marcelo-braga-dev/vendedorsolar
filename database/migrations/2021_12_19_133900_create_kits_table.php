@@ -33,7 +33,6 @@ class CreateKitsTable extends Migration
             $table->string('produtos', 1024);
             $table->string('complementos')->nullable();
             $table->string('observacoes')->nullable();
-            $table->string('token_atualizacao')->nullable();
             $table->timestamps();
         });
     }

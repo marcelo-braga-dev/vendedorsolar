@@ -42,7 +42,7 @@ class Produto implements Acoes
                 $this->atualizarKit($dados);
                 return;
             }
-            $categoria->cadastrarKit($this->token);
+            $categoria->cadastrarKit();
         }
     }
 

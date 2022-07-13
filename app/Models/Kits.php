@@ -30,11 +30,10 @@ class Kits extends Model
             'estrutura',
             'produtos',
             'complementos',
-            'observacoes',
-            'token_atualizacao'
+            'observacoes'
         ];
 
-    public function cadastrarKit(Kit $dados, $token = null )
+    public function cadastrarKit(Kit $dados)
     {
         $this->sku = $dados->getSku();
         $this->modelo = $dados->getModelo();
@@ -51,7 +50,6 @@ class Kits extends Model
         $this->observacoes = $dados->getObservacoes();
         $this->preco_cliente = $dados->getPrecoCliente();
         $this->margem = $dados->getMargem();
-        $this->token_atualizacao = $token;
 
         $this->push();
         modalSucesso('Cadastro do Kit realizado com sucesso.');

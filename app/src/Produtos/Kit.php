@@ -22,10 +22,10 @@ abstract class Kit extends InfoKit
     private $tensao;
     private $margem;
 
-    public function cadastrarKit($token = null)
+    public function cadastrarKit()
     {
         $kits = new Kits();
-        $kits->cadastrarKit($this, $token);
+        $kits->cadastrarKit($this);
     }
 
     public function getModelo()
