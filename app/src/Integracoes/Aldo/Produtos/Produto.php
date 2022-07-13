@@ -11,12 +11,10 @@ use App\src\Produtos\CalculoPrecos\MargensPadrao;
 class Produto implements Acoes
 {
     private array $skus;
-    private string $token;
 
     public function __construct()
     {
         $this->skus = $this->getSkus();
-        $this->token = uniqid();
     }
 
     private function getSkus()
@@ -31,7 +29,6 @@ class Produto implements Acoes
         foreach ($skus_ as $item) {
             $skus[$item->sku] = $item->preco_fornecedor;
         }
-
         return $skus;
     }
 
@@ -43,11 +40,10 @@ class Produto implements Acoes
         if ($categoria !== null) {
             if (!empty($this->skus[strip_tags($dados->codigo)])) {
                 $this->atualizarKit($dados);
+                return;
             }
-
             $categoria->cadastrarKit($this->token);
         }
-
     }
 
     private function atualizarKit($dados): void
@@ -56,23 +52,12 @@ class Produto implements Acoes
         $precoFornecedor = convert_money_float(strip_tags($dados->preco));
 
         if ($precoAtual != $precoFornecedor) {
-
             $calcular = new CalcularPrecoVenda();
             $preco = $calcular->calcular(new MargensPadrao($precoFornecedor, strip_tags($dados->atributos->POTENCIA_W)));
 
             $kits = new Kits();
             $kits->atualizarPrecosPeloSKU(strip_tags($dados->codigo), $preco['preco'], $precoFornecedor);
         }
-
         unset($this->skus[strip_tags($dados->codigo)]);
-    }
-
-    public function desativaKits()
-    {
-        $kits = new Kits();
-        $kits->newQuery()
-            ->where('token_atualizacao', '!=', $this->token)
-            ->where('fornecedor', '=', 1)
-            ->update(['status' => 0]);
     }
 }

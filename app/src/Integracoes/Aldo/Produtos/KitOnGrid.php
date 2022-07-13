@@ -56,9 +56,12 @@ class KitOnGrid extends Kit
 
     public function marcaPainel(string $dado)
     {
-        $id = $this->indices['painel'][$dado]['id_referencia'];
-
-        $this->setMarcaPainel($id);
+        try {
+            $id = $this->indices['painel'][$dado]['id_referencia'];
+            $this->setMarcaPainel($id);
+        } catch (\ErrorException $e) {
+            throw new \DomainException($dado);
+        }
     }
 
     public function potenciaInversor(string $dado)
@@ -71,9 +74,13 @@ class KitOnGrid extends Kit
 
     public function potenciaPainel(string $dado)
     {
+        try {
         $potencia = $this->indices['painel'][$dado]['potencia'];
 
         $this->setPotenciaPainel($potencia);
+        } catch (\ErrorException $e) {
+            throw new \DomainException();
+        }
     }
 
     public function precoFornecedor(string $dado)

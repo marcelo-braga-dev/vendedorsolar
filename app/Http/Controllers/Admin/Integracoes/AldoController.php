@@ -50,5 +50,6 @@ class AldoController extends Controller
     public function integrar()
     {
         (new IntegrarAldo())->integrar();
+        return redirect()->route('admin.integracoes.historico.index');
     }
 }

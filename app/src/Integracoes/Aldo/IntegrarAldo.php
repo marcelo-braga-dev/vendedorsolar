@@ -2,7 +2,9 @@
 
 namespace App\src\Integracoes\Aldo;
 
+use App\Models\IntegracaoHistorico;
 use App\src\Integracoes\Aldo\AcoesAoLerArquivo\PesquisaTags;
+use App\src\Integracoes\Aldo\Produtos\AtualizarStatus;
 use App\src\Integracoes\Aldo\Produtos\Infos\ReferenciasAldo;
 use App\src\Integracoes\Aldo\Produtos\Produto;
 
@@ -14,10 +16,9 @@ class IntegrarAldo
         $indices = $this->indices();
 
         $tags = new PesquisaTags();
-
         $separar = new SeparaProdutosXML($dirXML, $indices, $tags);
         $separar->executar();
-        //(new ManipulaZip())->removerXML();
+        (new ManipulaZip())->removerXML();
 
         return $tags->getInfos();
     }
@@ -39,18 +40,49 @@ class IntegrarAldo
     public function integrar()
     {
         set_time_limit(0);
-        echo 'INICIO: ' . date('d/m H:i:s') . '<br>';
+        $historico = $this->iniciarHistorico();
 
-        // $dirXML = app_path('src\Integracoes\Aldo\RepositorioZip\extract\Shares\Integracao\221726.xml');
         $dirXML = $this->getZip();
         $indices = $this->indices();
+        $historico->update(['status' => '[2/5] Arquivo XML importado.']);
 
+        $erros = $this->kits($dirXML, $indices);
+        $historico->update(['status' => '[3/5] Kits cadastrados/atualizados.', 'alertas' => $erros]);
 
-        $separar = new SeparaProdutosXML($dirXML, $indices, new Produto());
-        $separar->executar();
+        $this->atualizaStatus($dirXML, $indices);
+        $historico->update(['status' => '[4/5] Atualização dos status dos kits.']);
 
         (new ManipulaZip())->removerXML();
+        $historico->update(['status' => 'Finalizado com sucesso.']);
+    }
 
-        echo 'FIM: ' . date('H:i:s') . '<br>';
+    private function iniciarHistorico()
+    {
+        $historico = (new IntegracaoHistorico())->newQuery();
+        $idHistorico = $historico->create([
+            'fornecedores_id' => 1,
+            'status' => '[1/5] Iniciado'
+        ]);
+        $historico = $historico->find($idHistorico->id);
+        return $historico;
+    }
+
+    private function kits(string $dirXML, array $indices): string
+    {
+        $separar = new SeparaProdutosXML($dirXML, $indices, new Produto());
+        $resposta = $separar->executar();
+
+        $erros = '';
+        foreach ($resposta as $index => $item) {
+            $erros .= 'Produto não encontrado: ' . $index . "\n";
+        }
+        return $erros;
+    }
+
+    private function atualizaStatus(string $dirXML, array $indices): void
+    {
+        $atualizarStatus = new AtualizarStatus();
+        $ativos = new SeparaProdutosXML($dirXML, $indices, $atualizarStatus);
+        $ativos->executar();
     }
 }

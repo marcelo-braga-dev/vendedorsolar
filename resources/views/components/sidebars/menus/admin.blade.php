@@ -256,6 +256,12 @@
                         Aldo
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU === 'historico-integracoes') active @endif"
+                       href="{{ route('admin.integracoes.historico.index') }}">
+                        Histórico de Integrações
+                    </a>
+                </li>
             </ul>
         </div>
     </li>

@@ -22,13 +22,14 @@ class SeparaProdutosXML
         $arquivo = fopen($this->xml, 'r');
 
         if ($arquivo) {
-            $this->procuraProduto($arquivo);
+            return $this->procuraProduto($arquivo);
         }
     }
 
-    private function procuraProduto($handle): void
+    private function procuraProduto($handle): array
     {
         $rows = '';
+        $erros = [];
 
         while (!feof($handle)) {
             $row = fgets($handle);
@@ -40,12 +41,15 @@ class SeparaProdutosXML
             if (strpos($row, '</produto>') !== false) {
 
                 $item = utf8_encode($rows);
-
                 $dados = simplexml_load_string($item);
 
-                $this->acao->executar($dados, $this->indices);
-
+                try {
+                    $this->acao->executar($dados, $this->indices);
+                } catch (\DomainException $e) {
+                    $erros[$e->getMessage()]  = '';
+                }
             }
         }
+        return $erros;
     }
 }

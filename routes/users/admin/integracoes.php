@@ -2,20 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::name('admin.')
+Route::name('admin.integracoes.')
     ->namespace('Integracoes')
     ->prefix('integracoes')
     ->group(function () {
+        Route::resource('historico', 'HistoricoController');
 
         Route::get('aldo', 'AldoController@index')
-            ->name('integracoes.aldo.index');
+            ->name('aldo.index');
 
         Route::get('aldo/pesquisar', 'AldoController@pesquisar')
-            ->name('integracoes.aldo.pesquisar');
+            ->name('aldo.pesquisar');
 
         Route::get('aldo/integrar', 'AldoController@integrar')
-            ->name('integracoes.aldo.integrar');
+            ->name('aldo.integrar');
 
         Route::put('aldo/store', 'AldoController@store')
-            ->name('integracoes.aldo.store');
+            ->name('aldo.store');
     });

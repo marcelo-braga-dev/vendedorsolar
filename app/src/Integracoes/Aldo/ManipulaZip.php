@@ -23,18 +23,21 @@ class ManipulaZip
     {
         $this->armazenarZip($dadosArquivo);
 
-        $zip = new ZipArchive();
-        $zip->open($this->pathFile);
-
-        $zip->extractTo($this->pathExtract);
-        $zip->close();
+        try {
+            $zip = new ZipArchive();
+            $zip->open($this->pathFile);
+            $zip->extractTo($this->pathExtract);
+            $zip->close();
+        } catch (\ErrorException $e) {
+            throw new \DomainException('Falha na leitura do arquivo.');
+        }
 
         return $this->localizarXML($this->pathExtract);
     }
 
     private function armazenarZip($dadosArquivo)
     {
-        if(file_exists($this->pathFile)) unlink($this->pathFile);
+        if (file_exists($this->pathFile)) unlink($this->pathFile);
         file_put_contents($this->pathFile, $dadosArquivo);
     }
 
