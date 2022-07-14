@@ -13,6 +13,10 @@ class OrcamentoKits extends Model
 
     protected $fillable = [
         'orcamentos_id',
-        'kits_id'
+        'kits_id',
+        'qtd_kits',
+        'preco_cliente',
+        'preco_fornecedor',
+        'taxa_comissao'
     ];
 }

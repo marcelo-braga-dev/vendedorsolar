@@ -1,6 +1,8 @@
 <div class="form-group">
-    <label class="form-control-label">{{ $label }}</label>
-    <select name="{{ $name }}" {{$attributes}} class="form-control select2">
+    @if ($label)
+        <label class="form-control-label">{{ $label }}</label>
+    @endif
+    <select name="{{ $name }}" {{$attributes}} class="form-control select2 {{ $class }}">
         {{ $slot }}
     </select>
 </div>

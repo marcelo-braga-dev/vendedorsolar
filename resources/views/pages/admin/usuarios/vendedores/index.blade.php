@@ -3,7 +3,7 @@
             url-button="{{ route('admin.usuarios.vendedores.create') }}" class="p-0">
         <x-tables.table-default>
             <x-slot name="head">
-                <tr>
+                <tr class="text-center">
                     <th>ID</th>
                     <th>Status</th>
                     <th>Nome</th>
@@ -14,11 +14,11 @@
             </x-slot>
             <x-slot name="body">
                 @foreach($usuarios as $usuario)
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             #{{ $usuario->id }}
                         </th>
-                        <td class="text-center">
+                        <td>
                             @if ($usuario->status)
                                 <i class="fas fa-check-circle text-success"></i>
                             @else
@@ -35,6 +35,9 @@
                             {{ date('d/m/y H:i', strtotime($usuario->created_at) ) }}
                         </td>
                         <td>
+                            <a class="btn btn-sm btn-primary" href="{{ route('admin.usuarios.vendedor.clientes.index', ['id' => $usuario->id]) }}">
+                                <i class="fas fa-users"></i>
+                            </a>
                             <a class="btn btn-sm btn-success" href="{{ route('admin.usuarios.vendedores.show', $usuario->id) }}">
                                 <i class="fas fa-edit"></i>
                             </a>

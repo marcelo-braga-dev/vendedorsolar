@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Vendedor\Orcamentos;
+namespace App\Http\Controllers\Admin\Orcamentos;
 
 use App\Models\VistoriaOrcamentos;
 use App\Services\Orcamentos\VistoriaService;
@@ -15,7 +15,7 @@ class VistoriaController
             ->where('orcamentos_id', '=', $id)
             ->first();
 
-        return view('pages.vendedor.orcamentos.vistoria.show', compact('id', 'vistoria'));
+        return view('pages.admin.orcamentos.vistoria.show', compact('id', 'vistoria'));
     }
 
     public function store(Request $request)

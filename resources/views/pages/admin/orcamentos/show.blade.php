@@ -1,9 +1,22 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
     <x-body title="Informações do Orçamento">
+        <div class="row mb-4 justify-content-end">
+            <div class="col-md-auto mb-3">
+                <a class="btn btn-primary btn-block btn-sm"
+                   href="{{ route('admin.orcamento.vistoria.show', $orcamento->id) }}">
+                    <i class="fas fa-camera"></i> Vistoria
+                </a>
+            </div>
+            <div class="col-md-auto mb-3">
+                <a class="btn btn-primary btn-block btn-sm"
+                   href="{{ route('admin.orcamento.aprovacao.show', $orcamento->id) }}">
+                    <i class="fas fa-check"></i> Dados para Aprovação
+                </a>
+            </div>
+        </div>
         <div class="row mb-3">
             <div class="col">
                 <div class="card card-stats shadow">
-                    <!-- Card body -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -23,7 +36,6 @@
             </div>
             <div class="col">
                 <div class="card card-stats shadow">
-                    <!-- Card body -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -43,7 +55,6 @@
             </div>
             <div class="col">
                 <div class="card card-stats shadow">
-                    <!-- Card body -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -75,18 +86,20 @@
                                         <small class="d-block"><b>ID do Orçamento:</b> #{{ $orcamento->id }}</small>
                                     </div>
                                     <div class="col-12 col-md-auto">
-                                        <small class="d-block"><b>Status:</b> {{ $orcamento->status }}</small>
+                                        <small class="d-block">
+                                            <b>Status:</b> {{ getNomeStatus($orcamento->status) }}
+                                        </small>
                                     </div>
                                     <div class="col-12 col-md-auto">
                                         <small class="d-block">
-                                            <b>Data
-                                                Criação:</b> {{ date('d/m/Y H:i', strtotime($orcamento->created_at)) }}
+                                            <b>Data Criação:</b>
+                                            {{ date('d/m/Y H:i', strtotime($orcamento->created_at)) }}
                                         </small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <a class="btn btn-link p-0 m-0"
+                                <a class="btn btn-success"
                                    href="{{ route('admin.orcamentos.edit', $orcamento->id) }}">EDITAR</a>
                             </div>
                         </div>
@@ -173,13 +186,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>E-mail:</b> {{ $dadosVendedor['email'] ?? '' }}</small>
+                                        <small class="d-block"><b>E-mail:</b> {{ $dadosVendedor['email'] ?? '' }}
+                                        </small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Celular:</b> {{ $dadosVendedor['celular'] ?? '' }}</small>
+                                        <small class="d-block"><b>Celular:</b> {{ $dadosVendedor['celular'] ?? '' }}
+                                        </small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Telefone:</b> {{ $dadosVendedor['telefone'] ?? '' }}</small>
+                                        <small class="d-block"><b>Telefone:</b> {{ $dadosVendedor['telefone'] ?? '' }}
+                                        </small>
                                     </div>
                                 </div>
                             </div>
@@ -292,12 +308,14 @@
                         </x-tables.table-default>
                         <div class="row mb-4 px-4">
                             <div class="col-6 text-center">
-                                <img class="img-thumbnail" src="{{ asset('storage') . '/' . $imagens[$kit->marca_painel]['logo'] }}"
+                                <img class="img-thumbnail"
+                                     src="{{ asset('storage') . '/' . $imagens[$kit->marca_painel]['logo'] }}"
                                      alt="logo painel">
                                 <small class="d-block">Painéis</small>
                             </div>
                             <div class="col-6 text-center">
-                                <img class="img-thumbnail" src="{{ asset('storage') . '/' . $imagens[$kit->marca_inversor]['logo'] }}"
+                                <img class="img-thumbnail"
+                                     src="{{ asset('storage') . '/' . $imagens[$kit->marca_inversor]['logo'] }}"
                                      alt="logo inversor">
                                 <small class="d-block">Inversor</small>
                             </div>

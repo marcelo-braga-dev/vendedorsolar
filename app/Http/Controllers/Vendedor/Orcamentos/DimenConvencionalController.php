@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Orcamento\CadastrarOrcamentoRequest;
 use App\Http\Requests\Orcamento\ConvencionalRequest;
 use App\Models\Clientes;
-use App\Models\DadosDimensionamento;
 use App\Models\Produtos;
 use App\src\Orcamentos\Dimensionamento\Convencional\Convencional;
 use App\src\Orcamentos\Dimensionamento\Convencional\ConvencionalDados;
+use App\src\Orcamentos\DirecaoInstalacao;
 use App\src\Orcamentos\Orcamento;
 
 class DimenConvencionalController extends Controller
@@ -20,8 +20,7 @@ class DimenConvencionalController extends Controller
             ->where('users_id', '=', id_usuario_atual())
             ->get();
 
-        $dadosDimensionamento = new DadosDimensionamento();
-        $orientacoes = $dadosDimensionamento->getOrientacoes();
+        $orientacoes = (new DirecaoInstalacao())->direcoes();
 
         return view('pages.vendedor.orcamentos.dimensionamento.convencional',
             compact('clientes', 'orientacoes'));

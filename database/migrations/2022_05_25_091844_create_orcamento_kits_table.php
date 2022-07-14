@@ -17,8 +17,10 @@ class CreateOrcamentoKitsTable extends Migration
             $table->id();
             $table->foreignId('orcamentos_id')->constrained('orcamentos');
             $table->foreignId('kits_id')->constrained('kits');
-            $table->float('preco_cliente', 12,2)->nullable();
-            $table->float('preco_fornecedor', 12, 2)->nullable();
+            $table->float('preco_cliente', 12, 2);
+            $table->float('preco_fornecedor', 12, 2);
+            $table->integer('qtd_kits');
+            $table->float('taxa_comissao', 6, 3);
         });
     }
 

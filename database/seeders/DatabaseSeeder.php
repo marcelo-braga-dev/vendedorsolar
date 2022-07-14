@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             IntegracaoAldoSeeder::class,
             EstruturasSeeder::class,
             MargemPrincipalSeeder::class,
-            FornecedorSeeder::class
+            FornecedorSeeder::class,
+            TrafoSeeder::class
         ]);
     }
 }

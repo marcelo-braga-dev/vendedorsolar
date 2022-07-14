@@ -4,8 +4,8 @@
         <x-tables.table-default>
             <x-slot name="head">
                 <tr>
-                    <th>ID</th>
                     <th>Empresa</th>
+                    <th>Representante</th>
                     <th>E-mail</th>
                     <th>Celular</th>
                     <th>Telefone</th>
@@ -15,8 +15,8 @@
             <x-slot name="body">
                 @foreach($fornecedores as $item)
                     <tr>
-                        <th>#{{ $item->id }}</th>
-                        <td>{{ $item->nome }}</td>
+                        <td><b>{{ $item->nome }}</b></td>
+                        <td>{{ $item->representante }}</td>
                         <td>{{ $item->email }}</td>
                         <td>{{ $item->celular ?? '-' }}</td>
                         <td>{{ $item->telefone ?? '-' }}</td>

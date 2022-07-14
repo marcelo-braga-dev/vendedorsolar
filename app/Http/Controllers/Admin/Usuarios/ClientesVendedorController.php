@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Usuarios;
+
+use App\Models\Clientes;
+use App\Models\ClientesMetas;
+use Illuminate\Http\Request;
+
+class ClientesVendedorController
+{
+    public function index(Request $request)
+    {
+        $clientes = (new Clientes())->newQuery()->where('users_id', $request->id)->paginate();
+
+        return view('pages.admin.usuarios.vendedores.clientes.index', compact('clientes'));
+    }
+
+    public function show($id)
+    {
+        $cliente = (new Clientes())->newQuery()->find($id);
+        $dados = (new ClientesMetas())->values($cliente->id);
+
+        return view('pages.admin.usuarios.vendedores.clientes.show', compact('cliente', 'dados'));
+    }
+
+    public function edit($id)
+    {
+        $cliente = (new Clientes())->newQuery()->find($id);
+        $dados = (new ClientesMetas())->values($cliente->id);
+
+        return view('pages.admin.usuarios.vendedores.clientes.edit', compact('cliente', 'dados'));
+    }
+
+    public function update($id, Request $request)
+    {
+        (new Clientes())->atualizar($request, $id);
+
+        return redirect()->back();
+    }
+}

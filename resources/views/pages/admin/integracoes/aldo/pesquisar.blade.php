@@ -1,5 +1,54 @@
 <x-layout menu="integracoes" submenu="aldo">
     <x-body title="Integracão Aldo - Atualizar Campos">
+        <div class="row">
+            <div class="col-md-4">
+                @foreach($dados['inversores'] as $index => $item)
+                    <div class="border-bottom mb-2">
+                        <x-inputs.select label="{{ $index }}" name="inversores[{{$index}}]" required>
+                            <option value=""></option>
+                            @foreach($produtos['inversor'] as $id => $produto)
+                                <option value="{{ $id }}"
+                                        @if ($item == $id) selected @endif>
+                                    {{ $produto }}
+                                </option>
+                            @endforeach
+                        </x-inputs.select>
+                    </div>
+                @endforeach
+            </div>
+            <div class="col-md-4">
+                @foreach($dados['painel'] as $index => $item)
+                    <label class="form-control-label">{{ $index }}</label>
+                    <div class="form-row">
+                        <div class="col-6 col-md-6">
+                            <x-inputs.select label="" name="paineis[{{ $index }}]" required>
+                                <option value=""></option>
+                                @foreach($produtos['painel'] as $id => $produto)
+                                    <option value="{{ $id }}"
+                                            @if ($item['id_referencia'] == $id) selected @endif>{{ $produto }}</option>
+                                @endforeach
+                            </x-inputs.select>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <x-inputs.input-box-right box="W" type="number"
+                                                      name="potencia_paineis[{{ $index }}]"
+                                                      label="" value="{{ $item['potencia'] }}" required>
+                            </x-inputs.input-box-right>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="col-md-4">
+                @foreach($dados['estruturas'] as $index => $item)
+                    <x-inputs.select label="{{ $index }}" name="estruturas[{{ $index }}]">
+                        @foreach(get_estruturas() as $estrutura)
+                            <option value="{{ $estrutura->id }}"
+                                    @if ($item == $estrutura->id) selected @endif>{{ $estrutura->nome }}</option>
+                        @endforeach
+                    </x-inputs.select>
+                @endforeach
+            </div>
+        </div>
         {{-- Inversores --}}
         <form method="POST" action="{{ route('admin.integracoes.aldo.store') }}">
             @csrf @method('put')
@@ -65,7 +114,8 @@
                                                 </x-inputs.select>
                                             </div>
                                             <div class="col-6 col-md-4">
-                                                <x-inputs.input-box-right box="W" type="number" name="potencia_paineis[{{ $index }}]"
+                                                <x-inputs.input-box-right box="W" type="number"
+                                                                          name="potencia_paineis[{{ $index }}]"
                                                                           label=""
                                                                           value="{{ $item['potencia'] }}" required>
                                                 </x-inputs.input-box-right>

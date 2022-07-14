@@ -199,3 +199,11 @@ if (!function_exists('getLogoPrincipal')) {
         return asset($logo->value);
     }
 }
+
+if (!function_exists('getNomeStatus')) {
+    function getNomeStatus($status)
+    {
+        $todosStatus = (new \App\src\Orcamentos\Status\StatusOrcamentos())->todosStatus();
+        return $todosStatus[$status];
+    }
+}

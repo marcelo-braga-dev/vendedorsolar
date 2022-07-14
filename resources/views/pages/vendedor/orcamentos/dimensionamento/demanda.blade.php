@@ -53,10 +53,8 @@
                 <div class="col-12 col-md-3">
                     <x-inputs.select label="Orientação da Instalação" name="orientacao" id="orientacao">
                         <option></option>
-                        <option value="desconsiderar">Desconsiderar</option>
-                        <option value="norte">Norte</option>
-                        @foreach($orientacoes as $orientacao)
-                            <option value="{{ $orientacao->meta_key }}">{{ $orientacao->name }}</option>
+                        @foreach($orientacoes as $key => $orientacao)
+                            <option value="{{ $key }}">{{ $orientacao }}</option>
                         @endforeach
                     </x-inputs.select>
                 </div>
@@ -88,16 +86,22 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-6 col-md-2">
-                    <x-inputs.input label="Qtd. de Kits"
+            <button type="button" class="btn btn-link" id="mais-config">Mais configurações</button>
+
+            <div class="form-row mais-config d-none">
+                <div class="col-auto align-self-center"><p>Qtd. de kits no sistema:</p></div>
+                <div class="col-auto col-md-1">
+                    <x-inputs.input label=""
                                     type="number" name="qtd_kits" id="qtd_kits" value="1"></x-inputs.input>
                 </div>
-                <div class="col-6 col-md-2">
-                    <label class="form-control-label mb-3">Incluir Trafo?</label>
-                    <label class="custom-toggle">
+            </div>
+            <div class="form-row mais-config d-none border-bottom mb-3">
+                <div class="col-auto align-self-center"><p>Verificar necessidade de trafo?</p></div>
+                <div class="col-auto">
+                    <label class="custom-toggle ml-4">
                         <input type="checkbox" id="trafo" checked>
-                        <span class="custom-toggle-slider rounded-circle" data-label-off="Não" data-label-on="Sim"></span>
+                        <span class="custom-toggle-slider rounded-circle" data-label-off="Não"
+                              data-label-on="Sim"></span>
                     </label>
                 </div>
             </div>
@@ -126,6 +130,13 @@
     @push('js')
         <script>
             $(function () {
+                $('#mais-config').click(function () {
+                    $('.mais-config').toggleClass('d-none');
+                });
+            })
+        </script>
+        <script>
+            $(function () {
                 $('#cliente').change(function () {
                     let estadoCliente = $('#cliente option:selected').attr('localidade');
 
@@ -150,6 +161,7 @@
                             'orientacao': $('#orientacao').val(),
                             'consumo_fora_ponta': $('#consumo_fora_ponta').val(),
                             'consumo_ponta': $('#consumo_ponta').val(),
+                            'demanda': $('#demanda').val(),
                             'cliente': $('#cliente').val(),
                             'concessionaria': $('#concessionaria').val(),
                             'qtd_kits': $('#qtd_kits').val(),

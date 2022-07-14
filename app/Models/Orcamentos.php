@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\src\Orcamentos\ChavesOrcamentos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,21 +12,13 @@ class Orcamentos extends Model
 
     protected $fillable = [
         'users_id',
-        'kits_id',
         'clientes_id',
-        'taxa_comissao',
         'preco_cliente',
         'status',
-        'cidade',
-        'estrutura',
-        'tensao',
-        'trafo',
-        'orientacao',
-        'consumo',
-        'anotacoes',
         'geracao',
-        'token',
-        'qtd_kits'
+        'cidade',
+        'trafo',
+        'token'
     ];
 
     public function clientes()
@@ -38,45 +31,48 @@ class Orcamentos extends Model
         $orcamento = $this->newQuery()
             ->create([
                 'users_id' => id_usuario_atual(),
-                'kits_id' => $dados->getKitId(),
-                'cidade' => $dados->getCidade(),
-                'geracao' => $dados->getGeracao(),
-                'estrutura' => $dados->getEstrutura(),
-                'tensao' => $dados->getTensao(),
-                'orientacao' => $dados->getOrientacao(),
-                'consumo' => $dados->getConsumo(),
                 'clientes_id' => $dados->getCliente(),
-                'taxa_comissao' => $dados->getTaxaComissao(),
                 'preco_cliente' => $dados->getPrecoCliente(),
-                'trafo' => $dados->getTrafo(),
                 'status' => $dados->getStatus(),
-                'token' => $dados->getToken(),
-                'qtd_kits' => $dados->getQtdKits()
+                'geracao' => $dados->getGeracao(),
+                'cidade' => $dados->getCidade(),
+                'trafo' => $dados->getTrafo(),
+                'token' => uniqid()
             ]);
 
         modalSucesso('Orçamento criado com sucesso');
 
-        $this->cadastrarKits($orcamento->id, $dados->getKitId());
+        $this->cadastrarKits($orcamento->id, $dados);
         $this->metas($orcamento->id, $dados);
 
         return $orcamento->id;
     }
 
-    private function cadastrarKits($idOrcamento, $idKit)
+    private function cadastrarKits($idOrcamento, $dados)
     {
         $orcamentoKits = new OrcamentoKits();
         $orcamentoKits->newQuery()
             ->create([
                 'orcamentos_id' => $idOrcamento,
-                'kits_id' => $idKit
+                'kits_id' => $dados->getKitId(),
+                'qtd_kits' => $dados->getQtdKits(),
+                'preco_cliente' => $dados->getPrecoCliente(),
+                'preco_fornecedor' => 1,
+                'taxa_comissao' => $dados->getTaxaComissao()
             ]);
     }
 
     private function metas($id, $dados)
     {
+        $chaves = new ChavesOrcamentos();
         $metas = new OrcamentosMetas();
-        $metas->criar($id, 'consumo', $dados->getConsumo());
-        $metas->criar($id, 'consumo_ponta', $dados->getConsumoPonta());
-        $metas->criar($id, 'consumo_fora_ponta', $dados->getConsumoForaPonta());
+        $metas->criar($id, $chaves->getConsumo(), $dados->getConsumo());
+        $metas->criar($id, $chaves->getConsumoPonta(), $dados->getConsumoPonta());
+        $metas->criar($id, $chaves->getConsumoForaPonta(), $dados->getConsumoForaPonta());
+        $metas->criar($id, $chaves->getDemanda(), $dados->getDemandaContratada());
+        $metas->criar($id, $chaves->getPermitirEdicao(), 1);
+        $metas->criar($id, $chaves->getEstrutura(), $dados->getEstrutura());
+        $metas->criar($id, $chaves->getTensao(), $dados->getTensao());
+        $metas->criar($id, $chaves->getOrientacao(), $dados->getOrientacao());
     }
 }

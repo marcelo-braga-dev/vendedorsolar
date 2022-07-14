@@ -1,4 +1,4 @@
-<div class="container-fluid mt--7 mb-6">
+<div class="container-fluid mt--7 mb-6 px-2">
     <div class="card shadow mt-5">
         <div class="card-header border-bottom">
             <div class="row align-items-center">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body {{ $class }}" {{ $attributes }}>
+        <div class="card-body p-3 {{ $class }}" {{ $attributes }}>
             {{ $slot }}
         </div>
     </div>

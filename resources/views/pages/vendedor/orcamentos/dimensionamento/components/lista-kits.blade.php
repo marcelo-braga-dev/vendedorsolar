@@ -69,6 +69,7 @@
                                 <input type="hidden" name="consumo" value="{{$request->consumo ?? 0}}">
                                 <input type="hidden" name="consumo_ponta" value="{{$request->consumo_ponta}}">
                                 <input type="hidden" name="consumo_fora_ponta" value="{{$request->consumo_fora_ponta}}">
+                                <input type="hidden" name="demanda" value="{{$request->demanda}}">
                                 <input type="hidden" name="id_kit" value="{{$kit['id']}}">
                                 <input type="hidden" name="preco" value="{{$kit['preco']}}">
                                 <input type="hidden" name="cidade" value="{{$request->cidade}}">

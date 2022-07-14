@@ -64,7 +64,7 @@
                                     Potência do Kit
                                 </h5>
                                 <span class="h2 font-weight-bold mb-0">
-                                    {{ convert_float_money($kit->potencia_kit * $orcamento->qtd_kits, 3)  }} <small>kWp</small>
+                                    {{ convert_float_money($kit->potencia_kit * $orcamentoKit->qtd_kits, 3)  }} <small>kWp</small>
                                 </span>
                             </div>
                             <div class="col-auto">
@@ -151,10 +151,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <span class="d-block">Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}</span>
+                        <span
+                            class="d-block">Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}</span>
                         <span class="d-block">Sua margem de comissão: {{ $orcamento->taxa_comissao }}%</span>
                         <span class="d-block">Comissão:
-                            R$ {{ convert_float_money($orcamento->preco_cliente * $orcamento->taxa_comissao /100) }}
+                            R$ {{ convert_float_money(($orcamento->preco_cliente - $kit->preco_fornecedor) * $orcamento->taxa_comissao /100) }}
                         </span>
                     </div>
                 </div>

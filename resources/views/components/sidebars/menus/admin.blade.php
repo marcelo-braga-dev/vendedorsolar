@@ -1,7 +1,7 @@
 <h6 class="navbar-heading text-muted">Admin</h6>
 <ul class="navbar-nav mb-md-5">
     {{--Usuaios --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-dimensionamento" data-toggle="collapse"
            role="button" aria-expanded="true"
            aria-controls="navbar-dimensionamento">
@@ -59,7 +59,7 @@
     </li> --}}
 
     {{-- Orcamentos --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-orcamentos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-orcamentos">
             <i class="fas fa-folder-open"></i>
@@ -111,7 +111,7 @@
     </li>
 
     {{-- kits Fotovoltaicos --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-kits-fv" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-kits-fv">
             <i class="fas fa-solar-panel"></i>
@@ -147,7 +147,7 @@
     </li>
 
     {{-- Precificacao --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-margens" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-margens ">
             <i class="fas fa-dollar-sign"></i>
@@ -181,7 +181,7 @@
     </li>
 
     {{-- Produtos --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-produtos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-produtos">
             <i class="fas fa-dolly-flatbed"></i>
@@ -217,7 +217,7 @@
     </li>
 
     {{-- Fornecedores --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-fornecedores" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-fornecedores">
             <i class="fas fa-truck"></i>
@@ -239,7 +239,7 @@
     </li>
 
     {{-- Integracoes --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-integracoes" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-integracoes ">
             <i class="fas fa-link"></i>
@@ -267,7 +267,7 @@
     </li>
 
     {{-- Financeiro --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-financeiro" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-financeiro ">
             <i class="fas fa-dollar-sign"></i>
@@ -284,12 +284,12 @@
                         Taxa de Comissão por Venda
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(SUBMENU === 'faturamento') active @endif"
-                       href="{{ route('admin.financeiro.faturamento.index') }}">
-                        Faturamento por Vendedor
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(SUBMENU === 'faturamento') active @endif"--}}
+{{--                       href="{{ route('admin.financeiro.faturamento.index') }}">--}}
+{{--                        Faturamento por Vendedor--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="nav-item">
                     <a class="nav-link @if(SUBMENU === 'bancos') active @endif"
                        href="{{ route('admin.configs.bancos.index') }}">
@@ -301,7 +301,7 @@
     </li>
 
     {{-- Config --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-config" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-config">
             <i class="fas fa-cogs"></i>
@@ -324,12 +324,12 @@
                         Concessionarias
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(SUBMENU === 'backup') active @endif"
-                       href="{{ route('admin.configs.backup.index') }}">
-                        Backup
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(SUBMENU === 'backup') active @endif"--}}
+{{--                       href="{{ route('admin.configs.backup.index') }}">--}}
+{{--                        Backup--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </div>
     </li>

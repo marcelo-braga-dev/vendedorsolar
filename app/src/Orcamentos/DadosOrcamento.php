@@ -17,6 +17,7 @@ class DadosOrcamento
     public $trafo;
     public $qtdKits;
     public $preco;
+    public $demandaContratada;
 
     public function __construct($dados)
     {
@@ -33,5 +34,6 @@ class DadosOrcamento
         $this->trafo = $dados->trafo;
         $this->qtdKits = $dados->qtd_kits;
         $this->preco = $dados->preco;
+        $this->demandaContratada = $dados->demanda;
     }
 }

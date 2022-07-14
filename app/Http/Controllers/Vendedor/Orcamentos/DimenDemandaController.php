@@ -4,16 +4,14 @@ namespace App\Http\Controllers\Vendedor\Orcamentos;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Orcamento\CadastrarOrcamentoRequest;
-use App\Http\Requests\Orcamento\ConvencionalRequest;
 use App\Http\Requests\Orcamento\DemandaRequest;
 use App\Models\Clientes;
 use App\Models\Concessionarias;
-use App\Models\DadosDimensionamento;
 use App\Models\Produtos;
 use App\src\Orcamentos\Dimensionamento\Demanda\Demanda;
 use App\src\Orcamentos\Dimensionamento\Demanda\DemandaDados;
+use App\src\Orcamentos\DirecaoInstalacao;
 use App\src\Orcamentos\Orcamento;
-use Illuminate\Http\Request;
 
 class DimenDemandaController extends Controller
 {
@@ -29,8 +27,7 @@ class DimenDemandaController extends Controller
         $concessionarias = $clsConcessionarias->newQuery()
             ->get(['id', 'nome', 'estado']);
 
-        $dadosDimensionamento = new DadosDimensionamento();
-        $orientacoes = $dadosDimensionamento->getOrientacoes();
+        $orientacoes = (new DirecaoInstalacao())->direcoes();
 
         return view('pages.vendedor.orcamentos.dimensionamento.demanda',
             compact('clientes', 'orientacoes', 'concessionarias'));

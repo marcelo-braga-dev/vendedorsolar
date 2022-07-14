@@ -1,5 +1,7 @@
 <div class="form-group">
-    <label class="form-control-label">{{ $label }}</label>
+    @if ($label)
+        <label class="form-control-label">{{ $label }}</label>
+    @endif
     <div class="input-group input-group-alternative mb-4">
         <input type="{{ $type }}" name="{{ $name }}" class="form-control text-right {{ $class }}" {{ $attributes }}>
         <div class="input-group-append">

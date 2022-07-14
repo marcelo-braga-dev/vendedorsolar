@@ -1,8 +1,8 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
     <form method="POST" enctype="multipart/form-data"
-          action="{{ route('vendedor.orcamento.aprovacao.store', ['id' => $id]) }}"> @csrf
+          action="{{ route('admin.orcamento.aprovacao.update', $id) }}"> @csrf @method('PUT')
         <x-body title="Informações do Cliente do Financiamento"
-                url-button="{{ route('vendedor.orcamento.show', $id) }}">
+                url-button="{{ route('admin.orcamentos.show', $id) }}">
             <h5>Pessoa Física</h5>
             <div class="form-row mb-4">
                 <div class="col-md-6">
@@ -126,15 +126,15 @@
             <h5>Documentos Pessoais</h5>
             <div class="form-row">
                 <div class="col-4">
-                    <x-inputs.file label="CNH" name="img_cnh_proprietario"
+                    <x-inputs.file download="true" label="CNH" name="img_cnh_proprietario"
                                    url="{{ $dados['img_cnh_proprietario'] ?? '' }}"></x-inputs.file>
                 </div>
                 <div class="col-4">
-                    <x-inputs.file label="CPF" name="img_cpf_proprietario"
+                    <x-inputs.file download="true" label="CPF" name="img_cpf_proprietario"
                                    url="{{ $dados['img_cpf_proprietario'] ?? '' }}"></x-inputs.file>
                 </div>
                 <div class="col-4">
-                    <x-inputs.file label="RG" name="img_rg_proprietario"
+                    <x-inputs.file download="true" label="RG" name="img_rg_proprietario"
                                    url="{{ $dados['img_rg_proprietario'] ?? '' }}"></x-inputs.file>
                 </div>
             </div>
@@ -148,7 +148,7 @@
                                     value="{{ $dados['registro_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-5">
-                    <x-inputs.file label="Conta de energia do imóvel da instalação"
+                    <x-inputs.file download="true" label="Conta de energia do imóvel da instalação"
                                    name="img_conta_instalacao"
                                    url="{{ $dados['img_conta_instalacao'] ?? '' }}"></x-inputs.file>
                 </div>

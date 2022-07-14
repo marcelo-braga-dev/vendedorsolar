@@ -1,14 +1,14 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
-    <x-body title="Todos Orçamentos Gerados" class="p-0">
+    <x-body title="{{ $label }}" class="p-0">
         <x-tables.table-clickable>
             <x-slot name="head">
                 <tr>
                     <th>ID</th>
+                    <th>Data Criação</th>
                     <th>Vendedor</th>
                     <th>Cliente</th>
-                    <th>Status</th>
                     <th>Valor</th>
-                    <th>Data Criação</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </x-slot>
@@ -16,14 +16,15 @@
                 @foreach($orcamentos as $item)
                     <tr>
                         <td>#{{ $item->id }}</td>
-                        <td>{{ $vendedor[$item->users_id] }}</td>
-                        <td>{{ $cliente[$item->clientes_id] }}</td>
-                        <td>{{ $item->status }}</td>
-                        <td>R$ {{ convert_float_money($item->preco_cliente) }}</td>
-                        <td>{{ date('d/m/y H:i', strtotime($item->created_at)) }}</td>
                         <td>
-                            <a href="{{route('admin.orcamentos.show', $item->id)}}">Ver</a>
+                            {{ date('d/m/y', strtotime($item->created_at)) }}<br>
+                            {{ date('H:i:s', strtotime($item->created_at)) }}
                         </td>
+                        <td><b>{{ $vendedor[$item->users_id] }}</b></td>
+                        <td>{{ $cliente[$item->clientes_id] }}</td>
+                        <td>R$ {{ convert_float_money($item->preco_cliente) }}</td>
+                        <td>{{ getNomeStatus($item->status) }}</td>
+                        <td><a href="{{route('admin.orcamentos.show', $item->id)}}">Ver</a></td>
                     </tr>
                 @endforeach
             </x-slot>
@@ -31,5 +32,10 @@
                 {{ $orcamentos }}
             </x-slot>
         </x-tables.table-clickable>
+        @if (!empty($orcamentos->isEmpty()))
+            <div class="row">
+                <small class="text-muted mx-auto p-3">Não há registro de orçamentos</small>
+            </div>
+        @endif
     </x-body>
 </x-layout>

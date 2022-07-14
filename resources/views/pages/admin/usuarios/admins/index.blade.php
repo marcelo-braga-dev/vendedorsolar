@@ -3,7 +3,7 @@
             url-button="{{ route('admin.usuarios.admins.create') }}" class="p-0">
         <x-tables.table-default>
             <x-slot name="head">
-                <tr>
+                <tr class="text-center">
                     <th>ID</th>
                     <th>Status</th>
                     <th>Nome</th>
@@ -14,7 +14,7 @@
             </x-slot>
             <x-slot name="body">
                 @foreach($usuarios as $usuario)
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             #{{ $usuario->id }}
                         </th>

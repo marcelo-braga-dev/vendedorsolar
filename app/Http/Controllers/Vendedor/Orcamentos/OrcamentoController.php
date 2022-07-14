@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendedor\Orcamentos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kits;
+use App\Models\OrcamentoKits;
 use App\Models\Orcamentos;
 use App\Models\OrcamentosMetas;
 use App\Models\Produtos;
@@ -58,28 +59,21 @@ class OrcamentoController extends Controller
 
     public function show($id)
     {
-        $orcamentos = new Orcamentos();
-        $orcamento = $orcamentos->newQuery()
-            ->findOrFail($id);
+        $orcamento = (new Orcamentos())->newQuery()->findOrFail($id);
 
         if ($orcamento->users_id != id_usuario_atual()) {
             modalErro('Voce não tem permissão para acessar esse orcamento');
             return redirect()->back();
         }
 
-        $kits = new Kits();
-        $kit = $kits->newQuery()
-            ->find($orcamento->kits_id);
-
-        $trafos = new Trafos();
-        $trafo = $trafos->newQuery()->find($orcamento->trafo);
-
-        $produtos = new Produtos();
-        $imagens = $produtos->getImagensNome();
-
+        $trafo = (new Trafos())->newQuery()->find($orcamento->trafo);
+        $imagens = (new Produtos())->getImagensNome();
         $metas = (new OrcamentosMetas())->getMetas($orcamento->id);
+        $orcamentoKit = (new OrcamentoKits())->newQuery()
+            ->where('orcamentos_id', $orcamento->id)->first();
+        $kit = (new Kits())->newQuery()->find($orcamentoKit->kits_id);
 
         return view('pages.vendedor.orcamentos.show',
-            compact('orcamento', 'kit', 'trafo', 'imagens', 'metas'));
+            compact('orcamento', 'kit', 'trafo', 'imagens', 'metas', 'orcamentoKit'));
     }
 }

@@ -25,10 +25,12 @@
                         </td>
                         <td>R$ {{ convert_float_money($orcamento->preco_cliente) }}</td>
                         <td>
-                            @if ($orcamento->consumo) Consumo: {{ $orcamento->consumo }} kWh/mês<br>@endif
+                            @if ($orcamento->consumo)
+                                Consumo: {{ $orcamento->consumo }} kWh/mês<br>
+                            @endif
                             Geração: {{ $orcamento->geracao }} kWh/mês
                         </td>
-                        <td>{{ $orcamento->status }}</td>
+                        <td>{{ getNomeStatus($orcamento->status)  }}</td>
                         <td>
                             <a href="{{ route('vendedor.orcamento.show', $orcamento->id) }}">
                                 Ver

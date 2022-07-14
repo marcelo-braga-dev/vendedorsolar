@@ -9,17 +9,19 @@ class File extends Component
     public string $label;
     public string $name;
     public $url;
+    public $download;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $label, string $name, $url = null)
+    public function __construct(string $label, string $name, $url = null, $download = null)
     {
         $this->label = $label;
         $this->name = $name;
         $this->url = $url;
+        $this->download = $download;
     }
 
     /**

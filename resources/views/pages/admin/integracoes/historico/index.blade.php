@@ -12,8 +12,8 @@
             <x-slot name="body">
                 @foreach($historicos as $item)
                     <tr class="text-center">
-                        <td>{{ date('d/m/y h:i:s', strtotime($item->created_at)) }}</td>
-                        <td>{{ date('d/m/y h:i:s', strtotime($item->updated_at)) }}</td>
+                        <td>{{ date('d/m/y H:i:s', strtotime($item->created_at)) }}</td>
+                        <td>{{ date('d/m/y H:i:s', strtotime($item->updated_at)) }}</td>
                         <td>{{ $item->status }}</td>
                         <td>{!! nl2br( $item->alertas) !!}</td>
                     </tr>

@@ -2,10 +2,8 @@
 
 namespace App\src\Orcamentos;
 
-use App\Models\Kits;
 use App\Models\Orcamentos;
 use App\Models\TaxaComissoes;
-use App\Models\Trafos;
 use App\src\Orcamentos\Status\Novo;
 
 class CadastrarOrcamento
@@ -22,12 +20,11 @@ class CadastrarOrcamento
     private $taxa_comissao;
     private $preco_cliente;
     private $status;
-    private $token;
     private $trafo;
     private $qtdKits;
-    private $precoTrafo;
     private $consumoPonta;
     private $consumoForaPonta;
+    private $demandaContratada;
 
     public function __construct(DadosOrcamento $dados)
     {
@@ -42,13 +39,12 @@ class CadastrarOrcamento
         $this->clientes_id = $dados->cliente;
         $this->trafo = $dados->trafo;
         $this->qtdKits = $dados->qtdKits;
-        $this->precoTrafo = $this->setPrecoTrafo($dados->trafo);
         $this->taxa_comissao = $this->setTaxaComissao();
         $this->preco_cliente = $dados->preco;//setPrecoKit($dados->id_kit);
         $this->status = (new Novo())->getStatus();
-        $this->token = uniqid();
         $this->consumoPonta = $dados->consumoPonta;
         $this->consumoForaPonta = $dados->consumoForaPonta;
+        $this->demandaContratada = $dados->demandaContratada;
     }
 
     private function setTaxaComissao()
@@ -128,11 +124,6 @@ class CadastrarOrcamento
         return $this->tensao;
     }
 
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
     public function getUsersId()
     {
         return $this->users_id;
@@ -148,15 +139,6 @@ class CadastrarOrcamento
         return $this->qtdKits;
     }
 
-    public function setPrecoTrafo($idTrafo)
-    {
-        $trafos = new Trafos();
-        $trafo = $trafos->newQuery()
-            ->find($idTrafo);
-
-        return $trafo->preco_cliente ?? 0;
-    }
-
     public function getConsumoPonta()
     {
         return $this->consumoPonta;
@@ -165,5 +147,10 @@ class CadastrarOrcamento
     public function getConsumoForaPonta()
     {
         return $this->consumoForaPonta;
+    }
+
+    public function getDemandaContratada()
+    {
+        return $this->demandaContratada;
     }
 }

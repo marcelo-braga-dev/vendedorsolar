@@ -276,11 +276,11 @@ var NavbarCollapse = (function() {
 	// Methods
 
 	function hideNavbarCollapse($this) {
-		$this.addClass('collapsing-out');
+		// $this.addClass('Xcollapsing-out');
 	}
 
 	function hiddenNavbarCollapse($this) {
-		$this.removeClass('collapsing-out');
+		// $this.removeClass('Xcollapsing-out');
 	}
 
 
@@ -955,7 +955,7 @@ var OrdersChart = (function() {
 							}
 
 							content += '<span class="popover-body-value">' + yLabel + '</span>';
-							
+
 							return content;
 						}
 					}

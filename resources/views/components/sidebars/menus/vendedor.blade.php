@@ -1,6 +1,6 @@
 <ul class="navbar-nav mb-md-5">
     {{-- Clientes --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-dark" href="#navbar-clientes" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-clientes">
@@ -29,7 +29,7 @@
     </li>
 
     {{-- Dimensionamento --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-dark" href="#navbar-dimensionamento" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-dimensionamento">
@@ -58,7 +58,7 @@
     </li>
 
     {{-- Orcamentos --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-dark" href="#navbar-orcamentos" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-orcamentos">
@@ -110,30 +110,30 @@
         </div>
     </li>
 
-    {{-- Perfil --}}
-    <li class="nav-item">
-        <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"
-           aria-expanded="true"
-           aria-controls="navbar-financeiro">
-            <i class="fas fa-dollar-sign"></i>
-            <span class="nav-link-text">
-                Financeiro
-            </span>
-        </a>
-        <div class="collapse ml-4 @if(MENU == 'financeiro') show @endif" id="navbar-financeiro">
-            <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                    <a class="nav-link @if(SUBMENU == 'faturamento') active @endif"
-                       href="{{ route('vendedor.financeiro.faturamento.index') }}">
-                        Faturamento
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
+    {{-- Financeiro --}}
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"--}}
+{{--           aria-expanded="true"--}}
+{{--           aria-controls="navbar-financeiro">--}}
+{{--            <i class="fas fa-dollar-sign"></i>--}}
+{{--            <span class="nav-link-text">--}}
+{{--                Financeiro--}}
+{{--            </span>--}}
+{{--        </a>--}}
+{{--        <div class="collapse ml-4 @if(MENU == 'financeiro') show @endif" id="navbar-financeiro">--}}
+{{--            <ul class="nav nav-sm flex-column">--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(SUBMENU == 'faturamento') active @endif"--}}
+{{--                       href="{{ route('vendedor.financeiro.faturamento.index') }}">--}}
+{{--                        Faturamento--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
     {{-- Mensagens --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-dark" href="#navbar-mensagens" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-mensagens">
@@ -159,7 +159,7 @@
     </li>
 
     {{-- Perfil --}}
-    <li class="nav-item">
+    <li class="nav-item border-bottom">
         <a class="nav-link text-dark" href="#navbar-perfil" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-perfil">

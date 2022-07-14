@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Clientes;
 use App\Models\ClientesMetas;
 use App\Models\Kits;
+use App\Models\OrcamentoKits;
 use App\Models\Orcamentos;
 use App\Models\OrcamentosMetas;
 use App\Models\Produtos;
@@ -45,43 +46,58 @@ class OrcamentosController extends Controller
             $vendedor[$item->id] = $item->name;
         }
 
-        return view('pages.admin.orcamentos.index', compact('orcamentos', 'cliente', 'vendedor'));
+        $label = $this->getLabel($request->status);
+
+        return view('pages.admin.orcamentos.index',
+            compact('orcamentos', 'cliente', 'vendedor', 'label'));
     }
 
     private function getStatus(?string $status)
     {
         switch ($status) {
-            case 'novos' : $tag = (new Novo())->getStatus(); break;
-            case 'assinados' : $tag = (new Assinado())->getStatus(); break;
-            case 'aprovados' : $tag = (new Aprovado())->getStatus(); break;
-            case 'instalandos' : $tag = (new Instalando())->getStatus(); break;
-            case 'finalizados' : $tag = (new Finalizado())->getStatus(); break;
-            default : return null;
+            case 'novos' :
+                return [['status', (new Novo())->getStatus()]];
+            case 'assinados' :
+                return [['status', (new Assinado())->getStatus()]];
+            case 'aprovados' :
+                return [['status', (new Aprovado())->getStatus()]];
+            case 'instalandos' :
+                return [['status', (new Instalando())->getStatus()]];
+            case 'finalizados' :
+                return [['status', (new Finalizado())->getStatus()]];
+            default :
+                return null;
         }
+    }
 
-        return [['status', '=', $tag]];
+    private function getLabel(?string $status)
+    {
+        switch ($status) {
+            case 'novos' :
+                return 'Orçamentos Novos';
+            case 'assinados' :
+                return 'Orçamentos Assinados';
+            case 'aprovados' :
+                return 'Orçamentos Aprovados';
+            case 'instalandos' :
+                return 'Sistemas Instalados';
+            case 'finalizados' :
+                return 'Sistemas Finalizados';
+            default :
+                return 'Todos Orçamentos Gerados';
+        }
     }
 
     public function show(int $id)
     {
-        $orcamentos = new Orcamentos;
-        $orcamento = $orcamentos->newQuery()
-            ->findOrFail($id);
-
-        $kits = new Kits();
-        $kit = $kits->newQuery()
-            ->find($orcamento->kits_id);
-
-        $meta = new ClientesMetas();
-        $dadosCliente = $meta->values($orcamento->clientes_id);
-
-        $produtos = new Produtos();
-        $imagens = $produtos->getImagensNome();
-
-        $userMeta = new UserMeta();
-        $dadosVendedor = $userMeta->metas($orcamento->users_id);
-
+        $orcamento = (new Orcamentos)->newQuery()->findOrFail($id);
+        $dadosCliente = (new ClientesMetas())->values($orcamento->clientes_id);
+        $imagens = (new Produtos())->getImagensNome();
+        $dadosVendedor = (new UserMeta())->metas($orcamento->users_id);
         $metas = (new OrcamentosMetas())->getMetas($orcamento->id);
+        $orcamentoKit = (new OrcamentoKits())->newQuery()
+            ->where('orcamentos_id', $orcamento->id)->first();
+        $kit = (new Kits())->newQuery()->find($orcamentoKit->kits_id);
 
         return view('pages.admin.orcamentos.show',
             compact('orcamento', 'kit', 'imagens', 'dadosCliente', 'dadosVendedor', 'metas'));
@@ -110,8 +126,7 @@ class OrcamentosController extends Controller
         $orcamento = $orcamentos->newQuery()
             ->findOrFail($id);
 
-        $statusOrcamentos = new StatusOrcamentos();
-        $todosStatus = $statusOrcamentos->todosStatus();
+        $todosStatus = (new StatusOrcamentos())->todosStatus();
 
         return view('pages.admin.orcamentos.edit', compact('orcamento', 'todosStatus'));
     }
