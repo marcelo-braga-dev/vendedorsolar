@@ -52,7 +52,7 @@
             <h5>Endereço</h5>
             <div class="form-row">
                 <div class="col-6 col-md-3">
-                    <x-inputs.input label="CEP" onblur="pesquisacep(this.value);" name="cep" id="cep" type="text"
+                    <x-inputs.input label="CEP" name="cep" id="cep" type="text"
                                     class="mask-cep"/>
                 </div>
                 <div class="col-md-6">
@@ -90,7 +90,6 @@
         </form>
     </x-body>
     @push('js')
-        <script>const urlBd = "{{route('cidades-estados')}}";</script>
         <script src="{{ asset('assets') }}/js/select-cidades-estados.js"></script>
         <script src="{{ asset('assets') }}/js/pesquisa-cep.js"></script>
         <script src="{{ asset('assets') }}/js/pesquisa-cnpj.js"></script>

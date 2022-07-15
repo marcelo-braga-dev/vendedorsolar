@@ -50,7 +50,7 @@
             <h5>Endereço</h5>
             <div class="form-row">
                 <div class="col-6 col-md-2">
-                    <x-inputs.input label="CEP" onblur="pesquisacep(this.value);" name="cep" id="cep" type="text"
+                    <x-inputs.input label="Cep" name="cep" id="cep" type="text"
                                     class="mask-cep" value="{{ $dados['cep'] ?? '' }}"/>
                 </div>
                 <div class="col-12 col-md-10">

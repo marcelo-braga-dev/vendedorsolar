@@ -9,8 +9,7 @@ class Trafos extends Model
 {
     use HasFactory;
 
-    protected $fillable =
-    [
+    protected $fillable = [
         'sku',
         'modelo',
         'produtos_id',
@@ -23,4 +22,22 @@ class Trafos extends Model
         'status_fornecedor',
         'observacoes'
     ];
+
+    public function atualizarPrecoPeloSKU($sku, $precoFornecedor)
+    {
+        $trafo = $this->newQuery()->where('sku', $sku);
+
+        if ($trafo->exists()) {
+            $margem = $trafo->first('margem')->margem;
+            $precoCliente = $precoFornecedor * (1 + $margem / 100);
+            return $this->newQuery()
+                ->where('sku', $sku)
+                ->update([
+                        'preco_fornecedor' => $precoFornecedor,
+                        'preco_cliente' => $precoCliente,
+                        'status_fornecedor' => 1
+                    ]
+                );
+        }
+    }
 }

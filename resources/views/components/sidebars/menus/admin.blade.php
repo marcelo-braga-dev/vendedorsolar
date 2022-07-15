@@ -324,6 +324,12 @@
                         Concessionarias
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU === 'sistema') active @endif"
+                       href="{{ route('admin.configs.sistema.index') }}">
+                        Sistema
+                    </a>
+                </li>
 {{--                <li class="nav-item">--}}
 {{--                    <a class="nav-link @if(SUBMENU === 'backup') active @endif"--}}
 {{--                       href="{{ route('admin.configs.backup.index') }}">--}}

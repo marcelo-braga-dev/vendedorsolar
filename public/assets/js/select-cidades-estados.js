@@ -1,14 +1,6 @@
-$(function () {
-    $("#estado").change(function () {
-        let sigla = $(this).val();
-
-        preencheCidade(sigla);
-    });
-})
-
 function preencheCidade(sigla, cidade) {
     $.ajax({
-        url: urlBd,
+        url: '/cidades-estados',
         method: "GET",
         dataType: "HTML",
         data: {"estado": sigla, "cidade": cidade}
@@ -17,3 +9,19 @@ function preencheCidade(sigla, cidade) {
     });
 }
 
+function preencheEstado(sigla) {
+    $.ajax({
+        url: '/select-estados',
+        method: "GET",
+        dataType: "HTML",
+        data: {"estado": sigla}
+    }).done(function (estados) {
+        $("#estado").html(estados);
+    });
+}
+
+$(function () {
+    $("#estado").change(function () {
+        preencheCidade($(this).val());
+    });
+})

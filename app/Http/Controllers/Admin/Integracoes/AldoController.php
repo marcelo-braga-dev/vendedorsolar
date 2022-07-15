@@ -20,7 +20,7 @@ class AldoController extends Controller
         return view('pages.admin.integracoes.aldo.index', compact('chaves'));
     }
 
-    public function pesquisar()
+    public function pesquisar(Request $request)
     {
         try {
             $dados = (new IntegrarAldo())->pesquisar();
@@ -41,8 +41,7 @@ class AldoController extends Controller
 
     public function store(Request $request)
     {
-        $referencias = new ReferenciasAldo();
-        $referencias->update($request);
+        (new ReferenciasAldo())->update($request);
 
         return redirect()->route('admin.integracoes.aldo.index');
     }

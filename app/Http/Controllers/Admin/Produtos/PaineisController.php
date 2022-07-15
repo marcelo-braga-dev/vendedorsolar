@@ -43,9 +43,7 @@ class PaineisController extends Controller
 
     public function edit($id)
     {
-        $paineis = new Produtos();
-        $produto = $paineis->newQuery()
-            ->findOrFail($id);
+        $produto = (new Produtos())->newQuery()->findOrFail($id);
 
         return view('pages.admin.produtos.paineis.edit', compact('produto'));
     }
@@ -54,27 +52,24 @@ class PaineisController extends Controller
     {
         $paineis = new Produtos();
         $painel = $paineis->newQuery()->findOrFail($id);
-
         $painel->nome = $request->nome;
         $painel->garantia = $request->garantia;
         $this->uploadImagem($request, $painel);
-
         $painel->push();
 
         modalSucesso('Informações atualizadas com sucesso!');
 
-        return redirect()->back();
+        return redirect()->route('admin.produtos.paineis.index');
     }
 
     public function destroy($id)
     {
-        $kits = new Kits();
-        $kit = $kits->newQuery()
+        $kit = (new Kits())->newQuery()
             ->where('marca_painel', '=', $id)
             ->exists();
 
         if ($kit) {
-            modalErro('Não é possível excuir pois existe kits cadastrado com essa marca.');
+            modalErro('Não é possível excluir pois existe kits cadastrado com essa marca.');
             return redirect()->back();
         }
 

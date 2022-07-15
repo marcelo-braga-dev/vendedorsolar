@@ -19,14 +19,12 @@ class Produto implements Acoes
 
     private function getSkus()
     {
-        $skus = [];
-
-        $kits = new Kits();
-        $skus_ = $kits->newQuery()
+        $items = (new Kits())->newQuery()
             ->where('fornecedor', '=', 1)
             ->get(['sku', 'preco_fornecedor']);
 
-        foreach ($skus_ as $item) {
+        $skus = [];
+        foreach ($items as $item) {
             $skus[$item->sku] = $item->preco_fornecedor;
         }
         return $skus;
@@ -34,30 +32,16 @@ class Produto implements Acoes
 
     public function executar($dados, $indices)
     {
-        $verificar = new VerificaCategoriaProduto();
-        $categoria = $verificar->categoria($dados, $indices);
+        $categoria = (new VerificaCategoriaProduto())
+            ->categoria($dados, $indices);
 
         if ($categoria !== null) {
             if (!empty($this->skus[strip_tags($dados->codigo)])) {
-                $this->atualizarKit($dados);
+                $categoria->atualizar($dados, $this->skus);
+                unset($this->skus[strip_tags($dados->codigo)]);
                 return;
             }
-            $categoria->cadastrarKit();
+            $categoria->cadastrar($dados);
         }
-    }
-
-    private function atualizarKit($dados): void
-    {
-        $precoAtual = number_format($this->skus[strip_tags($dados->codigo)], 2, '.', '');;
-        $precoFornecedor = convert_money_float(strip_tags($dados->preco));
-
-        if ($precoAtual != $precoFornecedor) {
-            $calcular = new CalcularPrecoVenda();
-            $preco = $calcular->calcular(new MargensPadrao($precoFornecedor, strip_tags($dados->atributos->POTENCIA_W)));
-
-            $kits = new Kits();
-            $kits->atualizarPrecosPeloSKU(strip_tags($dados->codigo), $preco['preco'], $precoFornecedor);
-        }
-        unset($this->skus[strip_tags($dados->codigo)]);
     }
 }

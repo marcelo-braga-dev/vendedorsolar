@@ -3,6 +3,8 @@
 namespace App\src\Produtos;
 
 use App\Models\Kits;
+use App\src\Produtos\CalculoPrecos\CalcularPrecoVenda;
+use App\src\Produtos\CalculoPrecos\MargensPadrao;
 
 abstract class Kit extends InfoKit
 {
@@ -22,10 +24,22 @@ abstract class Kit extends InfoKit
     private $tensao;
     private $margem;
 
-    public function cadastrarKit()
+    public function cadastrar()
     {
-        $kits = new Kits();
-        $kits->cadastrarKit($this);
+        (new Kits())->cadastrarKit($this);
+    }
+
+    public function atualizar($dados, $skus): void
+    {
+        $precoAtual = number_format($skus[strip_tags($dados->codigo)], 2, '.', '');;
+        $precoFornecedor = convert_money_float(strip_tags($dados->preco));
+
+        if ($precoAtual != $precoFornecedor) {
+            $preco = (new CalcularPrecoVenda())
+                ->calcular(new MargensPadrao($precoFornecedor, strip_tags($dados->atributos->POTENCIA_W)));
+
+            (new Kits())->atualizarPrecosPeloSKU(strip_tags($dados->codigo), $preco['preco'], $precoFornecedor);
+        }
     }
 
     public function getModelo()

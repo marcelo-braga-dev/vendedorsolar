@@ -1,15 +1,20 @@
 <x-layout menu="integracoes" submenu="aldo">
     <x-body title="Integracão Aldo">
-        <div class="row">
-            <div class="col-6">
-                <x-inputs.input label="Chave de Integração" name="chave_integracao" type="text"
-                                value="{{ $chaves['chave']}}"></x-inputs.input>
+        <form method="POST" action="{{ route('admin.integracoes.chaves.update', 1) }}"> @csrf @method('PUT')
+            <div class="row">
+                <div class="col-md-4">
+                    <x-inputs.input label="Chave de Integração" name="chave_integracao" type="text"
+                                    value="{{ $chaves['chave']}}"></x-inputs.input>
+                </div>
+                <div class="col-md-4">
+                    <x-inputs.input label="Código de Integração" name="codigo_integracao" type="text"
+                                    value="{{ $chaves['codigo'] }}"></x-inputs.input>
+                </div>
+                <div class="col-md-4 align-self-center">
+                    <button type="submit" class="btn btn-success">Atualizar Chaves</button>
+                </div>
             </div>
-            <div class="col-6">
-                <x-inputs.input label="Código de Integração" name="chave_integracao" type="text"
-                                value="{{ $chaves['codigo'] }}"></x-inputs.input>
-            </div>
-        </div>
+        </form>
         <div class="row justify-content-center">
             <div class="col-auto">
                 <a class="btn btn-primary" href="{{ route('admin.integracoes.aldo.pesquisar') }}">

@@ -2,8 +2,6 @@
 
 namespace App\src\Integracoes\Aldo\AcoesAoLerArquivo;
 
-use App\src\Integracoes\Aldo\TagsProdutos\TagsProdutos;
-
 class PesquisaTags implements Acoes
 {
     private $indices;
@@ -23,6 +21,12 @@ class PesquisaTags implements Acoes
         ) {
             $this->indices = $tags;
             $this->getIndices($dados);
+        }
+        if (
+            $dados->atributos->TIPO_PRODUTO == 'TRANSFORMADOR' &&
+            $dados->segmento_site == 'ENERGIA SOLAR'
+        ) {
+            $this->getIndicesTrafos($dados, $tags);
         }
     }
 
@@ -80,5 +84,14 @@ class PesquisaTags implements Acoes
     public function getInfos()
     {
         return $this->infos;
+    }
+
+    private function getIndicesTrafos($dados, $tags): void
+    {
+        $marca = strip_tags($dados->marca);
+        if (!empty($tags['trafo'][$marca])) {
+            $this->infos['trafos'][$marca] =
+                $tags['trafo'][$marca]['id_referencia'];
+        }
     }
 }

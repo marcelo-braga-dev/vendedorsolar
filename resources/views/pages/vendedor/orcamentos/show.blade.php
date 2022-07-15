@@ -94,7 +94,8 @@
                                         <small class="d-block">ID do Orçamento: #{{ $orcamento->id }}</small>
                                     </div>
                                     <div class="col-12 col-md-auto">
-                                        <small class="d-block">Status: {{ $orcamento->status }}</small>
+                                        <small
+                                            class="d-block">Status: {{ getStatusOrcamentos($orcamento->status) }}</small>
                                     </div>
                                     <div class="col-12 col-md-auto">
                                         <small class="d-block">
@@ -151,11 +152,15 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <span
-                            class="d-block">Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}</span>
-                        <span class="d-block">Sua margem de comissão: {{ $orcamento->taxa_comissao }}%</span>
-                        <span class="d-block">Comissão:
-                            R$ {{ convert_float_money(($orcamento->preco_cliente - $kit->preco_fornecedor) * $orcamento->taxa_comissao /100) }}
+                        <span class="d-block">
+                            Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}
+                        </span>
+                        <span class="d-block">
+                            Sua margem de comissão: {{ $orcamentoKit->taxa_comissao }}%
+                        </span>
+                        <span class="d-block">
+                            Comissão:
+                            R$ {{ convert_float_money($comissao) }}
                         </span>
                     </div>
                 </div>
@@ -187,6 +192,10 @@
                                         <td>Média Consumo <br>na Ponta</td>
                                         <td>{{ $metas['consumo_ponta'] }} kWh/mês</td>
                                     </tr>
+                                        <tr>
+                                            <td>Demanda Contratada</td>
+                                            <td>{{ $metas['demanda'] }} kWh/mês</td>
+                                        </tr>
                                 @endif
                                 <tr>
                                     <td>Localidade</td>
@@ -194,15 +203,15 @@
                                 </tr>
                                 <tr>
                                     <td>Tensão</td>
-                                    <td>{{ $orcamento->tensao }} V</td>
+                                    <td>{{ $metas['tensao'] }} V</td>
                                 </tr>
                                 <tr>
                                     <td>Estrutura</td>
-                                    <td style="white-space: normal">{{ get_estrutura($orcamento->estrutura) }}</td>
+                                    <td style="white-space: normal">{{ get_estrutura($metas['estrutura']) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Direção da Instalação</td>
-                                    <td>{{ ucfirst($orcamento->orientacao) }}</td>
+                                    <td>{{ ucfirst($metas['orientacao']) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Irradiação Solar</td>
@@ -218,7 +227,7 @@
                 <div class="card shadow">
                     <div class="card-body pb-0">
                         <small class="d-block">Modelo do Kit</small>
-                        <p><b>{{ $orcamento->qtd_kits }}x {{ $kit->modelo }}</b></p>
+                        <p><b>{{ $orcamentoKit->qtd_kits }}x {{ $kit->modelo }}</b></p>
                         <x-tables.table-default>
                             <x-slot name="head"></x-slot>
                             <x-slot name="body">
@@ -228,7 +237,7 @@
                                 </tr>
                                 <tr>
                                     <td>Potência total</td>
-                                    <td>{{ convert_float_money($kit->potencia_kit * $orcamento->qtd_kits) }} kWp</td>
+                                    <td>{{ convert_float_money($kit->potencia_kit * $orcamentoKit->qtd_kits) }} kWp</td>
                                 </tr>
                                 <tr>
                                     <td>Potência dos Painéis</td>
@@ -270,7 +279,7 @@
             <div class="col-12">
                 <div class="card shadow">
                     <div class="card-body">
-                        <h4>Quantidade de Kits: {{ $orcamento->qtd_kits }} kits</h4>
+                        <h4>Quantidade de Kits: {{ $orcamentoKit->qtd_kits }} kits</h4>
                         <small>Produtos de cada Kit</small>
                         @php($linhas = explode('<br />', nl2br($kit->produtos)))
                         <ul>

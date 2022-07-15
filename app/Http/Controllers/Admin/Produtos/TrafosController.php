@@ -11,12 +11,12 @@ class TrafosController extends Controller
 {
     public function index()
     {
-        $produtos = new Trafos();
-        $trafos = $produtos->newQuery()
+        $trafos = (new Trafos())->newQuery()
             ->orderBy('potencia')
             ->get();
+        $img = (new Produtos())->trafos();
 
-        return view('pages.admin.produtos.trafos.index', compact('trafos'));
+        return view('pages.admin.produtos.trafos.index', compact('trafos', 'img'));
     }
 
     public function create()
@@ -69,7 +69,8 @@ class TrafosController extends Controller
             ->update([
                 'preco_fornecedor' => $precoFornecedor,
                 'margem' => $request->margem,
-                'preco_cliente' => $precoCliente
+                'preco_cliente' => $precoCliente,
+                'potencia' => $request->potencia
             ]);
 
         modalSucesso('Atualização realizada com sucesso!');

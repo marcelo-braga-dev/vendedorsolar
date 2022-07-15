@@ -9,4 +9,5 @@ Route::name('admin.configs.')
         Route::resource('bancos', 'BancosController');
         Route::resource('backup', 'BackupController');
         Route::resource('concessionarias', 'ConcessionariasController');
+        Route::resource('sistema', 'SistemaController');
     });

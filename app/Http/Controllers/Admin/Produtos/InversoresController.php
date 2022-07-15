@@ -11,8 +11,7 @@ class InversoresController extends Controller
 {
     public function index()
     {
-        $produtos = new Produtos();
-        $inversores = $produtos->inversores();
+        $inversores = (new Produtos())->inversores();
 
         return view('pages.admin.produtos.inversores.index', compact('inversores'));
     }
@@ -39,12 +38,12 @@ class InversoresController extends Controller
 
     private function verificaNome($nome, $categoria)
     {
-        if (strpos($nome, '[Convencional]') === false && $categoria == 'convencional') {
-            return $nome . ' [Convencional]';
+        if (strpos($nome, '(Convencional)') === false && $categoria == 'convencional') {
+            return $nome . ' (Convencional)';
         }
 
-        if (strpos($nome, '[Microinvesor]') === false && $categoria == 'microinversor') {
-            return $nome . ' [Microinvesor]';
+        if (strpos($nome, '(Microinvesor)') === false && $categoria == 'microinversor') {
+            return $nome . ' (Microinvesor)';
         }
 
         return $nome;
@@ -79,7 +78,7 @@ class InversoresController extends Controller
 
         modalSucesso('Informações atualizadas com sucesso!');
 
-        return redirect()->back();
+        return redirect()->route('admin.produtos.inversores.index');
     }
 
     public function destroy($id)

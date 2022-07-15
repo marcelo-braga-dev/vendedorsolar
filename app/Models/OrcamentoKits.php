@@ -19,4 +19,11 @@ class OrcamentoKits extends Model
         'preco_fornecedor',
         'taxa_comissao'
     ];
+
+    public function getIdKit($id)
+    {
+        return $this->newQuery()
+            ->where('orcamentos_id', $id)
+            ->first()->kits_id;
+    }
 }

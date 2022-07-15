@@ -6,6 +6,7 @@
                 <tr>
                     <th>Marcas</th>
                     <th>Logo</th>
+                    <th>Produto</th>
                     <th>Garantia</th>
                     <th></th>
                 </tr>
@@ -15,6 +16,7 @@
                     <tr>
                         <th>{{ $item->nome }}</th>
                         <td><img src="{{ asset('storage') . '/' . $item->img_logo }}" width="120" alt="logo"></td>
+                        <td><img src="{{ asset('storage') . '/' . $item->img_produto }}" width="120" alt="logo"></td>
                         <td style="white-space: normal">{{ $item->garantia }}</td>
                         <td>
                             <a class="btn btn-sm btn-success"

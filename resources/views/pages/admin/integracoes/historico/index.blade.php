@@ -1,6 +1,6 @@
 <x-layout menu="integracoes" submenu="historico-integracoes">
     <x-body title="Histórico de Integracões" class="p-0">
-        <x-tables.table-clickable>
+        <x-tables.table-default>
             <x-slot name="head">
                 <tr class="text-center">
                     <th>Início</th>
@@ -22,6 +22,6 @@
             <x-slot name="paginate">
                 {{ $historicos }}
             </x-slot>
-        </x-tables.table-clickable>
+        </x-tables.table-default>
     </x-body>
 </x-layout>

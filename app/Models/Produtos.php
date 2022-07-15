@@ -29,11 +29,9 @@ class Produtos extends Model
             ->get();
 
         $items = [];
-
         foreach ($marcas as $item) {
             $items[$item->id] = $item;
         }
-
         return $items;
     }
 
@@ -55,10 +53,15 @@ class Produtos extends Model
 
     public function trafos()
     {
-        return $this->newQuery()
+        $marcas = $this->newQuery()
             ->where('tipo', '=', 'trafo')
             ->orderBy('nome')
             ->get();
+        $items = [];
+        foreach ($marcas as $item) {
+            $items[$item->id] = $item;
+        }
+        return $items;
     }
 
     public function getImagensNome()

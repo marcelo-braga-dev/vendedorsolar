@@ -23,7 +23,7 @@
                         <td><b>{{ $vendedor[$item->users_id] }}</b></td>
                         <td>{{ $cliente[$item->clientes_id] }}</td>
                         <td>R$ {{ convert_float_money($item->preco_cliente) }}</td>
-                        <td>{{ getNomeStatus($item->status) }}</td>
+                        <td>{{ getStatusOrcamentos($item->status) }}</td>
                         <td><a href="{{route('admin.orcamentos.show', $item->id)}}">Ver</a></td>
                     </tr>
                 @endforeach

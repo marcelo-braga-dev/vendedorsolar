@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col-12 col-md-auto">
                                         <small class="d-block">
-                                            <b>Status:</b> {{ getNomeStatus($orcamento->status) }}
+                                            <b>Status:</b> {{ getStatusOrcamentos($orcamento->status) }}
                                         </small>
                                     </div>
                                     <div class="col-12 col-md-auto">
@@ -343,7 +343,7 @@
                 <div class="card shadow">
                     <div class="card-body pb-0">
                         <x-graficos.payback-fotovoltaico
-                            preco-cliente="{{ $orcamento->preco_cliente }}"></x-graficos.payback-fotovoltaico>
+                                preco-cliente="{{ $orcamento->preco_cliente }}"></x-graficos.payback-fotovoltaico>
                     </div>
                 </div>
             </div>

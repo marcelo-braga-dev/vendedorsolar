@@ -30,7 +30,7 @@
                             @endif
                             Geração: {{ $orcamento->geracao }} kWh/mês
                         </td>
-                        <td>{{ getNomeStatus($orcamento->status)  }}</td>
+                        <td>{{ getStatusOrcamentos($orcamento->status)  }}</td>
                         <td>
                             <a href="{{ route('vendedor.orcamento.show', $orcamento->id) }}">
                                 Ver

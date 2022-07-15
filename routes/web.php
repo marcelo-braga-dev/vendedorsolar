@@ -49,3 +49,20 @@ Route::get('cidades-estados', function (\Illuminate\Http\Request $request) {
 
     return $html;
 })->name('cidades-estados');
+
+Route::get('select-estados', function (\Illuminate\Http\Request $request) {
+
+    $cidadesEstados = new \App\Models\CidadesEstados();
+    $dados = $cidadesEstados->newQuery()
+        ->orderBy('sigla', 'ASC')
+        ->distinct()
+        ->get(['estado', 'sigla']);
+
+    $html = '<option value=""></option>';
+
+    foreach ($dados as $dado) {
+        $selected = $dado->sigla == $request->estado ? 'selected' : '';
+        $html .= "<option value='$dado->sigla' $selected>$dado->estado</option>";
+    }
+    return $html;
+})->name('estados');

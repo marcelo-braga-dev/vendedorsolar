@@ -9,6 +9,7 @@ Route::prefix('produtos')
         Route::resource('kits', 'KitsController');
         Route::resource('inversores', 'InversoresController');
         Route::resource('paineis', 'PaineisController');
-        Route::resource('trafos', 'TrafosController');
         Route::resource('status-kits', 'StatusKitsController');
+        Route::resource('trafos', 'TrafosController');
+        Route::resource('trafos-marcas', 'MarcasTrafosController');
     });

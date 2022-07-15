@@ -144,7 +144,7 @@
                         "{{ route('api.endereco.id.cidade.estado' ) }}", {
                             'id': estadoCliente
                         }, function (result) {
-                            $('#estado').val(result.sigla).select2();
+                            preencheEstado(result.sigla);
                             preencheCidade(result.sigla, result.cidade);
                         });
                 });
@@ -192,8 +192,6 @@
                 });
             })
         </script>
-
-        <script> const urlBd = "{{route('cidades-estados')}}"; </script>
         <script src="{{ asset('assets') }}/js/select-cidades-estados.js"></script>
     @endpush
 </x-layout>

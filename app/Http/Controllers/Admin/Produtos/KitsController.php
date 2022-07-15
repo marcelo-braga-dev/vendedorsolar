@@ -61,7 +61,7 @@ class KitsController extends Controller
     public function store(FormCadastroKitRequest $request)
     {
         $cadastrar = new CadastrarKit($request);
-        $cadastrar->cadastrarKit();
+        $cadastrar->cadastrar();
 
         return redirect()->back();
     }

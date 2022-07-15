@@ -85,7 +85,7 @@
                 <li class="nav-item">
                     <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'assinados') active @endif"
                        href="{{ route('vendedor.orcamento.index', ['status' => 'assinados']) }}">
-                        Para Aprovação
+                        Em Aprovação
                     </a>
                 </li>
                 <li class="nav-item">

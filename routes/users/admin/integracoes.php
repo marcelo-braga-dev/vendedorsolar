@@ -7,6 +7,7 @@ Route::name('admin.integracoes.')
     ->prefix('integracoes')
     ->group(function () {
         Route::resource('historico', 'HistoricoController');
+        Route::resource('chaves', 'ChavesController');
 
         Route::get('aldo', 'AldoController@index')
             ->name('aldo.index');

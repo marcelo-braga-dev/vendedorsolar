@@ -1,6 +1,11 @@
-<x-layout menu="produtos" submenu="paineis">
-    <x-body title="Paineis" class="p-0" text-button="Cadastrar Marca de Painel"
-            url-button="{{ route('admin.produtos.paineis.create') }}">
+<x-layout menu="produtos" submenu="trafos">
+    <x-body title="Transformadores" class="p-0" text-button="Voltar"
+            url-button="{{ route('admin.produtos.trafos.index') }}">
+        <div class="row justify-content-end">
+            <div class="col-auto mb-3">
+                <a class="btn btn-primary btn-sm" href="{{ route('admin.produtos.trafos-marcas.create') }}">Cadastras Nova Marca</a>
+            </div>
+        </div>
         <x-tables.table-default>
             <x-slot name="head">
                 <tr>
@@ -12,7 +17,7 @@
                 </tr>
             </x-slot>
             <x-slot name="body">
-                @foreach($paineis as $item)
+                @foreach($trafos as $item)
                     <tr>
                         <td>{{ $item->nome }}</td>
                         <td><img src="{{ asset('storage') . '/' . $item->img_logo }}" width="120" alt="logo"></td>
@@ -20,7 +25,7 @@
                         <td style="white-space: normal">{{ $item->garantia }}</td>
                         <td>
                             <a class="btn btn-sm btn-success"
-                               href="{{ route('admin.produtos.paineis.edit', $item->id) }}">
+                               href="{{ route('admin.produtos.trafos-marcas.edit', $item->id) }}">
                                 <i class="fas fa-edit"></i>
                             </a>
                         </td>

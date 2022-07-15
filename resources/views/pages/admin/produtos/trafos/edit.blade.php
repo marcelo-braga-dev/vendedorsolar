@@ -1,18 +1,24 @@
-<x-layout menu="produtos" submenu="trafo">
+<x-layout menu="produtos" submenu="trafos">
     <x-body title="Editar Informações do Transformador" url-button="{{ route('admin.produtos.trafos.index') }}">
         <div class="row">
             <div class="col">
                 <small class="d-block">Modelo:</small>
                 <h3>{{ $trafo->modelo }}</h3>
-                <span>Potência: {{ $trafo->potencia }} kW</span>
             </div>
         </div>
         <hr>
         <form method="POST" action="{{ route('admin.produtos.trafos.update', $trafo->id) }}"> @csrf @method('PUT')
             <div class="row">
                 <div class="col-md-3">
+                    <x-inputs.input-box-right box="kW" label="Potência do Trafo" value="{{ $trafo->potencia }}"
+                                              type="number" name="potencia" id="potencia"
+                                              required></x-inputs.input-box-right>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
                     <x-inputs.input-box-left box="R$" class="mask-money" label="Preço do Fornecedor"
-                                             value="{{ $trafo->preco_fornecedor }}"
+                                             value="{{ convert_float_money($trafo->preco_fornecedor)  }}"
                                              type="text" name="preco_fornecedor" id="preco_fornecedor" required></x-inputs.input-box-left>
                 </div>
                 <div class="col-md-3">
@@ -27,7 +33,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-auto mx-auto">
+                <div class="col-auto mx-auto p-3">
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
             </div>

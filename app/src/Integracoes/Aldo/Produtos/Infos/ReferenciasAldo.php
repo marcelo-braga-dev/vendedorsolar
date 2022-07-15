@@ -8,20 +8,18 @@ class ReferenciasAldo
 {
     public function get(): array
     {
+        $indices = (new IntegracaoAldo())->newQuery()->get();
+
         $dados = [];
-
-        $indices = IntegracaoAldo::get();
-
         foreach ($indices as $item) {
             $dados[$item->categoria][$item->aldo] = $item->toArray();
         }
-
         return $dados;
     }
 
     public function update($dados)
     {
-        $integracao = new IntegracaoAldo();
+        $integracao = (new IntegracaoAldo());
 
         foreach ($dados->paineis as $index => $painel) {
             $integracao->updateOrInsert(
@@ -34,6 +32,13 @@ class ReferenciasAldo
             $integracao->updateOrInsert(
                 ['categoria' => 'inversor', 'aldo' => $index],
                 ['id_referencia' => $inversor]
+            );
+        }
+
+        foreach ($dados->trafos as $index => $trafo) {
+            $integracao->updateOrInsert(
+                ['categoria' => 'trafo', 'aldo' => $index],
+                ['id_referencia' => $trafo]
             );
         }
 

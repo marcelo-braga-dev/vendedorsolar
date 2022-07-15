@@ -188,20 +188,21 @@ if (!function_exists('getIrradiacao')) {
 }
 
 if (!function_exists('getLogoPrincipal')) {
-    function getLogoPrincipal()
+    function getLogoPrincipal($query = false)
     {
+        $chave = (new \App\Services\Sistema\LogoService())->getChave();
         $configs = new \App\Models\Configs();
         $logo = $configs->newQuery()
-            ->where('meta', '=', 'logo_principal')
+            ->where('meta_key',  $chave)
             ->first();
 
         if (empty($logo->value)) return '';
-        return asset($logo->value);
+        return $query ? $logo->value : asset('storage/' .$logo->value);
     }
 }
 
-if (!function_exists('getNomeStatus')) {
-    function getNomeStatus($status)
+if (!function_exists('getStatusOrcamentos')) {
+    function getStatusOrcamentos($status)
     {
         $todosStatus = (new \App\src\Orcamentos\Status\StatusOrcamentos())->todosStatus();
         return $todosStatus[$status];

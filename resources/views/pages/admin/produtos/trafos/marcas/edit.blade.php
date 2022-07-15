@@ -1,37 +1,24 @@
-<x-layout menu="produtos" submenu="inversores">
-    <x-body title="Editar Informações do Inversor" url-button="{{ route('admin.produtos.inversores.index') }}">
+<x-layout menu="produtos" submenu="paineis">
+    <x-body title="Editar Informações do Transformador" url-button="{{ route('admin.produtos.trafos-marcas.index') }}">
         <form method="POST" enctype="multipart/form-data"
-              action="{{ route('admin.produtos.inversores.update', $inversor->id) }}"> @csrf @method('PUT')
+              action="{{ route('admin.produtos.trafos-marcas.update', $produto->id) }}"> @csrf @method('PUT')
             <div class="row mb-3">
-                <div class="col-8">
+                <div class="col-12">
                     <x-inputs.input label="Marca"
-                                    value="{{ str_replace(['(Convencional)', '(Microinvesor)'], '', $inversor->nome) }}" type="text" name="nome" required></x-inputs.input>
-                </div>
-                <div class="col-md-4">
-                    <x-inputs.select label="Categoria do Inversor" name="categoria" required>
-                        <option value="convencional">Convencional</option>
-                        <option value="microinversor"
-                        @if ($inversor->categoria == 'microinversor') selected @endif>Micro Inversor</option>
-                    </x-inputs.select>
+                                    value="{{ $produto->nome }}" type="text" name="nome" required></x-inputs.input>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-12">
-                    <x-inputs.textarea label="Garantia" name="garantia">{{ $inversor->garantia }}</x-inputs.textarea>
+                    <x-inputs.textarea label="Garantia" name="garantia">{{ $produto->garantia }}</x-inputs.textarea>
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row mb-3">
                 <div class="col-md-6">
-                    <span class="d-block">Logo</span>
-                    <img class="img-fluid mb-3" src="{{ asset('storage') . '/' .$inversor->img_logo }}" alt="logo">
-                    <small class="d-block">atualizar:</small>
-                    <input type="file" name="img_logo" class="form-control m-2">
+                    <x-inputs.file name="img_logo" label="Logo" url="{{ $produto->img_logo }}"></x-inputs.file>
                 </div>
                 <div class="col-md-6">
-                    <span class="d-block">Produto</span>
-                    <img class="img-fluid mb-3" src="{{ asset('storage') . '/' .$inversor->img_produto }}" alt="logo">
-                    <small class="d-block">atualizar:</small>
-                    <input type="file" name="img_produto" class="form-control m-2">
+                    <x-inputs.file name="img_produto" label="Produto" url="{{ $produto->img_produto }}"></x-inputs.file>
                 </div>
             </div>
             <div class="row my-2">
@@ -61,7 +48,7 @@
                         </button>
                     </div>
                     <form method="POST"
-                          action="{{ route('admin.produtos.inversores.destroy', $inversor->id) }}"> @csrf @method('DELETE')
+                          action="{{ route('admin.produtos.trafos-marcas.destroy', $produto->id) }}"> @csrf @method('DELETE')
                         <div class="modal-body">
                             Tem certeza que deseja excluir essa marca de produtos?
                         </div>
