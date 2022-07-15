@@ -19,6 +19,9 @@ class VistoriaOrcamentos extends Model
         'slug_fiacao',
         'slug_medidor',
         'slug_outros',
+        'slug_arquivo_1',
+        'slug_arquivo_2',
+        'slug_arquivo_2',
         'observacoes'
     ];
 }

@@ -4,66 +4,42 @@
               action="{{ route('vendedor.orcamento.vistoria.store', $id) }}"> @csrf
             <div class="row justify-content-around">
                 <div class="col-md-4 mb-6 text-center">
-                    <div class="border rounded p-2">
-                        <label class="form-control-label d-block">Disjuntor</label>
-                        @if ($vistoria->slug_disjuntor ?? '')
-                            <img class="mb-3" src="{{ asset('storage')}}/{{ $vistoria->slug_disjuntor }}"
-                                 width="100" alt="">
-                        @endif
-                        <input type="file" name="disjuntor" class="form-control">
-                    </div>
+                    <x-inputs.file name="disjuntor" label="Disjuntor"
+                                   url="{{ $vistoria->slug_disjuntor ?? '' }}"></x-inputs.file>
                 </div>
                 <div class="col-md-4 mb-6 text-center">
-                    <div class="border rounded p-2">
-                        <label class="form-control-label d-block">Padrão de Energia</label>
-                        @if ($vistoria->slug_padrao_energia ?? '')
-                            <img class="mb-3" src="{{ asset('storage/')}}/{{ $vistoria->slug_padrao_energia ?? '' }}"
-                                 width="100" alt="">
-                        @endif
-                        <input type="file" name="padrao_energia" class="form-control">
-                    </div>
+                    <x-inputs.file name="padrao_energia" label="Padrão de Energia"
+                                   url="{{ $vistoria->slug_padrao_energia ?? '' }}"></x-inputs.file>
                 </div>
                 <div class="col-md-4 mb-6 text-center">
-                    <div class="border rounded p-2">
-                        <label class="form-control-label d-block">Telhado</label>
-                        @if ($vistoria->slug_telhado ?? '')
-                            <img class="mb-3" src="{{ asset('storage/')}}/{{$vistoria->slug_telhado ?? '' }}"
-                                 width="100" alt="">
-                        @endif
-                        <input type="file" name="telhado" class="form-control">
-                    </div>
+                    <x-inputs.file name="telhado" label="Telhado"
+                                   url="{{$vistoria->slug_telhado ?? '' }}"></x-inputs.file>
                 </div>
             </div>
             <div class="row justify-content-around">
                 <div class="col-md-4 mb-6 text-center">
-                    <div class="border rounded p-2">
-                        <label class="form-control-label d-block">Fiação</label>
-                        @if ($vistoria->slug_fiacao ?? '')
-                            <img class="mb-3" src="{{ asset('storage/')}}/{{$vistoria->slug_fiacao ?? '' }}"
-                                 width="100" alt="">
-                        @endif
-                        <input type="file" name="fiacao" class="form-control">
-                    </div>
+                    <x-inputs.file name="fiacao" label="Fiação" url="{{$vistoria->slug_fiacao ?? '' }}"></x-inputs.file>
                 </div>
                 <div class="col-md-4 mb-6 text-center">
-                    <div class="border rounded p-2">
-                        <label class="form-control-label d-block">Medidor</label>
-                        @if ($vistoria->slug_medidor ?? '')
-                            <img class="mb-3" src="{{ asset('storage/')}}/{{ $vistoria->slug_medidor ?? '' }}"
-                                 width="100" alt="">
-                        @endif
-                        <input type="file" name="medidor" class="form-control">
-                    </div>
+                    <x-inputs.file name="medidor" label="Medidor"
+                                   url="{{ $vistoria->slug_medidor ?? '' }}"></x-inputs.file>
                 </div>
                 <div class="col-md-4 mb-6 text-center">
-                    <div class="border rounded p-2">
-                        <label class="form-control-label d-block">Outros</label>
-                        @if ($vistoria->slug_outros ?? '')
-                            <img class="mb-3" src="{{ asset('storage/')}}/{{$vistoria->slug_outros ?? '' }}"
-                                 width="100" alt="">
-                        @endif
-                        <input type="file" name="outros" class="form-control">
-                    </div>
+                    <x-inputs.file name="outros" label="Outros" url="{{$vistoria->slug_outros ?? '' }}"></x-inputs.file>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <x-inputs.file label="Vídeo 1" name="arquivo_1"
+                                   url="{{ $vistoria->slug_arquivo_1 ?? '' }}"></x-inputs.file>
+                </div>
+                <div class="col-md-4">
+                    <x-inputs.file label="Vídeo 2" name="arquivo_2"
+                                   url="{{ $vistoria->slug_arquivo_2 ?? '' }}"></x-inputs.file>
+                </div>
+                <div class="col-md-4">
+                    <x-inputs.file label="Vídeo 3" name="arquivo_3"
+                                   url="{{ $vistoria->slug_arquivo_3 ?? '' }}"></x-inputs.file>
                 </div>
             </div>
             <div class="row">

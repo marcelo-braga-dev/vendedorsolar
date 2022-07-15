@@ -24,6 +24,9 @@ class CreateVistoriaOrcamentosTable extends Migration
             $table->string('slug_fiacao')->nullable();
             $table->string('slug_medidor')->nullable();
             $table->string('slug_outros')->nullable();
+            $table->string('slug_arquivo_1')->nullable();
+            $table->string('slug_arquivo_2')->nullable();
+            $table->string('slug_arquivo_3')->nullable();
             $table->string('observacoes')->nullable();
             $table->timestamps();
         });

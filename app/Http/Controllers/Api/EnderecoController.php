@@ -9,7 +9,6 @@ class EnderecoController
 {
     public function getIdCidadeEstado(Request $request)
     {
-        $cidadesEstados = new CidadesEstados();
-        return $cidadesEstados->dados($request->id);
+        return (new CidadesEstados())->dados($request->id);
     }
 }

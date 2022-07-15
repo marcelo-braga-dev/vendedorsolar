@@ -11,5 +11,6 @@ Route::group([
     include_once 'perfil.php';
     include_once 'mensagens.php';
     include_once 'financeiro.php';
+    include_once 'visitas.php';
 }
 );

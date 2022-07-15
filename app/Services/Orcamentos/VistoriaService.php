@@ -11,87 +11,35 @@ class VistoriaService
         $vistoria = (new VistoriaOrcamentos())->newQuery();
         $url = $vistoria->where('orcamentos_id', $request->id)->first();
 
-        // Disjuntor
-        if ($request->hasFile('disjuntor')) {
-            if ($request->file('disjuntor')->isValid()) {
-                deleteFileStorage($url->slug_disjuntor ?? '');
-
-                $disjuntor = $request->disjuntor->store('orcamentos/vistoria/' . $request->id);
-                $vistoria->updateOrInsert(
-                    ['orcamentos_id' => $request->id],
-                    ['slug_disjuntor' => $disjuntor,]
-                );
-            }
-        }
-
-        // Padrao
-        if ($request->hasFile('padrao_energia')) {
-            if ($request->file('padrao_energia')->isValid()) {
-                deleteFileStorage($url->slug_padrao_energia ?? '');
-
-                $disjuntor = $request->padrao_energia->store('orcamentos/vistoria/' . $request->id);
-                $vistoria->updateOrInsert(
-                    ['orcamentos_id' => $request->id],
-                    ['slug_padrao_energia' => $disjuntor,]
-                );
-            }
-        }
-
-        // Telhado
-        if ($request->hasFile('telhado')) {
-            if ($request->file('telhado')->isValid()) {
-                deleteFileStorage($url->slug_telhado ?? '');
-
-                $disjuntor = $request->telhado->store('orcamentos/vistoria/' . $request->id);
-                $vistoria->updateOrInsert(
-                    ['orcamentos_id' => $request->id],
-                    ['slug_telhado' => $disjuntor,]
-                );
-            }
-        }
-
-        // Fiacao
-        if ($request->hasFile('fiacao')) {
-            if ($request->file('fiacao')->isValid()) {
-                deleteFileStorage($url->slug_fiacao ?? '');
-
-                $disjuntor = $request->fiacao->store('orcamentos/vistoria/' . $request->id);
-                $vistoria->updateOrInsert(
-                    ['orcamentos_id' => $request->id],
-                    ['slug_fiacao' => $disjuntor,]
-                );
-            }
-        }
-
-        // Medidor
-        if ($request->hasFile('medidor')) {
-            if ($request->file('medidor')->isValid()) {
-                deleteFileStorage($url->slug_medidor ?? '');
-
-                $disjuntor = $request->medidor->store('orcamentos/vistoria/' . $request->id);
-                $vistoria->updateOrInsert(
-                    ['orcamentos_id' => $request->id],
-                    ['slug_medidor' => $disjuntor,]
-                );
-            }
-        }
-
-        if ($request->hasFile('outros')) {
-            if ($request->file('outros')->isValid()) {
-                deleteFileStorage($url->slug_outros ?? '');
-
-                $disjuntor = $request->outros->store('orcamentos/vistoria/' . $request->id);
-                $vistoria->updateOrInsert(
-                    ['orcamentos_id' => $request->id],
-                    ['slug_outros' => $disjuntor,]
-                );
-            }
-        }
+        $this->armazenar($request, $url, $vistoria, 'disjuntor', 'slug_disjuntor');
+        $this->armazenar($request, $url, $vistoria, 'padrao_energia', 'slug_padrao_energia');
+        $this->armazenar($request, $url, $vistoria, 'telhado', 'slug_telhado');
+        $this->armazenar($request, $url, $vistoria, 'fiacao', 'slug_fiacao');
+        $this->armazenar($request, $url, $vistoria, 'medidor', 'slug_medidor');
+        $this->armazenar($request, $url, $vistoria, 'outros', 'slug_outros');
+        $this->armazenar($request, $url, $vistoria, 'arquivo_1', 'slug_arquivo_1');
+        $this->armazenar($request, $url, $vistoria, 'arquivo_2', 'slug_arquivo_2');
+        $this->armazenar($request, $url, $vistoria, 'arquivo_3', 'slug_arquivo_3');
 
         $vistoria->updateOrInsert(
             ['orcamentos_id' => $request->id], [
                 'observacoes' => $request->observacoes,
             ]
         );
+    }
+
+    private function armazenar($request, $url, $vistoria, $file, $chave)
+    {
+        if ($request->hasFile($file)) {
+            if ($request->file($file)->isValid()) {
+                deleteFileStorage($url->$chave ?? '');
+
+                $disjuntor = $request->$file->store('orcamentos/vistoria/' . $request->id);
+                $vistoria->updateOrInsert(
+                    ['orcamentos_id' => $request->id],
+                    [$chave => $disjuntor]
+                );
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th>Status</th>
                     <th>Cidade/Estado</th>
                     <th>Data do Cadastro</th>
                     <th></th>
@@ -15,6 +16,7 @@
                     <tr>
                         <th>#{{ $cliente->id }}</th>
                         <td>{{ $cliente->nome }}</td>
+                        <td>{{ getStatusCliente($cliente->status) }}</td>
                         <td>{{ getCidadeEstado($cliente->cidades_estados_id) }}</td>
                         <td>{{ date('d/m/y H:i', strtotime($cliente->created_at)) }}</td>
                         <td><a href="{{ route('vendedor.clientes.show', $cliente->id) }}">Ver</a></td>

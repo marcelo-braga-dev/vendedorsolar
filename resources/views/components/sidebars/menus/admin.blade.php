@@ -29,8 +29,8 @@
         </div>
     </li>
 
-    {{--LEADS Site
-    <li class="nav-item">
+    {{-- LEADS Site--}}
+    <li class="nav-item border-bottom">
         <a class="nav-link text-primary" href="#navbar-leads" data-toggle="collapse"
            role="button" aria-expanded="true"
            aria-controls="navbar-leads">
@@ -43,20 +43,26 @@
         <div class="collapse ml-4 @if(MENU === 'leads') show @endif" id="navbar-leads">
             <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'novos') active @endif"
+                    <a class="nav-link @if(MENU.SUBMENU === 'leads') active @endif"
                        href="{{ route('admin.leads.index') }}">
                         Novos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'qualificados') active @endif"
-                       href="{{ route('admin.leads.index', 'qualificado') }}">
-                        Qualificados
+                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'encaminhados') active @endif"
+                       href="{{ route('admin.leads.index', ['status' => 'encaminhados']) }}">
+                        Não Atendidos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'finalizado') active @endif"
+                       href="{{ route('admin.leads.index', ['status' => 'finalizado']) }}">
+                        Atendidos
                     </a>
                 </li>
             </ul>
         </div>
-    </li> --}}
+    </li>
 
     {{-- Orcamentos --}}
     <li class="nav-item border-bottom">
@@ -284,12 +290,12 @@
                         Taxa de Comissão por Venda
                     </a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link @if(SUBMENU === 'faturamento') active @endif"--}}
-{{--                       href="{{ route('admin.financeiro.faturamento.index') }}">--}}
-{{--                        Faturamento por Vendedor--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item">--}}
+                {{--                    <a class="nav-link @if(SUBMENU === 'faturamento') active @endif"--}}
+                {{--                       href="{{ route('admin.financeiro.faturamento.index') }}">--}}
+                {{--                        Faturamento por Vendedor--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
                 <li class="nav-item">
                     <a class="nav-link @if(SUBMENU === 'bancos') active @endif"
                        href="{{ route('admin.configs.bancos.index') }}">
@@ -330,12 +336,12 @@
                         Sistema
                     </a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link @if(SUBMENU === 'backup') active @endif"--}}
-{{--                       href="{{ route('admin.configs.backup.index') }}">--}}
-{{--                        Backup--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item">--}}
+                {{--                    <a class="nav-link @if(SUBMENU === 'backup') active @endif"--}}
+                {{--                       href="{{ route('admin.configs.backup.index') }}">--}}
+                {{--                        Backup--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
             </ul>
         </div>
     </li>

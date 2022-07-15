@@ -22,8 +22,11 @@ Route::get('admin/fornecedores/alterar-status-kits', [\App\Http\Controllers\Admi
 ->name('api.fornecedores.alterar-status-kits');
 
 // Visualizar PDF Orcamento
-Route::get('orcamento/{token}', 'App\Http\Controllers\Api\OrcamentoApiController@show')
+Route::get('orcamento/{token}', [App\Http\Controllers\Api\OrcamentoApiController::class, 'show'])
     ->name('api.orcamento.show');
 
-Route::get('api/endereco/id', 'App\Http\Controllers\Api\EnderecoController@getIdCidadeEstado')
+Route::get('endereco/id', [App\Http\Controllers\Api\EnderecoController::class, 'getIdCidadeEstado'])
     ->name('api.endereco.id.cidade.estado');
+
+Route::get('lead', [App\Http\Controllers\Api\LeadsController::class, 'store'])
+    ->name('api.leads');

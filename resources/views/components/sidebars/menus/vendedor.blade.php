@@ -24,6 +24,12 @@
                         Clientes Cadastrados
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU == 'leads') active @endif"
+                       href="{{ route('vendedor.leads.index') }}">
+                        Leads
+                    </a>
+                </li>
             </ul>
         </div>
     </li>
@@ -109,28 +115,49 @@
             </ul>
         </div>
     </li>
+    {{-- Visita --}}
+    <li class="nav-item border-bottom">
+        <a class="nav-link text-dark" href="#navbar-visita" data-toggle="collapse" role="button"
+           aria-expanded="true"
+           aria-controls="navbar-visita">
+            <i class="fas fa-home"></i>
+            <span class="nav-link-text">
+                Visita Técnica
+            </span>
+        </a>
+        <div class="collapse ml-4 @if(MENU == 'visita') show @endif" id="navbar-visita">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU == 'agendadas') active @endif"
+                       href="{{ route('vendedor.visitas.index') }}">
+                        Agendadas
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
 
     {{-- Financeiro --}}
-{{--    <li class="nav-item">--}}
-{{--        <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"--}}
-{{--           aria-expanded="true"--}}
-{{--           aria-controls="navbar-financeiro">--}}
-{{--            <i class="fas fa-dollar-sign"></i>--}}
-{{--            <span class="nav-link-text">--}}
-{{--                Financeiro--}}
-{{--            </span>--}}
-{{--        </a>--}}
-{{--        <div class="collapse ml-4 @if(MENU == 'financeiro') show @endif" id="navbar-financeiro">--}}
-{{--            <ul class="nav nav-sm flex-column">--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link @if(SUBMENU == 'faturamento') active @endif"--}}
-{{--                       href="{{ route('vendedor.financeiro.faturamento.index') }}">--}}
-{{--                        Faturamento--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
-{{--        </div>--}}
-{{--    </li>--}}
+    {{--    <li class="nav-item">--}}
+    {{--        <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"--}}
+    {{--           aria-expanded="true"--}}
+    {{--           aria-controls="navbar-financeiro">--}}
+    {{--            <i class="fas fa-dollar-sign"></i>--}}
+    {{--            <span class="nav-link-text">--}}
+    {{--                Financeiro--}}
+    {{--            </span>--}}
+    {{--        </a>--}}
+    {{--        <div class="collapse ml-4 @if(MENU == 'financeiro') show @endif" id="navbar-financeiro">--}}
+    {{--            <ul class="nav nav-sm flex-column">--}}
+    {{--                <li class="nav-item">--}}
+    {{--                    <a class="nav-link @if(SUBMENU == 'faturamento') active @endif"--}}
+    {{--                       href="{{ route('vendedor.financeiro.faturamento.index') }}">--}}
+    {{--                        Faturamento--}}
+    {{--                    </a>--}}
+    {{--                </li>--}}
+    {{--            </ul>--}}
+    {{--        </div>--}}
+    {{--    </li>--}}
 
     {{-- Mensagens --}}
     <li class="nav-item border-bottom">

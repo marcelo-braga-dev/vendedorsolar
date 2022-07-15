@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\src\Clientes\Status\StatusClientesClasse;
+use App\src\Clientes\Status\StatusNovoCliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,15 +11,17 @@ class Clientes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'users_id', 'cidades_estados_id'];
+    protected $fillable = ['nome', 'users_id', 'cidades_estados_id', 'status'];
 
     public function cadastrar($request)
     {
+        $status = (new StatusNovoCliente())->getStatus();
         $cliente = $this->newQuery()
             ->create([
                 'nome' => $request->nome,
                 'users_id' => id_usuario_atual(),
-                'cidades_estados_id' => $request->cidade
+                'cidades_estados_id' => $request->cidade,
+                'status' => $status
             ]);
 
         $dados = $this->getDados($request);
@@ -43,6 +47,15 @@ class Clientes extends Model
         $metas->insert($id, $dados);
 
         modalSucesso('Dados do cliente atualizado com sucesso!');
+    }
+
+    public function atualizarStatus(int $id, StatusClientesClasse $status)
+    {
+        $this->newQuery()
+            ->where('id', $id)
+            ->update([
+                'status' => $status->getStatus()
+            ]);
     }
 
     public function pesquisar($id)

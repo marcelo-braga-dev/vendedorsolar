@@ -90,7 +90,7 @@ if (!function_exists('usuario')) {
 }
 
 if (!function_exists('nomeUsuario')) {
-    function nomeUsuario(int $id)
+    function nomeUsuario(?int $id)
     {
         return (new \App\Models\User())->newQuery()->find($id)->name ?? '';
     }
@@ -205,6 +205,30 @@ if (!function_exists('getStatusOrcamentos')) {
     function getStatusOrcamentos($status)
     {
         $todosStatus = (new \App\src\Orcamentos\Status\StatusOrcamentos())->todosStatus();
-        return $todosStatus[$status];
+        return $todosStatus[$status] ?? 'Não encontrado';
+    }
+}
+
+if (!function_exists('getStatusLead')) {
+    function getStatusLead($status)
+    {
+        $todosStatus = (new \App\src\Clientes\Leads\Status\StatusLeads())->todosStatus();
+        return $todosStatus[$status] ?? 'Não encontrado';
+    }
+}
+
+if (!function_exists('getStatusCliente')) {
+    function getStatusCliente($status)
+    {
+        $todosStatus = (new \App\src\Clientes\Status\StatusClientes())->todosStatus();
+        return $todosStatus[$status] ?? 'Não encontrado';
+    }
+}
+
+if (!function_exists('getStatusVisitaTecnica')) {
+    function getStatusVisitaTecnica($status)
+    {
+        $todosStatus = (new \App\src\VisitasTecnicas\Status\VisitasTecnicasStatus())->todosStatus();
+        return $todosStatus[$status] ?? 'Não encontrado';
     }
 }

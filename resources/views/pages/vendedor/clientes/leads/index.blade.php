@@ -1,14 +1,21 @@
-<x-layout menu="leads" submenu="{{ $status }}">
+<x-layout menu="clientes" submenu="leads">
     <x-body title="Leads captados no site" class="p-0">
+        <div class="row">
+            <div class="col">
+                <p>
+                    Leads são contatos que a empresa captura em suas redes sociais, sites...
+                    e repassa para que você realize o atendimento.
+                </p>
+            </div>
+        </div>
+
         <x-tables.table-clickable>
             <x-slot name="head">
                 <tr class="text-center">
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Vendedor</th>
                     <th>Contato</th>
                     <th>Cidade/Estado</th>
-                    <th>Origem</th>
                     <th>Status</th>
                     <th>Data</th>
                     <th></th>
@@ -19,17 +26,15 @@
                     <tr class="text-center">
                         <th>#{{ $item->id }}</th>
                         <td>{{ $item->nome }}</td>
-                        <td>{{ nomeUsuario($item->vendedor)}}</td>
                         <td class="text-left">
                             Tel: {{ $item->telefone ?? '-' }}<br>
                             E-mail: {{ $item->email ?? '-' }}
                         </td>
                         <td>{{ $item->cidade . '/' . $item->estado }}</td>
-                        <td>{{ $item->origem ?? '-' }}</td>
                         <td>{{ getStatusLead($item->status) }}</td>
                         <td>{{ date('d/m/Y H:i:s', strtotime($item->created_at)) }}</td>
                         <td>
-                            <a href="{{ route('admin.leads.show', $item->id) }}">Ver</a>
+                            <a href="{{ route('vendedor.leads.show', $item->id) }}">Ver</a>
                         </td>
                     </tr>
                 @endforeach

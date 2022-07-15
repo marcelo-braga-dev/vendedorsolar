@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\src\Clientes\Status\StatusEmitidoOrcamentoCliente;
 use App\src\Orcamentos\ChavesOrcamentos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -44,8 +45,14 @@ class Orcamentos extends Model
 
         $this->cadastrarKits($orcamento->id, $dados);
         $this->metas($orcamento->id, $dados);
+        $this->atualizarStatusCliente($dados->getCliente());
 
         return $orcamento->id;
+    }
+
+    private function atualizarStatusCliente($id)
+    {
+        (new StatusEmitidoOrcamentoCliente())->atualizarStatus($id);
     }
 
     private function cadastrarKits($idOrcamento, $dados)
