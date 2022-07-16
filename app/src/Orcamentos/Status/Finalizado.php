@@ -2,6 +2,8 @@
 
 namespace App\src\Orcamentos\Status;
 
+use App\Models\Orcamentos;
+
 class Finalizado implements Status
 {
     private $stats = 'finalizado';
@@ -14,5 +16,10 @@ class Finalizado implements Status
     public function getNome(): string
     {
         return 'Finalizado';
+    }
+
+    public function alterarStatus($id)
+    {
+        (new Orcamentos())->alterarStatus($id, $this);
     }
 }

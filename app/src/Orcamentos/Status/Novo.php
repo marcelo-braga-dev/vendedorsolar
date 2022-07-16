@@ -15,4 +15,9 @@ class Novo implements Status
     {
         return 'Novo';
     }
+
+    public function alterarStatus($id)
+    {
+        // TODO: Implement alterarStatus() method.
+    }
 }

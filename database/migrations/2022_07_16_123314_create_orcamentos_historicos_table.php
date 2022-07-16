@@ -15,6 +15,9 @@ class CreateOrcamentosHistoricosTable extends Migration
     {
         Schema::create('orcamentos_historicos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('orcamentos_id')->constrained('orcamentos');
+            $table->string('status');
+            $table->string('mensagem')->nullable();
             $table->timestamps();
         });
     }

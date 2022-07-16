@@ -219,7 +219,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <h4>Comissão</h4>
+                        <h4>Comissão do Vendedor</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -228,7 +228,7 @@
                             Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}
                         </span>
                         <span class="d-block">
-                            Sua margem de comissão: {{ $orcamentoKit->taxa_comissao }}%
+                            Margem de comissão: {{ $orcamentoKit->taxa_comissao }}%
                         </span>
                         <span class="d-block">
                             Comissão:

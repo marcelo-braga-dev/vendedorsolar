@@ -2,6 +2,8 @@
 
 namespace App\src\Orcamentos\Status;
 
+use App\Models\Orcamentos;
+
 class Instalando implements Status
 {
     private $stats = 'instalando';
@@ -14,5 +16,10 @@ class Instalando implements Status
     public function getNome(): string
     {
         return 'Em Instalação';
+    }
+
+    public function alterarStatus($id)
+    {
+        (new Orcamentos())->alterarStatus($id, $this);
     }
 }

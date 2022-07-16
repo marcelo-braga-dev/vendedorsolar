@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\src\Clientes\Status\StatusEmitidoOrcamentoCliente;
 use App\src\Orcamentos\ChavesOrcamentos;
+use App\src\Orcamentos\Status\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,12 @@ class Orcamentos extends Model
         'trafo',
         'token'
     ];
+
+    public function alterarStatus($id, Status $status)
+    {
+        $this->newQuery()
+            ->find($id)->update(['status' => $status->getStatus()]);
+    }
 
     public function clientes()
     {
