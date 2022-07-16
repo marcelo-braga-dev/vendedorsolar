@@ -15,7 +15,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <x-inputs.textarea label="Anotações/Observações"
+                    <x-inputs.textarea label="Anotações/Observações" required
                                        name="anotacoes">{{ $orcamento->anotacoes }}</x-inputs.textarea>
                 </div>
             </div>

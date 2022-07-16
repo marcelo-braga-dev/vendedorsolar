@@ -21,19 +21,19 @@
 
             <h5>Pessoa Jurídica</h5>
             <div class="form-row mb-4">
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="CNPJ" type="" name="cnpj_financiador"
                                     value="{{ $dados['cnpj_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="Razão Social" type="" name="razao_social_financiador"
                                     value="{{ $dados['razao_social_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="Nome Fantasia" type="" name="nome_fantasia_financiador"
                                     value="{{ $dados['nome_fantasia_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="Inscrição Estadual" type="" name="inscricao_financiador"
                                     value="{{ $dados['inscricao_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
@@ -41,7 +41,7 @@
             <hr>
             <h5>Endereço</h5>
             <div class="form-row">
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                     <x-inputs.input label="Cep" type="" name="cep_financiador"
                                     value="{{ $dados['cep_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
@@ -105,19 +105,19 @@
 
             <h5>Pessoa Jurídica</h5>
             <div class="form-row mb-4">
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="CNPJ" type="" name="cnpj_proprietario"
                                     value="{{ $dados['cnpj_proprietario'] ?? '' }}"></x-inputs.input>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="Razão Social" type="" name="razao_social_proprietario"
                                     value="{{ $dados['razao_social_proprietario'] ?? '' }}"></x-inputs.input>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="Nome Fantasia" type="" name="nome_fantasia_proprietario"
                                     value="{{ $dados['nome_fantasia_proprietario'] ?? '' }}"></x-inputs.input>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <x-inputs.input label="Inscrição Estadual" type="" name="inscricao_estadual_proprietario"
                                     value="{{ $dados['inscricao_estadual_proprietario'] ?? '' }}"></x-inputs.input>
                 </div>
@@ -125,15 +125,15 @@
             <hr>
             <h5>Documentos Pessoais</h5>
             <div class="form-row">
-                <div class="col-4">
+                <div class="col-md-4">
                     <x-inputs.file label="CNH" name="img_cnh_proprietario"
                                    url="{{ $dados['img_cnh_proprietario'] ?? '' }}"></x-inputs.file>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <x-inputs.file label="CPF" name="img_cpf_proprietario"
                                    url="{{ $dados['img_cpf_proprietario'] ?? '' }}"></x-inputs.file>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <x-inputs.file label="RG" name="img_rg_proprietario"
                                    url="{{ $dados['img_rg_proprietario'] ?? '' }}"></x-inputs.file>
                 </div>
@@ -156,7 +156,7 @@
             <hr>
             <h5>Endereço</h5>
             <div class="form-row">
-                <div class="col-md-3">
+                <div class="col-6 col-md-3">
                     <x-inputs.input label="Cep" type="" name="cep_instalacao"
                                     value="{{ $dados['cep_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
