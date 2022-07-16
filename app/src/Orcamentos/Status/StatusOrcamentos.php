@@ -6,12 +6,20 @@ class StatusOrcamentos
 {
     public function todosStatus(): array
     {
+        $novo = (new Novo());
+        $assinado = (new Assinado());
+        $aprovado = (new Aprovado());
+        $reprovadoAprovacao = (new ReprovadoAprovacao());
+        $instalado = (new Instalando());
+        $finalizado = (new Finalizado());
+
         return [
-            (new Novo())->getStatus() => (new Novo())->getNome(),
-            (new Assinado())->getStatus() => (new Assinado())->getNome(),
-            (new Aprovado())->getStatus() => (new Aprovado())->getNome(),
-            (new Instalando())->getStatus() => (new Instalando())->getNome(),
-            (new Finalizado())->getStatus() => (new Finalizado())->getNome(),
+            $novo->getStatus() => $novo->getNome(),
+            $assinado->getStatus() => $assinado->getNome(),
+            $aprovado->getStatus() => $aprovado->getNome(),
+            $reprovadoAprovacao->getStatus() => $reprovadoAprovacao->getNome(),
+            $instalado->getStatus() => $instalado->getNome(),
+            $finalizado->getStatus() => $finalizado->getNome(),
         ];
     }
 }

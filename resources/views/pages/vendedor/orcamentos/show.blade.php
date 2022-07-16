@@ -64,7 +64,7 @@
                                     Potência do Kit
                                 </h5>
                                 <span class="h2 font-weight-bold mb-0">
-                                    {{ convert_float_money($kit->potencia_kit * $orcamentoKit->qtd_kits, 3)  }} <small>kWp</small>
+                                    {{ convert_float_money($kit->potencia_kit * $orcamentoKit->qtd_kits, 3) }} <small>kWp</small>
                                 </span>
                             </div>
                             <div class="col-auto">
@@ -211,7 +211,7 @@
                                 </tr>
                                 <tr>
                                     <td>Direção da Instalação</td>
-                                    <td>{{ ucfirst($metas['orientacao']) }}</td>
+                                    <td>{{ getDirecaoInstalacao($metas['orientacao']) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Irradiação Solar</td>

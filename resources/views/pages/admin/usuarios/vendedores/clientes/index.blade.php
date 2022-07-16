@@ -1,6 +1,5 @@
 <x-layout menu="usuarios" submenu="vendedores">
-    <x-body title="Clientes Cadastrados" text-button="Cadastrar Vendedor"
-            url-button="{{ route('admin.usuarios.vendedores.create') }}" class="p-0">
+    <x-body title="Clientes Cadastrados" url-button="{{ route('admin.usuarios.vendedores.index') }}" class="p-0">
         <x-tables.table-default>
             <x-slot name="head">
                 <tr class="text-center">

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Configuracoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\Concessionarias;
 use Illuminate\Http\Request;
 
-class ConcessionariasController
+class ConcessionariasController extends Controller
 {
     public function index()
     {

@@ -232,3 +232,11 @@ if (!function_exists('getStatusVisitaTecnica')) {
         return $todosStatus[$status] ?? 'Não encontrado';
     }
 }
+
+if (!function_exists('getDirecaoInstalacao')) {
+    function getDirecaoInstalacao($direcao)
+    {
+        $todosStatus = (new \App\src\Orcamentos\DirecaoInstalacao())->direcoes();
+        return $todosStatus[$direcao] ?? 'Não encontrado';
+    }
+}

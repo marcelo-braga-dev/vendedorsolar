@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Configuracoes;
 
-class BackupController
+use App\Http\Controllers\Controller;
+
+class BackupController extends Controller
 {
     public function index()
     {

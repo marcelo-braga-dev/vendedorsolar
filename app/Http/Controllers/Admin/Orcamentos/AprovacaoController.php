@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Orcamentos;
 
+use App\Http\Controllers\Controller;
 use App\Models\AprovacaoOrcamentos;
 use App\Services\Orcamentos\DadosAprovacaoService;
 use Illuminate\Http\Request;
 
-class AprovacaoController
+class AprovacaoController extends Controller
 {
     public function show($id)
     {

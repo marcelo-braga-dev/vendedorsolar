@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Vendedor\Orcamentos;
 
+use App\Http\Controllers\Controller;
 use App\Models\VistoriaOrcamentos;
 use App\Services\Orcamentos\VistoriaService;
 use Illuminate\Http\Request;
 
-class VistoriaController
+class VistoriaController extends Controller
 {
     public function show($id)
     {
-        $vistoriaOrcamentos = new VistoriaOrcamentos();
-        $vistoria = $vistoriaOrcamentos->newQuery()
+        $vistoria = (new VistoriaOrcamentos())->newQuery()
             ->where('orcamentos_id', '=', $id)
             ->first();
 

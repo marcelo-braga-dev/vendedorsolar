@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Financeiros;
 
+use App\Http\Controllers\Controller;
 use App\Models\TaxaComissoes;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ComissaoVendaController
+class ComissaoVendaController extends Controller
 {
     public function index()
     {
@@ -42,7 +43,7 @@ class ComissaoVendaController
                 ['user_id' => $id],
                 ['taxa' => $request->taxa_comissao]
             );
-        
+
         modalSucesso('Taxas de comissão atualizadas com sucesso.');
 
         return redirect()->route('admin.financeiro.comissao-venda.edit', $id);

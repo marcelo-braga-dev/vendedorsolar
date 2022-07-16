@@ -60,7 +60,7 @@
                             <div class="col">
                                 <h5 class="card-title text-uppercase text-muted mb-0">Potência do Kit</h5>
                                 <span class="h2 font-weight-bold mb-0">
-                                    {{ str_replace('.',',',$kit->potencia_kit)  }} <small>kWp</small>
+                                    {{ convert_float_money($kit->potencia_kit * $orcamentoKit->qtd_kits, 3) }} <small>kWp</small>
                                 </span>
                             </div>
                             <div class="col-auto">
@@ -98,9 +98,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-auto">
-                                <a class="btn btn-success"
-                                   href="{{ route('admin.orcamentos.edit', $orcamento->id) }}">EDITAR</a>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <form method="POST" action="{{ route('orcamento.pdf') }}" target="_blank"> @csrf
+                                            <input type="hidden" name="id" value="{{ $orcamento->id }}">
+                                            <input type="hidden" name="grafico_geracao" id="grafico_geracao">
+                                            <input type="hidden" name="grafico_payback" id="grafico_payback">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-file-pdf text-lg pr-2"></i> Abrir PDF
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-success"
+                                           href="{{ route('admin.orcamentos.edit', $orcamento->id) }}">
+                                            <i class="fas fa-edit pr-2"></i>EDITAR
+                                        </a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-warning"
+                                           href="{{ route('admin.orcamento.status.edit', $orcamento->id) }}">
+                                            <i class="fas fa-circle pr-2"></i>Alterar Status
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -151,22 +176,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <form method="POST" action="{{ route('orcamento.pdf') }}" target="_blank"> @csrf
-                                            <input type="hidden" name="id" value="{{ $orcamento->id }}">
-                                            <input type="hidden" name="grafico_geracao" id="grafico_geracao">
-                                            <input type="hidden" name="grafico_payback" id="grafico_payback">
-                                            <button type="submit" class="btn btn-primary">
-                                                Abrir PDF <i class="fas fa-file-pdf text-lg pl-2"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -186,20 +195,45 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>E-mail:</b> {{ $dadosVendedor['email'] ?? '' }}
+                                        <small
+                                            class="d-block"><b>E-mail:</b> {{ usuario($orcamento->users_id)->email ?? '' }}
                                         </small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Celular:</b> {{ $dadosVendedor['celular'] ?? '' }}
+                                        <small class="d-block"><b>Celular:</b> {{ $dadosVendedor['celular'] ?? '-' }}
                                         </small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Telefone:</b> {{ $dadosVendedor['telefone'] ?? '' }}
+                                        <small class="d-block"><b>Telefone:</b> {{ $dadosVendedor['telefone'] ?? '-' }}
                                         </small>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Comissão</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="d-block">
+                            Valor do Orçamento: R$ {{ convert_float_money($orcamento->preco_cliente) }}
+                        </span>
+                        <span class="d-block">
+                            Sua margem de comissão: {{ $orcamentoKit->taxa_comissao }}%
+                        </span>
+                        <span class="d-block">
+                            Comissão:
+                            R$ {{ convert_float_money($comissao) }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -256,15 +290,19 @@
                                 </tr>
                                 <tr>
                                     <td>Tensão</td>
-                                    <td>{{ $orcamento->tensao }} V</td>
+                                    <td>{{ $metas['tensao'] }} V</td>
                                 </tr>
                                 <tr>
                                     <td>Estrutura</td>
-                                    <td style="white-space: normal">{{ get_estrutura($orcamento->estrutura) }}</td>
+                                    <td style="white-space: normal">{{ get_estrutura($metas['estrutura']) }}</td>
                                 </tr>
                                 <tr>
                                     <td>Direção da Instalação</td>
-                                    <td>{{ ucfirst($orcamento->orientacao) }}</td>
+                                    <td>{{ getDirecaoInstalacao($metas['orientacao']) }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Irradiação Solar</td>
+                                    <td>{{ convert_float_money(getIrradiacao($orcamento->cidade)) }} kWh/m²</td>
                                 </tr>
                             </x-slot>
                         </x-tables.table-default>
@@ -276,7 +314,7 @@
                 <div class="card shadow">
                     <div class="card-body pb-0">
                         <small class="d-block">Modelo do Kit</small>
-                        <p><b>{{ $kit->modelo }}</b></p>
+                        <p><b>{{ $orcamentoKit->qtd_kits }}x {{ $kit->modelo }}</b></p>
                         <x-tables.table-default>
                             <x-slot name="head"></x-slot>
                             <x-slot name="body">
@@ -285,8 +323,9 @@
                                     <td>#{{ $kit->id }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Potência do Kit</th>
-                                    <td>{{ $kit->potencia_kit }} kWp</td>
+                                    <th>Potência Total do Kit</th>
+                                    <td>{{ convert_float_money($kit->potencia_kit * $orcamentoKit->qtd_kits, 3) }}kWp
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Potência dos Painéis</th>
@@ -325,6 +364,22 @@
             </div>
         </div>
 
+        {{-- Trafo --}}
+        @if(!empty($trafo))
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h4>Transformador</h4>
+                            <small class="d-block">modelo</small>
+                            <span class="d-block">{{ $trafo->modelo }}</span>
+                            <span>Valor: R$ {{ convert_float_money($trafo->preco_cliente) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         {{-- Graficos Geracao --}}
         <div class="row mb-4">
             <div class="col-12">
@@ -343,7 +398,7 @@
                 <div class="card shadow">
                     <div class="card-body pb-0">
                         <x-graficos.payback-fotovoltaico
-                                preco-cliente="{{ $orcamento->preco_cliente }}"></x-graficos.payback-fotovoltaico>
+                            preco-cliente="{{ $orcamento->preco_cliente }}"></x-graficos.payback-fotovoltaico>
                     </div>
                 </div>
             </div>

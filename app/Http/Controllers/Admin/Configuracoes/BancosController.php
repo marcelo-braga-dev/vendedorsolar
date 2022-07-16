@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Configuracoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\Bancos;
 use Illuminate\Http\Request;
 
-class BancosController
+class BancosController extends Controller
 {
     public function index()
     {

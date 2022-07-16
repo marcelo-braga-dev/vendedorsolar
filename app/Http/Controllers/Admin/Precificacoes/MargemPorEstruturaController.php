@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Precificacoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\Estruturas;
 use App\Models\MargemVendaEstruturas;
 use App\Models\MargemVendaPorVendedor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MargemPorEstruturaController
+class MargemPorEstruturaController extends Controller
 {
     public function index()
     {

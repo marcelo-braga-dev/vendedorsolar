@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Usuarios;
 
+use App\Http\Controllers\Controller;
 use App\Models\Clientes;
 use App\Models\ClientesMetas;
 use Illuminate\Http\Request;
 
-class ClientesVendedorController
+class ClientesVendedorController extends Controller
 {
     public function index(Request $request)
     {

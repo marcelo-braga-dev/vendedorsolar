@@ -10,8 +10,10 @@ use App\Models\OrcamentoKits;
 use App\Models\Orcamentos;
 use App\Models\OrcamentosMetas;
 use App\Models\Produtos;
+use App\Models\Trafos;
 use App\Models\User;
 use App\Models\UserMeta;
+use App\Services\Orcamentos\ComissaoVendedorService;
 use App\src\Orcamentos\Status\Aprovado;
 use App\src\Orcamentos\Status\Assinado;
 use App\src\Orcamentos\Status\Finalizado;
@@ -24,11 +26,7 @@ class OrcamentosController extends Controller
 {
     public function index(Request $request)
     {
-        $cliente = [];
-        $vendedor = [];
-
         $where = $this->getStatus($request->status);
-
         $orcamentos = (new Orcamentos())->newQuery()
             ->where($where)
             ->orderBy('id', 'DESC')
@@ -36,12 +34,14 @@ class OrcamentosController extends Controller
 
         $clientes = (new Clientes())->newQuery()->get(['id', 'nome']);
 
+        $cliente = [];
         foreach ($clientes as $item) {
             $cliente[$item->id] = $item->nome;
         }
 
         $usuarios = (new User())->newQuery()->get(['id', 'name']);
 
+        $vendedor = [];
         foreach ($usuarios as $item) {
             $vendedor[$item->id] = $item->name;
         }
@@ -91,6 +91,7 @@ class OrcamentosController extends Controller
     public function show(int $id)
     {
         $orcamento = (new Orcamentos)->newQuery()->findOrFail($id);
+        $trafo = (new Trafos())->newQuery()->find($orcamento->trafo);
         $dadosCliente = (new ClientesMetas())->values($orcamento->clientes_id);
         $imagens = (new Produtos())->getImagensNome();
         $dadosVendedor = (new UserMeta())->metas($orcamento->users_id);
@@ -98,20 +99,20 @@ class OrcamentosController extends Controller
         $orcamentoKit = (new OrcamentoKits())->newQuery()
             ->where('orcamentos_id', $orcamento->id)->first();
         $kit = (new Kits())->newQuery()->find($orcamentoKit->kits_id);
+        $comissao = (new ComissaoVendedorService())->calcular($trafo, $orcamento, $kit, $orcamentoKit);
 
         return view('pages.admin.orcamentos.show',
-            compact('orcamento', 'kit', 'imagens', 'dadosCliente', 'dadosVendedor', 'metas'));
+            compact('orcamento', 'kit', 'imagens',
+                'dadosCliente', 'dadosVendedor', 'metas', 'orcamentoKit', 'comissao', 'trafo'));
     }
 
     public function update(Request $request, int $id)
     {
-        $orcamentos = new Orcamentos;
-        $orcamentos->newQuery()
+        (new Orcamentos)->newQuery()
             ->find($id)
             ->update([
                 'preco_cliente' => convert_money_float($request->preco_cliente),
                 'geracao' => $request->geracao,
-                'status' => $request->status,
                 'anotacoes' => $request->anotacoes
             ]);
 

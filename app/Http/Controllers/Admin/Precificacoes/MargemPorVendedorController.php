@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Precificacoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\MargemVendaPorVendedor;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class MargemPorVendedorController
+class MargemPorVendedorController extends Controller
 {
     public function index()
     {

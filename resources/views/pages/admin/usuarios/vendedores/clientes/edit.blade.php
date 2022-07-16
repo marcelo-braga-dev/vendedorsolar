@@ -1,5 +1,6 @@
 <x-layout menu="usuarios" submenu="vendedores">
-    <x-body title="Editar Informações do Cliente" url-button="">
+    <x-body title="Editar Informações do Cliente"
+            url-button="{{ route('admin.usuarios.vendedor.clientes.index', ['id' => $cliente->users_id]) }}">
         <form method="POST" action="{{ route('admin.usuarios.vendedor.clientes.update', $cliente->id) }}"> @csrf @method('put')
             <h5>Pessoa Física</h5>
             <div class="form-row">

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Integracoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\IntegracaoHistorico;
 
-class HistoricoController
+class HistoricoController extends Controller
 {
     public function index()
     {

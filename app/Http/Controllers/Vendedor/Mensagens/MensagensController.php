@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Vendedor\Mensagens;
 
-class MensagensController
+use App\Http\Controllers\Controller;
+
+class MensagensController extends Controller
 {
     public function index()
     {

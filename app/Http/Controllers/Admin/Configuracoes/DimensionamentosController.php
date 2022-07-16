@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Configuracoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\DadosDimensionamento;
 use Illuminate\Http\Request;
 
-class DimensionamentosController
+class DimensionamentosController extends Controller
 {
     public function index()
     {

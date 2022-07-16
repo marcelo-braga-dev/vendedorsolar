@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Configuracoes;
 
+use App\Http\Controllers\Controller;
 use App\Services\Sistema\LogoService;
 use Illuminate\Http\Request;
 
-class SistemaController
+class SistemaController extends Controller
 {
     public function index()
     {

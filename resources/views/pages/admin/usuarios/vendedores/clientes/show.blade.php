@@ -1,6 +1,10 @@
-<x-layout menu="usuarios" submenu="vendedores" style="background-color: #0b90a8">
-    <x-body title="Dados do Cliente" text-button="Editar"
-            url-button="{{ route('admin.usuarios.vendedor.clientes.edit', $cliente->id) }}">
+<x-layout menu="usuarios" submenu="vendedores">
+    <x-body title="Dados do Cliente"
+            url-button="{{ route('admin.usuarios.vendedor.clientes.index', ['id' => $cliente->users_id]) }}">
+        <div class="row mb-3 px-3">
+            <a class="btn btn-primary" href="{{ route('admin.usuarios.vendedor.clientes.edit', $cliente->id) }}">Editar</a>
+        </div>
+        <hr>
         <div class="row mb-3">
             <div class="col-md-6">
                 <p><b>Nome: </b>{{ $cliente->nome }}</p>

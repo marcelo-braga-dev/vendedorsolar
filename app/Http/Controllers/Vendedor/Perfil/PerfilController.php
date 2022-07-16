@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Vendedor\Perfil;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PerfilController
+class PerfilController extends Controller
 {
     public function edit($id)
     {

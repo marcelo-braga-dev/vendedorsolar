@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Orcamentos;
 
+use App\Http\Controllers\Controller;
 use App\Models\VistoriaOrcamentos;
 use App\Services\Orcamentos\VistoriaService;
 use Illuminate\Http\Request;
 
-class VistoriaController
+class VistoriaController extends Controller
 {
     public function show($id)
     {

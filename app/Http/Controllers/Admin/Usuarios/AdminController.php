@@ -12,8 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = new User();
-        $usuarios = $users->admins();
+        $usuarios = (new User())->admins();
 
         return view('pages.admin.usuarios.admins.index', compact('usuarios'));
     }
@@ -27,12 +26,13 @@ class AdminController extends Controller
     {
         $user = new User();
 
-        $user->create([
-            'name' => $request->name,
-            'email' => strtolower($request->email),
-            'password' => Hash::make($request->email),
-            'tipo' => 'admin'
-        ]);
+        (new User())->newQuery()
+            ->create([
+                'name' => $request->name,
+                'email' => strtolower($request->email),
+                'password' => Hash::make($request->email),
+                'tipo' => 'admin'
+            ]);
 
         return redirect()->route('admin.usuarios.admins.index');
     }
@@ -41,7 +41,6 @@ class AdminController extends Controller
     {
         $user = new User();
         $usuario = $user->newQuery()->findOrFail($id);
-
         $dados = $user->metas($id);
 
         return view('pages.admin.usuarios.admins.show', compact('usuario', 'dados'));
@@ -73,16 +72,5 @@ class AdminController extends Controller
         }
 
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

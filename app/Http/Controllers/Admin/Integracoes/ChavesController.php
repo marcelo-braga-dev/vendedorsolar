@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Integracoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\IntegracaoAldo;
 use Illuminate\Http\Request;
 
-class ChavesController
+class ChavesController extends Controller
 {
     public function update(Request $request)
     {

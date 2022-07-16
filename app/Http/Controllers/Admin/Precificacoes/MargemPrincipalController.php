@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Precificacoes;
 
+use App\Http\Controllers\Controller;
 use App\Models\MargensVenda;
 use App\src\Produtos\Precificacao\MargemPadrao;
 use Illuminate\Http\Request;
 
-class MargemPrincipalController
+class MargemPrincipalController extends Controller
 {
     public function index()
     {

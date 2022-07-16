@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Produtos;
 
+use App\Http\Controllers\Controller;
 use App\Models\Produtos;
 use App\Models\Trafos;
 use Illuminate\Http\Request;
 
-class MarcasTrafosController
+class MarcasTrafosController extends Controller
 {
     public function index()
     {

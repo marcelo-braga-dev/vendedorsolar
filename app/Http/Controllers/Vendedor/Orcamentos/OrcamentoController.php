@@ -9,6 +9,7 @@ use App\Models\Orcamentos;
 use App\Models\OrcamentosMetas;
 use App\Models\Produtos;
 use App\Models\Trafos;
+use App\Services\Orcamentos\ComissaoVendedorService;
 use App\src\Orcamentos\Status\Aprovado;
 use App\src\Orcamentos\Status\Assinado;
 use App\src\Orcamentos\Status\Finalizado;
@@ -72,16 +73,9 @@ class OrcamentoController extends Controller
         $orcamentoKit = (new OrcamentoKits())->newQuery()
             ->where('orcamentos_id', $orcamento->id)->first();
         $kit = (new Kits())->newQuery()->find($orcamentoKit->kits_id);
-        $comissao = $this->getComissao($trafo, $orcamento, $kit, $orcamentoKit);
+        $comissao = (new ComissaoVendedorService())->calcular($trafo, $orcamento, $kit, $orcamentoKit);
 
         return view('pages.vendedor.orcamentos.show',
             compact('orcamento', 'kit', 'trafo', 'imagens', 'metas', 'orcamentoKit', 'comissao'));
-    }
-
-    private function getComissao($trafo, $orcamento, $kit, $orcamentoKit)
-    {
-        $precoTrafo = 0;
-        if (!empty($trafo)) $precoTrafo = $trafo->preco_fornecedor;
-        return ($orcamento->preco_cliente - $kit->preco_fornecedor - $precoTrafo) * $orcamentoKit->taxa_comissao / 100;
     }
 }

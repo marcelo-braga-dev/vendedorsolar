@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Vendedor\Perfil;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class SenhaController
+class SenhaController extends Controller
 {
     public function edit($id)
     {

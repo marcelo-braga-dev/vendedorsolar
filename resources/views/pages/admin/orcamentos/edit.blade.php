@@ -17,15 +17,6 @@
                     </x-inputs.input-box-right>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <x-inputs.select label="Status do Orçamento" name="status" required>
-                        @foreach($todosStatus as $status => $nomeStatus)
-                            <option value="{{ $status }}" @if ($orcamento->status == $status) selected @endif>{{ $nomeStatus }}</option>
-                        @endforeach
-                    </x-inputs.select>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-md-12">

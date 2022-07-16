@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Financeiros;
 
+use App\Http\Controllers\Controller;
 use App\Models\Orcamentos;
 
-class FaturamentoController
+class FaturamentoController extends Controller
 {
     public function index()
     {

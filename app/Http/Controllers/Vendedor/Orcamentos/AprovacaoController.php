@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Vendedor\Orcamentos;
 
+use App\Http\Controllers\Controller;
 use App\Models\AprovacaoOrcamentos;
 use App\Models\Orcamentos;
 use App\Services\Orcamentos\DadosAprovacaoService;
 use App\src\Orcamentos\Status\Assinado;
 use Illuminate\Http\Request;
 
-class AprovacaoController
+class AprovacaoController extends Controller
 {
     public function show($id)
     {

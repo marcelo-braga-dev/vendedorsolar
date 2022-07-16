@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Produtos;
 
+use App\Http\Controllers\Controller;
 use App\Models\Fornecedores;
 use App\Models\Kits;
 use App\Models\Produtos;
 use Illuminate\Http\Request;
 
-class StatusKitsController
+class StatusKitsController extends Controller
 {
     public function index(Request $request)
     {

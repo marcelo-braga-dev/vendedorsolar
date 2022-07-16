@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Vendedor\Clientes;
 
+use App\Http\Controllers\Controller;
 use App\Models\Leads;
 use App\src\Clientes\Leads\Status\StatusLeads;
 use Illuminate\Http\Request;
 
-class LeadsController
+class LeadsController extends Controller
 {
     public function index()
     {

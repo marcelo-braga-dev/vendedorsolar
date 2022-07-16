@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Leads;
 
+use App\Http\Controllers\Controller;
 use App\Models\Leads;
 use App\Models\User;
 use App\src\Clientes\Leads\Status\LeadFinalizado;
 use App\src\Clientes\Leads\Status\LeadNovo;
 use Illuminate\Http\Request;
 
-class LeadsController
+class LeadsController extends Controller
 {
     public function index(Request $request)
     {

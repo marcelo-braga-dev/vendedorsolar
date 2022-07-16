@@ -13,4 +13,5 @@ Route::name('admin.orcamento.')
     ->group(function () {
         Route::resource('vistoria', 'VistoriaController');
         Route::resource('aprovacao', 'AprovacaoController');
+        Route::resource('status', 'StatusController');
     });
