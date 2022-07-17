@@ -1,3 +1,7 @@
-<div>
-    <!-- Well begun is half done. - Aristotle -->
+<div class="form-group">
+    @if ($label)
+        <label for="" class="form-control-label">{{ $label }}</label>
+    @endif
+    <input {{ $attributes }} name="{{ $name }}" class="form-control form-control-alternative {{ $class }}"
+           type="datetime-local" value="{{ $value }}">
 </div>

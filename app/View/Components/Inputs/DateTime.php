@@ -6,14 +6,22 @@ use Illuminate\View\Component;
 
 class DateTime extends Component
 {
+    public $value;
+    public $label;
+    public $name;
+    public $class;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $label, string $name, ?string $value = null, ?string $class = null)
     {
-        //
+        $this->label = $label;
+        $this->name = $name;
+        $this->value = $value;
+        $this->class = $class;
     }
 
     /**
