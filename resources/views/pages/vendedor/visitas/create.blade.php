@@ -1,5 +1,5 @@
 <x-layout menu="visita" submenu="agendadas">
-    <x-body title="Cadastrar Cliente" url-button="">
+    <x-body title="Agendar Visita" url-button="">
         <form method="POST" action="{{ route('vendedor.visitas.store') }}"> @csrf
             <div class="form-row">
                 <div class="col-md-6">
@@ -11,7 +11,7 @@
                     </x-inputs.select>
                 </div>
                 <div class="col-6 col-md-3">
-{{--                    <x-inputs.datetime label="Data/Hora" name="data" required></x-inputs.datetime>--}}
+                    <x-inputs.datetime label="Data/Hora" name="data" required></x-inputs.datetime>
                 </div>
             </div>
             <div class="form-row">
