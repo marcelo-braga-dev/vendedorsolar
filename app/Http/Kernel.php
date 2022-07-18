@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\VerificarSenhaPadrao;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -38,7 +37,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            VerificarSenhaPadrao::class
+            \App\Http\Middleware\ForceHTTPS::class,
+            \App\Http\Middleware\VerificarSenhaPadrao::class
         ],
 
         'api' => [
