@@ -49,24 +49,21 @@ class CadastrarOrcamento
 
     private function setTaxaComissao()
     {
-        try {
-            $comissao = new TaxaComissoes();
-
-            $dados = $comissao->newQuery()
-                ->where('user_id', '=', $this->users_id)
-                ->first('taxa');
-
-            return $dados->taxa;
-        } catch (\ErrorException $e) {
-            modalErro('Não foi encontrado a sua porcentagem de comissão por venda.
-            Por favor, entre em contato com um administrador.');
-            throw new \DomainException();
-        }
+        $dados = (new TaxaComissoes())->newQuery()
+            ->where('user_id', '=', $this->users_id)
+            ->first('taxa');
+        if (empty($dados)) throw new \DomainException('Não foi encontrado a sua porcentagem de comissão por venda.
+                Por favor, entre em contato com um administrador.');
+        return $dados->taxa;
     }
 
     public function cadastrar()
     {
-        return (new Orcamentos())->cadastrar($this);
+        try {
+            return (new Orcamentos())->cadastrar($this);
+        } catch (\DomainException $exception) {
+            modalErro($exception->getMessage());
+        }
     }
 
     public function getTaxaComissao()

@@ -67,16 +67,5 @@ Route::get('select-estados', function (\Illuminate\Http\Request $request) {
     return $html;
 })->name('estados');
 
-Route::get('atualizar-db', function (\Illuminate\Http\Request $request) {
-    $orcamentos = (new \App\Models\Orcamentos())->newQuery()
-        ->get();
+include 'db/index.php';
 
-    $db = (new \App\Models\OrcamentoKits())->newQuery();
-    foreach ($orcamentos as $orcamento) {
-        $db->where('orcamentos_id', $orcamento->id)
-            ->update([
-                'qtd_kits' => $orcamento->qtd_kits,
-                'taxa_comissao' => $orcamento->taxa_comissao
-            ]);
-    }
-});

@@ -65,8 +65,7 @@ class MarcasTrafosController extends Controller
             return redirect()->back();
         }
 
-        $produtos = new Produtos();
-        $marca = $produtos->newQuery()->find($id);
+        $marca = (new Produtos())->newQuery()->find($id);
 
         deleteFileStorage($marca->img_logo);
         deleteFileStorage($marca->img_produto);
@@ -84,14 +83,14 @@ class MarcasTrafosController extends Controller
             if ($request->file('img_logo')->isValid()) {
                 deleteFileStorage($marca->img_logo);
 
-                $marca->img_logo = $request->img_logo->store('produtos/trafos/logos');
+                $marca->img_logo = $request->img_logo->store('produtos');
             }
         }
 
         if ($request->hasFile('img_produto')) {
             if ($request->file('img_produto')->isValid()) {
                 deleteFileStorage($marca->img_produto);
-                $marca->img_produto = $request->img_produto->store('produtos/trafos/produtos');
+                $marca->img_produto = $request->img_produto->store('produtos');
             }
         }
     }

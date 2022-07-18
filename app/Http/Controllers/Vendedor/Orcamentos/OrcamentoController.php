@@ -23,8 +23,7 @@ class OrcamentoController extends Controller
     {
         $where = $this->getStatus($request->status);
 
-        $orc = new Orcamentos();
-        $orcamentos = $orc->newQuery()
+        $orcamentos = (new Orcamentos())->newQuery()
             ->where('users_id', '=', id_usuario_atual())
             ->where($where)
             ->orderBy('id', 'DESC')

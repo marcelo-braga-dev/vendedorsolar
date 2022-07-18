@@ -16,9 +16,9 @@ class DimenConvencionalController extends Controller
 {
     public function index()
     {
-        $clientes = Clientes::orderBy('id', 'DESC')
-            ->where('users_id', '=', id_usuario_atual())
-            ->get();
+        $clientes = (new Clientes())->newQuery()
+            ->orderBy('id', 'DESC')
+            ->where('users_id', '=', id_usuario_atual())->get();
 
         $orientacoes = (new DirecaoInstalacao())->direcoes();
 
@@ -31,8 +31,7 @@ class DimenConvencionalController extends Controller
         $conv = new Convencional(new ConvencionalDados($request));
         $kits = $conv->selecionarKits();
 
-        $produtos = new Produtos();
-        $produtos = $produtos->getImagensNome();
+        $produtos = (new Produtos())->getImagensNome();
 
         return view('pages.vendedor.orcamentos.dimensionamento.components.lista-kits',
             compact('kits', 'request', 'produtos'));
@@ -41,8 +40,7 @@ class DimenConvencionalController extends Controller
     public function store(CadastrarOrcamentoRequest $request)
     {
         try {
-            $orcamento = new Orcamento();
-            $id = $orcamento->cadastrar($request);
+            $id = (new Orcamento())->cadastrar($request);
 
             return redirect()->route('vendedor.orcamento.show', $id);
         } catch (\DomainException $e) {

@@ -15,6 +15,7 @@ class Kits extends Model
         [
             'sku',
             'modelo',
+            'potencia_kit',
             'marca_inversor',
             'marca_painel',
             'potencia_painel',

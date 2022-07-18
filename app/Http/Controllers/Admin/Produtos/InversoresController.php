@@ -112,14 +112,14 @@ class InversoresController extends Controller
             if ($request->file('img_logo')->isValid()) {
                 deleteFileStorage($inversor->img_logo);
 
-                $inversor->img_logo = $request->img_logo->store('produtos/inversores/logos');
+                $inversor->img_logo = $request->img_logo->store('produtos');
             }
         }
 
         if ($request->hasFile('img_produto')) {
             if ($request->file('img_produto')->isValid()) {
                 deleteFileStorage($inversor->img_produto);
-                $inversor->img_produto = $request->img_produto->store('produtos/inversores/produtos');
+                $inversor->img_produto = $request->img_produto->store('produtos');
             }
         }
     }

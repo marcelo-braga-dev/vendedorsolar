@@ -92,14 +92,14 @@ class PaineisController extends Controller
             if ($request->file('img_logo')->isValid()) {
                 deleteFileStorage($painel->img_logo);
 
-                $painel->img_logo = $request->img_logo->store('produtos/paineis/logos');
+                $painel->img_logo = $request->img_logo->store('produtos');
             }
         }
 
         if ($request->hasFile('img_produto')) {
             if ($request->file('img_produto')->isValid()) {
                 deleteFileStorage($painel->img_produto);
-                $painel->img_produto = $request->img_produto->store('produtos/paineis/produtos');
+                $painel->img_produto = $request->img_produto->store('produtos');
             }
         }
     }
