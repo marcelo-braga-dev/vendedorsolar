@@ -71,7 +71,7 @@ class BancosController extends Controller
                 'juros_mensal' => $request->juros_mensal,
                 'qtd_parcelas' => $request->qtd_parcelas,
                 'carencia' => $request->carencia,
-                'status' => 1,
+                'status' => $request->status,
                 'img_logo' => $this->uploadImagem($request, $banco) ?? $banco->img_logo
             ]);
 

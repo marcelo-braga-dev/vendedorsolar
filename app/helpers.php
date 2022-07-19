@@ -4,7 +4,7 @@ use App\Models\Clientes;
 use App\Services\CidadesEstadosService;
 use App\Services\EstruturasService;
 
-require_once 'Helpers/dimensionamento.php';
+require_once 'Helpers/status.php';
 
 if (!function_exists('get_status')) {
     function get_status($id = '')
@@ -209,29 +209,11 @@ if (!function_exists('getStatusOrcamentos')) {
     }
 }
 
-if (!function_exists('getStatusLead')) {
-    function getStatusLead($status)
-    {
-        $todosStatus = (new \App\src\Clientes\Leads\Status\StatusLeads())->todosStatus();
-        return $todosStatus[$status] ?? 'Não encontrado';
-    }
-}
 
-if (!function_exists('getStatusCliente')) {
-    function getStatusCliente($status)
-    {
-        $todosStatus = (new \App\src\Clientes\Status\StatusClientes())->todosStatus();
-        return $todosStatus[$status] ?? 'Não encontrado';
-    }
-}
 
-if (!function_exists('getStatusVisitaTecnica')) {
-    function getStatusVisitaTecnica($status)
-    {
-        $todosStatus = (new \App\src\VisitasTecnicas\Status\VisitasTecnicasStatus())->todosStatus();
-        return $todosStatus[$status] ?? 'Não encontrado';
-    }
-}
+
+
+
 
 if (!function_exists('getDirecaoInstalacao')) {
     function getDirecaoInstalacao($direcao)

@@ -23,6 +23,12 @@
                                               value="{{ $banco->carencia }}"
                                               type="number" required></x-inputs.input-box-right>
                 </div>
+                <div class="col-6 col-md-3">
+                    <x-inputs.select name="status" label="Status">
+                        <option value="0">Desativado</option>
+                        <option value="1" @if ($banco->status) selected @endif>Ativo</option>
+                    </x-inputs.select>
+                </div>
             </div>
             <div class="row mb-4">
                 <div class="col-md-6">
