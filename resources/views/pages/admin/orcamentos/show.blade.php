@@ -165,13 +165,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>E-mail:</b> {{ $dadosCliente['email'] }}</small>
+                                        <small class="d-block"><b>E-mail:</b> {{ $dadosCliente['email'] ?? '' }}</small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Celular:</b> {{ $dadosCliente['celular'] }}</small>
+                                        <small class="d-block"><b>Celular:</b> {{ $dadosCliente['celular'] ?? '' }}</small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Telefone:</b> {{ $dadosCliente['telefone'] }}</small>
+                                        <small class="d-block"><b>Telefone:</b> {{ $dadosCliente['telefone'] ?? '' }}</small>
                                     </div>
                                 </div>
                             </div>
