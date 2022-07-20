@@ -12,6 +12,7 @@
                         </div>
                         <div class="text-center text-muted mb-4">
                             @if (env('APP_ENV') == 'local')
+                                <b>Contas de Teste</b><br>
                                 <b>Vendedor:</b> vendedor@teste.com<br>
                                 <b>Admin:</b> admin@teste.com
                                 </span>
@@ -42,8 +43,7 @@
                                     </div>
                                     <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                            name="password" placeholder="Senha" type="password"
-                                           value=""
-                                           required>
+                                           value="@if (env('APP_ENV') == 'local'){{ '10203040' }}@endif" required>
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">

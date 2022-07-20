@@ -45,7 +45,9 @@ class IntegracaoAldoSeeder extends Seeder
         (25, 'teste', 'schedule_2', NULL, '123'),
         (26, 'painel', 'JINKO MONO 470W', '470', '1'),
         (27, 'inversor', 'GROWATT', NULL, '12'),
-        (28, 'inversor', 'DEYE', NULL, '25')");
+        (28, 'inversor', 'DEYE', NULL, '25'),
+        (29, 'trafo', 'MINUZZI', NULL, '27'),
+        (30, 'trafo', 'MAGNUS', NULL, '34')");
                 } catch (QueryException $e) {
         }
     }
