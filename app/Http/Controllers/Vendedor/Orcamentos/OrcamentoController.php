@@ -45,12 +45,6 @@ class OrcamentoController extends Controller
             case 'aprovados' :
                 $tag = (new Aprovado())->getStatus();
                 break;
-            case 'instalandos' :
-                $tag = (new Instalando())->getStatus();
-                break;
-            case 'finalizados' :
-                $tag = (new Finalizado())->getStatus();
-                break;
             default :
                 return null;
         }

@@ -107,7 +107,7 @@
                         <div class="card-body">
                             <div class="row justify-content-between">
                                 <div class="col-auto">
-                                    <h2>Cliente: {{ get_nome_cliente($orcamento->clientes_id) }}</h2>
+                                    <h2>Cliente: {{ getNomeCliente($orcamento->clientes_id) }}</h2>
                                     <small class="d-block">ID do Orçamento: #{{ $orcamento->id }}</small>
                                     <small class="d-block">Status: {{ $orcamento->status }}</small>
                                     <small class="d-block">
@@ -172,7 +172,7 @@
                                         <td>{{ ucfirst($orcamento->orientacao) }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Irradiação Solar (Média Anual) </td>
+                                        <td>Irradiação Solar (Média Anual)</td>
                                         <td>{{ str_replace('.', '.', getIrradiacao($orcamento->cidade)) }} kWh/m²</td>
                                     </tr>
                                 </x-slot>
@@ -194,7 +194,9 @@
                                     </tr>
                                     <tr>
                                         <td>Potência total do Kit</td>
-                                        <td>{{ convert_float_money($kit->potencia_kit * $orcamento->qtd_kits, 2)  }} kWp</td>
+                                        <td>{{ convert_float_money($kit->potencia_kit * $orcamento->qtd_kits, 2)  }}
+                                            kWp
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Potência dos Painéis</td>

@@ -16,14 +16,14 @@
                 @foreach($visitas as $item)
                     <tr>
                         <td>{{ date('d/m/y H:i', strtotime($item->data)) }}</td>
-                        <td>{{ get_nome_cliente($item->clientes_id) }}</td>
+                        <td>{{ getNomeCliente($item->clientes_id) }}</td>
                         <td>{{ getStatusVisitaTecnica($item->status) }}</td>
                         <td><a href="{{ route('vendedor.visitas.show', $item->id) }}">Ver</a></td>
                     </tr>
                 @endforeach
             </x-slot>
             <x-slot name="paginate">
-{{--                {{ $visitas }}--}}
+                {{--                {{ $visitas }}--}}
             </x-slot>
         </x-tables.table-default>
         @if ($visitas->isEmpty())

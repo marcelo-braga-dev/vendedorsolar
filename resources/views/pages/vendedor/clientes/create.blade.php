@@ -1,10 +1,10 @@
 <x-layout menu="clientes" submenu="cadastrar">
     <x-body title="Cadastrar Cliente" url-button="">
-        <form method="POST" action="{{ route('vendedor.clientes.store') }}"> @csrf
+        <form method="POST" id="form" action="{{ route('vendedor.clientes.store') }}"> @csrf
             <h5>Pessoa Física</h5>
             <div class="form-row">
                 <div class="col-md-6">
-                    <x-inputs.input label="Nome" name="nome" type="text"/>
+                    <x-inputs.input label="Nome" name="nome" id="nome" type="text"/>
                 </div>
                 <div class="col-6 col-md-3">
                     <x-inputs.input label="CPF" name="cpf" type="text" class="mask-cpf"/>
@@ -82,14 +82,28 @@
                     </x-inputs.select>
                 </div>
             </div>
+            <div class="alert alert-danger d-none" id="alert">
+                Por favor, preencha o nome ou razão social do cliente.
+            </div>
             <div class="row m-3">
                 <div class="col text-center">
-                    <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
+                    <button type="submit" id="btn-submit" class="btn btn-primary">Cadastrar Cliente</button>
                 </div>
             </div>
         </form>
     </x-body>
     @push('js')
+        <script>
+            $(function () {
+                $('#form').submit(function (event) {
+                    if ($('#nome').val() === '' && $('#razao_social').val() === '') {
+                        event.preventDefault();
+                        $('#alert').removeClass('d-none');
+                    }
+                });
+            })
+        </script>
+
         <script src="{{ asset('assets') }}/js/select-cidades-estados.js"></script>
         <script src="{{ asset('assets') }}/js/pesquisa-cep.js"></script>
         <script src="{{ asset('assets') }}/js/pesquisa-cnpj.js"></script>

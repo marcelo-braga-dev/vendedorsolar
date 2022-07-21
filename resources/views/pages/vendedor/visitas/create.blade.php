@@ -6,7 +6,7 @@
                     <x-inputs.select name="cliente" label="Cliente" required>
                         <option></option>
                         @foreach($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                            <option value="{{ $cliente->id }}">{{ getNomeCliente($cliente->id) }}</option>
                         @endforeach
                     </x-inputs.select>
                 </div>

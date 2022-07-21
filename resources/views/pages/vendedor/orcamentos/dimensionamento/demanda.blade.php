@@ -8,7 +8,7 @@
                         <option value=""></option>
                         @foreach ($clientes as $item)
                             <option value="{{ $item->id }}" localidade="{{ $item->cidades_estados_id }}">
-                                {{ $item->nome }}
+                                {{ getNomeCliente($item->id) }}
                             </option>
                         @endforeach
                     </x-inputs.select>

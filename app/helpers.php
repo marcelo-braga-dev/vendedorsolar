@@ -118,10 +118,15 @@ if (!function_exists('getCidadeEstado')) {
     }
 }
 
-if (!function_exists('get_nome_cliente')) {
-    function get_nome_cliente(int $id)
+if (!function_exists('getNomeCliente')) {
+    function getNomeCliente(int $id)
     {
-        return Clientes::find($id)->nome;
+        $cliente = (new Clientes)->newQuery()->find($id);
+        if (empty($cliente)) return '-';
+        if ($cliente->nome && !$cliente->razao_social) return $cliente->nome;
+        if ($cliente->nome && $cliente->razao_social) return $cliente->nome . ' / ' . $cliente->razao_social;
+        if ($cliente->razao_social) return $cliente->razao_social;
+        return '-';
     }
 }
 

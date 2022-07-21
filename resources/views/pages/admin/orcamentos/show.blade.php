@@ -160,7 +160,7 @@
                             <div class="col-12">
                                 <div class="row mb-2">
                                     <div class="col-auto">
-                                        <span><b>Cliente:</b> {{ get_nome_cliente($orcamento->clientes_id) }}</span>
+                                        <span><b>Cliente:</b> {{ getNomeCliente($orcamento->clientes_id) }}</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -168,10 +168,12 @@
                                         <small class="d-block"><b>E-mail:</b> {{ $dadosCliente['email'] ?? '' }}</small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Celular:</b> {{ $dadosCliente['celular'] ?? '' }}</small>
+                                        <small class="d-block"><b>Celular:</b> {{ $dadosCliente['celular'] ?? '' }}
+                                        </small>
                                     </div>
                                     <div class="col-md-auto">
-                                        <small class="d-block"><b>Telefone:</b> {{ $dadosCliente['telefone'] ?? '' }}</small>
+                                        <small class="d-block"><b>Telefone:</b> {{ $dadosCliente['telefone'] ?? '' }}
+                                        </small>
                                     </div>
                                 </div>
                             </div>

@@ -21,7 +21,7 @@
                             {{ date('H:i:s', strtotime($orcamento->created_at) ) }}
                         </td>
                         <td style="white-space: normal">
-                            <b>{{ get_nome_cliente($orcamento->clientes_id) }}</b>
+                            <b>{{ getNomeCliente($orcamento->clientes_id) }}</b>
                         </td>
                         <td>R$ {{ convert_float_money($orcamento->preco_cliente) }}</td>
                         <td>

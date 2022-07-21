@@ -3,7 +3,7 @@
             url-button="{{ route('vendedor.clientes.edit', $cliente->id) }}">
         <div class="row mb-3">
             <div class="col-md-6">
-                <p><b>Nome: </b>{{ $cliente->nome }}</p>
+                <p><b>Nome: </b>{{ getNomeCliente($cliente->id) }}</p>
             </div>
             <div class="col-md-3">
                 <p><b>CPF: </b>{{ $dados['cpf'] ?? '' }}</p>

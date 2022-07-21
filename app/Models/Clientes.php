@@ -11,7 +11,7 @@ class Clientes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'users_id', 'cidades_estados_id', 'status'];
+    protected $fillable = ['nome', 'razao_social', 'users_id', 'cidades_estados_id', 'status'];
 
     public function cadastrar($request)
     {

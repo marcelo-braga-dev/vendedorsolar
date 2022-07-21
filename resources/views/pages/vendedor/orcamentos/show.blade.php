@@ -86,7 +86,7 @@
                             <div class="col-auto mb-3">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <h3>Cliente: {{ get_nome_cliente($orcamento->clientes_id) }}</h3>
+                                        <h3>Cliente: {{ getNomeCliente($orcamento->clientes_id) }}</h3>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -193,10 +193,10 @@
                                         <td>Média Consumo <br>na Ponta</td>
                                         <td>{{ $metas['consumo_ponta'] }} kWh/mês</td>
                                     </tr>
-                                        <tr>
-                                            <td>Demanda Contratada</td>
-                                            <td>{{ $metas['demanda'] }} kWh/mês</td>
-                                        </tr>
+                                    <tr>
+                                        <td>Demanda Contratada</td>
+                                        <td>{{ $metas['demanda'] }} kWh/mês</td>
+                                    </tr>
                                 @endif
                                 <tr>
                                     <td>Localidade</td>

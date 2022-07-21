@@ -15,7 +15,7 @@
                 @foreach($clientes as $cliente)
                     <tr>
                         <th>#{{ $cliente->id }}</th>
-                        <td>{{ $cliente->nome }}</td>
+                        <td>{{ getNomeCliente($cliente->id) }}</td>
                         <td>{{ getStatusCliente($cliente->status) }}</td>
                         <td>{{ getCidadeEstado($cliente->cidades_estados_id) }}</td>
                         <td>{{ date('d/m/y H:i', strtotime($cliente->created_at)) }}</td>

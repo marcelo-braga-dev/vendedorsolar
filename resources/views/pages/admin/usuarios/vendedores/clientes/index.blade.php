@@ -13,7 +13,7 @@
                 @foreach($clientes as $cliente)
                     <tr class="text-center">
                         <td style="white-space: normal">
-                            {{ $cliente->nome }}
+                            {{ getNomeCliente($cliente->id) }}
                         </td>
                         <td>
                             {{ getCidadeEstado($cliente->cidades_estados_id) }}

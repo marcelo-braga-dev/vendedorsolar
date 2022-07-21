@@ -2,7 +2,7 @@
     <x-body title="Informações do Leads FINALIZADO" url-button="{{ route('vendedor.visitas.index') }}">
         <div class="row mb-3">
             <div class="col-md-6">
-                <span class="d-block">Nome: {{ $cliente->nome }}</span>
+                <span class="d-block">Nome: {{ getNomeCliente($cliente->id) }}</span>
                 <span class="d-block">Telefone: {{ $cliente->telefone }}</span>
                 <span class="d-block">Email: {{ $cliente->email }}</span>
                 <span class="d-block">Cidade: {{ getCidadeEstado($cliente->cidades_estados_id) }}</span>

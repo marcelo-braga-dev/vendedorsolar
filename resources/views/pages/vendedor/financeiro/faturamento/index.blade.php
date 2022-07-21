@@ -109,7 +109,7 @@
                             <tr>
                                 <td>#{{ $orcamento->id }}</td>
                                 <td>Em aberto</td>
-                                <td>{{ get_nome_cliente($orcamento->clientes_id) }}</td>
+                                <td>{{ getNomeCliente($orcamento->clientes_id) }}</td>
                                 <td>R$ {{ convert_float_money($orcamento->preco_cliente) }}</td>
                                 <td>{{ date('d/m/y', strtotime($orcamento->created_at)) }}</td>
                             </tr>
