@@ -2,16 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
-include 'conexao.php';
-include 'funcoesIntegracao.php';
-include 'usuarios.php';
-include 'clientes.php';
-include 'orcamentos.php';
 
 Route::get('atualizar-db', function (\Illuminate\Http\Request $request) {
     echo 'INICIO';
+    include 'conexao.php';
+    include 'funcoesIntegracao.php';
+    include 'usuarios.php';
+    include 'clientes.php';
+    include 'orcamentos.php';
     atualizarUsuarios();
     atualizarClientes();
     atualizarOrcamentos();
+    echo '<br>FIM';
+});
+
+Route::get('info-orcamento', function (\Illuminate\Http\Request $request) {
+    echo 'INICIO<br>';
+    include 'atualizacao/info-orcamento.php';
     echo '<br>FIM';
 });

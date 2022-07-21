@@ -4,7 +4,7 @@
             <h5>Pessoa Física</h5>
             <div class="form-row">
                 <div class="col-md-6">
-                    <x-inputs.input label="Nome" name="nome" type="text" required/>
+                    <x-inputs.input label="Nome" name="nome" type="text"/>
                 </div>
                 <div class="col-6 col-md-3">
                     <x-inputs.input label="CPF" name="cpf" type="text" class="mask-cpf"/>

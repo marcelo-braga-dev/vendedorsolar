@@ -5,17 +5,24 @@
             @csrf @method('PUT')
             <div class="row">
                 <div class="col-md-3">
-                    <x-inputs.select label="Status do Orçamento" name="status" required>
+                    <x-inputs.select label="Status do Orçamento:" name="status" required>
                         @foreach($todosStatus as $status => $nomeStatus)
-                            <option value="{{ $status }}" @if ($orcamento->status == $status) selected @endif>{{ $nomeStatus }}</option>
+                            <option value="{{ $status }}"
+                                    @if ($orcamento->status == $status) selected @endif>{{ $nomeStatus }}</option>
                         @endforeach
+                    </x-inputs.select>
+                </div>
+                <div class="col-md-3">
+                    <x-inputs.select label="Vendedor pode Editar Dados?" name="bloqueio_vendedor" required>
+                        <option value="0">Sim</option>
+                        <option value="1" @if($edicaoVendedor) selected @endif>Não</option>
                     </x-inputs.select>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <x-inputs.textarea label="Anotações/Observações" required
+                    <x-inputs.textarea label="Anotações/Observações:" required
                                        name="anotacoes">{{ $orcamento->anotacoes }}</x-inputs.textarea>
                 </div>
             </div>

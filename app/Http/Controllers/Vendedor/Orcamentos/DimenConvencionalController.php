@@ -31,7 +31,7 @@ class DimenConvencionalController extends Controller
         $conv = new Convencional(new ConvencionalDados($request));
         $kits = $conv->selecionarKits();
 
-        $produtos = (new Produtos())->getImagensNome();
+        $produtos = (new Produtos())->getDados();
 
         return view('pages.vendedor.orcamentos.dimensionamento.components.lista-kits',
             compact('kits', 'request', 'produtos'));

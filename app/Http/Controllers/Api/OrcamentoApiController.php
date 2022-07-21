@@ -21,7 +21,7 @@ class OrcamentoApiController extends Controller
         $orcamentoKitId = (new OrcamentoKits())->getIdKit($orcamento->id);
         $kit = (new Kits())->newQuery()->findOrFail($orcamentoKitId);
         $trafo = (new Trafos())->newQuery()->find($orcamento->trafo);
-        $imagens = (new Produtos())->getImagensNome();
+        $imagens = (new Produtos())->getDados();
         $metas = (new OrcamentosMetas())->getMetas($orcamento->id);
 
         return view('pages.vendedor.orcamentos.externa.index',

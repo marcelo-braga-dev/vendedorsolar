@@ -43,11 +43,9 @@ class Produtos extends Model
             ->get();
 
         $painel = [];
-
         foreach ($paineis as $item) {
             $painel[$item->id] = $item;
         }
-
         return $painel;
     }
 
@@ -64,20 +62,18 @@ class Produtos extends Model
         return $items;
     }
 
-    public function getImagensNome()
+    public function getDados()
     {
+        $items = $this->newQuery()->get();
         $imagens = [];
-
-        $items = $this->get();
-
         foreach ($items as $item) {
             $imagens[$item->id] = [
                 'nome' => $item->nome,
                 'logo' => $item->img_logo,
-                'produto' => $item->img_produto
+                'produto' => $item->img_produto,
+                'garantia' => $item->garantia
             ];
         }
-
         return $imagens;
     }
 }

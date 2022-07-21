@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Vendedor\Orcamentos;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrcamentosInfos;
 use App\Models\VistoriaOrcamentos;
 use App\Services\Orcamentos\VistoriaService;
 use Illuminate\Http\Request;
@@ -14,8 +15,10 @@ class VistoriaController extends Controller
         $vistoria = (new VistoriaOrcamentos())->newQuery()
             ->where('orcamentos_id', '=', $id)
             ->first();
+        $disabled = (new OrcamentosInfos())->statusBloqueio($id);
 
-        return view('pages.vendedor.orcamentos.vistoria.show', compact('id', 'vistoria'));
+        return view('pages.vendedor.orcamentos.vistoria.show',
+            compact('id', 'vistoria', 'disabled'));
     }
 
     public function store(Request $request)

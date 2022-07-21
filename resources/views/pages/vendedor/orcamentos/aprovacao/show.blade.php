@@ -22,7 +22,7 @@
             <h5>Pessoa Jurídica</h5>
             <div class="form-row mb-4">
                 <div class="col-md-3">
-                    <x-inputs.input label="CNPJ" type="" name="cnpj_financiador"
+                    <x-inputs.input label="CNPJ" type="text" name="cnpj_financiador"
                                     value="{{ $dados['cnpj_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-3">
@@ -42,21 +42,21 @@
             <h5>Endereço</h5>
             <div class="form-row">
                 <div class="col-6 col-md-3">
-                    <x-inputs.input label="Cep" type="" name="cep_financiador"
+                    <x-inputs.input label="Cep" type="" name="cep_financiador" required
                                     value="{{ $dados['cep_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-9">
-                    <x-inputs.input label="Rua/Av" type="" name="rua_financiador"
+                    <x-inputs.input label="Rua/Av" type="" name="rua_financiador" required
                                     value="{{ $dados['rua_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-2">
-                    <x-inputs.input label="Número" type="" name="numero_financiador"
+                    <x-inputs.input label="Número" type="" name="numero_financiador" required
                                     value="{{ $dados['numero_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-4">
-                    <x-inputs.input label="Bairro" type="" name="bairro_financiador"
+                    <x-inputs.input label="Bairro" type="" name="bairro_financiador" required
                                     value="{{ $dados['bairro_financiador'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-3">
@@ -144,11 +144,12 @@
             <h5>Informação da concessionária</h5>
             <div class="form-row">
                 <div class="col-md-5">
-                    <x-inputs.input label="Número do Registro na Concessionária" type="" name="registro_instalacao"
+                    <x-inputs.input label="Número do Registro na Concessionária" type="text" required
+                                    name="registro_instalacao"
                                     value="{{ $dados['registro_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-5">
-                    <x-inputs.file label="Conta de energia do imóvel da instalação"
+                    <x-inputs.file label="Conta de energia do imóvel da instalação" required
                                    name="img_conta_instalacao"
                                    url="{{ $dados['img_conta_instalacao'] ?? '' }}"></x-inputs.file>
                 </div>
@@ -157,21 +158,21 @@
             <h5>Endereço</h5>
             <div class="form-row">
                 <div class="col-6 col-md-3">
-                    <x-inputs.input label="Cep" type="" name="cep_instalacao"
+                    <x-inputs.input label="Cep" type="" name="cep_instalacao" required
                                     value="{{ $dados['cep_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-9">
-                    <x-inputs.input label="Rua/Av" type="" name="rua_instalacao"
+                    <x-inputs.input label="Rua/Av" type="" name="rua_instalacao" required
                                     value="{{ $dados['rua_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-2">
-                    <x-inputs.input label="Número" type="" name="numero_instalacao"
+                    <x-inputs.input label="Número" type="" name="numero_instalacao" required
                                     value="{{ $dados['numero_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-4">
-                    <x-inputs.input label="Bairro" type="" name="bairro_instalacao"
+                    <x-inputs.input label="Bairro" type="" name="bairro_instalacao" required
                                     value="{{ $dados['bairro_instalacao'] ?? '' }}"></x-inputs.input>
                 </div>
                 <div class="col-md-3">
@@ -187,9 +188,18 @@
         <x-body.card>
             <div class="form-row">
                 <div class="col-auto mx-auto">
-                    <button class="btn btn-primary">Enviar para Aprovação</button>
+                    <button class="btn btn-primary" id="btn-submit">Enviar para Aprovação</button>
                 </div>
             </div>
         </x-body.card>
     </form>
+    @push('js')
+        <script>
+            $(function () {
+                if ({{ $disabled }}) {
+                    $('input, #btn-submit').attr('disabled', 'true');
+                }
+            })
+        </script>
+    @endpush
 </x-layout>

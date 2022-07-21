@@ -78,15 +78,6 @@ class Orcamentos extends Model
 
     private function metas($id, $dados)
     {
-        $chaves = new ChavesOrcamentos();
-        $metas = new OrcamentosMetas();
-        $metas->criar($id, $chaves->getConsumo(), $dados->getConsumo());
-        $metas->criar($id, $chaves->getConsumoPonta(), $dados->getConsumoPonta());
-        $metas->criar($id, $chaves->getConsumoForaPonta(), $dados->getConsumoForaPonta());
-        $metas->criar($id, $chaves->getDemanda(), $dados->getDemandaContratada());
-        $metas->criar($id, $chaves->getPermitirEdicao(), 1);
-        $metas->criar($id, $chaves->getEstrutura(), $dados->getEstrutura());
-        $metas->criar($id, $chaves->getTensao(), $dados->getTensao());
-        $metas->criar($id, $chaves->getOrientacao(), $dados->getOrientacao());
+        (new OrcamentosInfos())->criar($id, $dados);
     }
 }

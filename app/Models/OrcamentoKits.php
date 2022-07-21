@@ -26,4 +26,9 @@ class OrcamentoKits extends Model
             ->where('orcamentos_id', $id)
             ->first()->kits_id;
     }
+
+    public function dado($id)
+    {
+        return $this->newQuery()->where('orcamentos_id', $id)->first();
+    }
 }

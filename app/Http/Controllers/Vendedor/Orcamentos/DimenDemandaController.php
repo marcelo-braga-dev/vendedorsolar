@@ -39,7 +39,7 @@ class DimenDemandaController extends Controller
         $kits = $demanda->selecionarKits();
 
         $produtos = new Produtos();
-        $produtos = $produtos->getImagensNome();
+        $produtos = $produtos->getDados();
 
         return view('pages.vendedor.orcamentos.dimensionamento.components.lista-kits',
             compact('kits', 'request', 'produtos'));

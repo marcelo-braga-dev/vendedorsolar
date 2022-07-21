@@ -111,7 +111,8 @@
                                             <input type="hidden" name="id" value="{{ $orcamento->id }}">
                                             <input type="hidden" name="grafico_geracao" id="grafico_geracao">
                                             <input type="hidden" name="grafico_payback" id="grafico_payback">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-file-pdf mr-2 text-lg"></i>
                                                 Abrir PDF
                                             </button>
                                         </form>

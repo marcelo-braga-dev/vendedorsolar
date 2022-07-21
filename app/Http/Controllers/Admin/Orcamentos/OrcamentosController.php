@@ -8,6 +8,7 @@ use App\Models\ClientesMetas;
 use App\Models\Kits;
 use App\Models\OrcamentoKits;
 use App\Models\Orcamentos;
+use App\Models\OrcamentosInfos;
 use App\Models\OrcamentosMetas;
 use App\Models\Produtos;
 use App\Models\Trafos;
@@ -93,11 +94,10 @@ class OrcamentosController extends Controller
         $orcamento = (new Orcamentos)->newQuery()->findOrFail($id);
         $trafo = (new Trafos())->newQuery()->find($orcamento->trafo);
         $dadosCliente = (new ClientesMetas())->values($orcamento->clientes_id);
-        $imagens = (new Produtos())->getImagensNome();
+        $imagens = (new Produtos())->getDados();
         $dadosVendedor = (new UserMeta())->metas($orcamento->users_id);
-        $metas = (new OrcamentosMetas())->getMetas($orcamento->id);
-        $orcamentoKit = (new OrcamentoKits())->newQuery()
-            ->where('orcamentos_id', $orcamento->id)->first();
+        $metas = (new OrcamentosInfos())->dado($orcamento->id);
+        $orcamentoKit = (new OrcamentoKits())->dado($orcamento->id);
         $kit = (new Kits())->newQuery()->find($orcamentoKit->kits_id);
         $comissao = (new ComissaoVendedorService())->calcular($trafo, $orcamento, $kit, $orcamentoKit);
 

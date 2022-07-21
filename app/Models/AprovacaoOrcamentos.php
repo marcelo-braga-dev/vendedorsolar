@@ -16,4 +16,14 @@ class AprovacaoOrcamentos extends Model
         'meta',
         'value',
     ];
+
+    public function criar($id, $dados)
+    {
+        foreach ($dados as $index => $dado) {
+            $this->newQuery()->updateOrInsert(
+                ['orcamentos_id' => $id, 'meta' => $index],
+                ['value' => $dado]
+            );
+        }
+    }
 }

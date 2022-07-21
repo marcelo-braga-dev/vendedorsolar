@@ -51,9 +51,18 @@
             <div class="row py-4">
                 <div class="col-auto mx-auto">
                     <input type="hidden" name="id" value="{{ $id }}">
-                    <button class="btn btn-primary">Salvar</button>
+                    <button class="btn btn-primary" id="btn-submit">Salvar</button>
                 </div>
             </div>
         </form>
     </x-body>
+    @push('js')
+        <script>
+            $(function () {
+                if ({{ $disabled }}) {
+                    $('input, #btn-submit').attr('disabled', 'true');
+                }
+            })
+        </script>
+    @endpush
 </x-layout>
