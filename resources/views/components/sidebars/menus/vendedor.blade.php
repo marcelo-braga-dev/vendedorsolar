@@ -100,18 +100,18 @@
                         Aprovados
                     </a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'instalandos') active @endif"--}}
-{{--                       href="{{ route('vendedor.orcamento.index', ['status' => 'instalandos']) }}">--}}
-{{--                        Em Instalação--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'finalizados') active @endif"--}}
-{{--                       href="{{ route('vendedor.orcamento.index', ['status' => 'finalizados']) }}">--}}
-{{--                        Finalizados--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="nav-item">--}}
+                {{--                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'instalandos') active @endif"--}}
+                {{--                       href="{{ route('vendedor.orcamento.index', ['status' => 'instalandos']) }}">--}}
+                {{--                        Em Instalação--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
+                {{--                <li class="nav-item">--}}
+                {{--                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'finalizados') active @endif"--}}
+                {{--                       href="{{ route('vendedor.orcamento.index', ['status' => 'finalizados']) }}">--}}
+                {{--                        Finalizados--}}
+                {{--                    </a>--}}
+                {{--                </li>--}}
             </ul>
         </div>
     </li>
@@ -213,3 +213,5 @@
         </div>
     </li>
 </ul>
+
+

@@ -11,19 +11,21 @@ class InputBoxRight extends Component
     public $box;
     public $name;
     public $class;
+    public $hidden;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label, $type, $box, $name, $class = '')
+    public function __construct($label, $type, $box, $name, $class = '', $hidden = null)
     {
         $this->label = $label;
         $this->type = $type;
         $this->box = $box;
         $this->name = $name;
         $this->class = $class;
+        $this->hidden = $hidden;
     }
 
     /**

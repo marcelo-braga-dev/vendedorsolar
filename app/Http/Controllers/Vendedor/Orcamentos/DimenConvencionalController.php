@@ -11,6 +11,7 @@ use App\src\Orcamentos\Dimensionamento\Convencional\Convencional;
 use App\src\Orcamentos\Dimensionamento\Convencional\ConvencionalDados;
 use App\src\Orcamentos\DirecaoInstalacao;
 use App\src\Orcamentos\Orcamento;
+use function GuzzleHttp\Promise\all;
 
 class DimenConvencionalController extends Controller
 {

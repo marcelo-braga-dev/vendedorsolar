@@ -30,7 +30,7 @@ class CreateKitsTable extends Migration
             $table->boolean('status_fornecedor')->default(true);
             $table->string('tensao', 4);
             $table->integer('estrutura');
-            $table->string('produtos', 1024);
+            $table->string('produtos', 3000);
             $table->string('complementos')->nullable();
             $table->string('observacoes')->nullable();
             $table->timestamps();

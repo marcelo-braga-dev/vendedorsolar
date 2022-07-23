@@ -15,6 +15,8 @@ class ConvencionalDados implements DadosDimensionamento
     private $estrutura;
     private $qtdKits;
     private $incluirTrafo;
+    private $tipoConsumo;
+    private $potenciakWP;
 
     public function __construct(ConvencionalRequest $request)
     {
@@ -23,13 +25,15 @@ class ConvencionalDados implements DadosDimensionamento
         $this->estrutura = $request->estrutura;
         $this->qtdKits = $request->qtd_kits;
         $this->incluirTrafo = $request->verificar_trafo;
+        $this->tipoConsumo = $request->tipo_consumo;
+        $this->potenciakWP = $request->potencia;
         $this->irradiacao = $this->setIrradiacao($request->cidade);
         $this->correcao = $this->setCorrecaoCalculo();
     }
 
     private function setIrradiacao(int $cidade): float
     {
-        return IrradiacaoSolar::find($cidade, 'media')->media;
+        return (new IrradiacaoSolar)->newQuery()->find($cidade, 'media')->media;
     }
 
     private function setCorrecaoCalculo()
@@ -42,7 +46,7 @@ class ConvencionalDados implements DadosDimensionamento
             ->first(['meta', 'value'])->value ?? 0;
     }
 
-    public function getConsumo(): float
+    public function getConsumo(): ?float
     {
         return $this->consumo;
     }
@@ -77,4 +81,13 @@ class ConvencionalDados implements DadosDimensionamento
         return $this->incluirTrafo;
     }
 
+    public function getTipoConsumo()
+    {
+        return $this->tipoConsumo;
+    }
+
+    public function getPotenciakWP()
+    {
+        return $this->potenciakWP;
+    }
 }

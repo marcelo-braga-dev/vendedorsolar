@@ -23,20 +23,24 @@ class ConvencionalRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'cliente' => 'required',
             'cidade' => 'required',
             'estrutura' => 'required',
             'tensao' => 'required',
-            'orientacao' => 'required',
-            'consumo' => 'required'
+            'orientacao' => 'required'
         ];
+
+        if (!$this->get('consumo') && !$this->get('potencia')) {
+            $rules = array_merge($rules, ['consumo' => 'required']);
+        }
+        return $rules;
     }
 
     public function messages()
     {
         return [
-            'x.required' => 'A title is required',
+            'consumo.required' => 'Insira o consumo para dimensionamento.',
             'body.required' => 'A message is required',
         ];
     }

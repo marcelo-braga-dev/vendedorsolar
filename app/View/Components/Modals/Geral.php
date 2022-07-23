@@ -4,7 +4,7 @@ namespace App\View\Components\Modals;
 
 use Illuminate\View\Component;
 
-class Sucesso extends Component
+class Geral extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class Sucesso extends Component
      */
     public function render()
     {
-        return view('components.modals.sucesso');
+        return view('components.modals.geral');
     }
 }

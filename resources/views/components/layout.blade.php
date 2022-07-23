@@ -43,23 +43,21 @@
     @include('layouts.footers.guest')
 @endguest
 
-<x-modals.sucesso></x-modals.sucesso>
-<x-modals.erro></x-modals.erro>
-
 <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
 <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('assets') }}/vendor/select2/dist/js/select2.min.js"></script>
 <script src="{{ asset('assets') }}/mask/data-mask.js"></script>
 <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<x-modals.geral></x-modals.geral>
+
 <script>
     $(document).ready(function () {
         $('.select2').select2({
-            placeholder: 'Selecione...',
-
+            placeholder: 'Selecione...'
         });
     });
 </script>
 @stack('js')
-
 </body>
 </html>

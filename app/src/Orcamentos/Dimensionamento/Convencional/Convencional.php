@@ -16,9 +16,12 @@ class Convencional extends Dimensionamento
     private $estrutura;
     private $qtdKits;
     private $incluirTrafo;
+    private $tipoConsumo;
+    private $potenciaKWP;
 
     public function __construct(DadosDimensionamento $dados)
     {
+        $this->potenciaKWP = $dados->getPotenciakWP();
         $this->consumo = $dados->getConsumo();
         $this->irradiacao = $dados->getIrradiacao();
         $this->correcao = $dados->getCorrecaoCalculo();
@@ -26,11 +29,12 @@ class Convencional extends Dimensionamento
         $this->estrutura = $dados->getEstrutura();
         $this->qtdKits = $dados->getQtdKits();
         $this->incluirTrafo = $dados->getIncluirTrafo();
+        $this->tipoConsumo = $dados->getTipoConsumo();
     }
 
     public function calcularGeracao(float $potenciaKit): float
     {
-        return $this->irradiacao * 30 / (1 + $this->correcao/100) * $potenciaKit;
+        return $this->irradiacao * 30 / (1 + $this->correcao / 100) * $potenciaKit;
     }
 
     public function selecionarKits(): array
@@ -44,11 +48,13 @@ class Convencional extends Dimensionamento
 
     protected function calcularPotencia(): void
     {
-        $resultado =
-            ($this->consumo / 30) / ($this->irradiacao * (1 - 0.15));
-        $resultado = $resultado * (1 + $this->correcao / 100);
-
-        $this->potencia = round($resultado, 3);
+        if ($this->potenciaKWP) $this->potencia = $this->potenciaKWP;
+        else {
+            $resultado =
+                ($this->consumo / 30) / ($this->irradiacao * (1 - 0.15));
+            $resultado = $resultado * (1 + $this->correcao / 100);
+            $this->potencia = round($resultado, 3);
+        }
     }
 
     public function getPotencia(): float
