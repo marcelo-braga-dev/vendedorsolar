@@ -30,7 +30,11 @@ abstract class SelecionarKitsDB
 
     private function variacao(float $potencia): array
     {
-        $variacaoPot = 5;
+        $variacaoPot = 500;
+        if ($potencia > 1 ) $variacaoPot = 100;
+        if ($potencia > 1.5 ) $variacaoPot = 30;
+        if ($potencia > 3 ) $variacaoPot = 15;
+        if ($potencia > 5 ) $variacaoPot = 5;
 
         $min = $potencia * (1 - ($variacaoPot / 100));
         $max = $potencia * (1 + ($variacaoPot / 100));
