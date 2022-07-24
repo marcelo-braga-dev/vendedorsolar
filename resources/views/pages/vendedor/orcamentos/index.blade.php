@@ -1,5 +1,25 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
     <x-body title="Orçamentos Gerados" class="p-0">
+        <form action="{{ route('vendedor.orcamento.index') }}">
+            <div class="row justify-content-end">
+                <div class="col-6 col-md-5">
+                    <x-inputs.select label="" name="cliente">
+                        <option value=" ">Todos Clientes</option>
+                        @foreach($clientes as $cliente)
+                            <option value="{{ $cliente->id }}"
+                                    @if ($cliente->id == $idCliente) selected @endif>
+                                {{ getNomeCliente($cliente->id) }}
+                            </option>
+                        @endforeach
+                    </x-inputs.select>
+                </div>
+                <div class="col-auto col-md-auto">
+                    <input type="hidden" name="status" value="{{ $status }}">
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
         <x-tables.table-clickable>
             <x-slot name="head">
                 <tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Vendedor\Orcamentos;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clientes;
 use App\Models\Kits;
 use App\Models\OrcamentoKits;
 use App\Models\Orcamentos;
@@ -22,15 +23,25 @@ class OrcamentoController extends Controller
 {
     public function index(Request $request)
     {
-        $where = $this->getStatus($request->status);
+        $status = $request->status;
+        $idCliente = $request->cliente;
+        $where = $this->getStatus($status);
+        $whereCliente = null;
+
+        if ($idCliente) $whereCliente = [['clientes_id', $idCliente]];
 
         $orcamentos = (new Orcamentos())->newQuery()
             ->where('users_id', '=', id_usuario_atual())
-            ->where($where)
+            ->where($where, )
+            ->where($whereCliente)
             ->orderBy('id', 'DESC')
             ->paginate();
 
-        return view('pages.vendedor.orcamentos.index', compact('orcamentos'));
+        $clientes = (new Clientes())->newQuery()
+            ->where('users_id', id_usuario_atual())->get();
+
+        return view('pages.vendedor.orcamentos.index',
+            compact('orcamentos', 'clientes', 'status', 'idCliente'));
     }
 
     private function getStatus(?string $status)
