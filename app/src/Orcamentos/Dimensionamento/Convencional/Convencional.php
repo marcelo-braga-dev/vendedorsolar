@@ -18,6 +18,7 @@ class Convencional extends Dimensionamento
     private $incluirTrafo;
     private $tipoConsumo;
     private $potenciaKWP;
+    private $estado;
 
     public function __construct(DadosDimensionamento $dados)
     {
@@ -30,6 +31,7 @@ class Convencional extends Dimensionamento
         $this->qtdKits = $dados->getQtdKits();
         $this->incluirTrafo = $dados->getIncluirTrafo();
         $this->tipoConsumo = $dados->getTipoConsumo();
+        $this->estado = $dados->getEstado();
     }
 
     public function calcularGeracao(float $potenciaKit): float
@@ -81,5 +83,10 @@ class Convencional extends Dimensionamento
     {
         if ($this->incluirTrafo == 'true') return true;
         return false;
+    }
+
+    public function getEstado(): string
+    {
+        return $this->estado;
     }
 }

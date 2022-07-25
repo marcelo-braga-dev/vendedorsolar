@@ -16,7 +16,9 @@ abstract class Dimensionamento
 
     abstract protected function calcularPotencia(): void;
 
-    abstract public function getQtdKits() : int;
+    abstract public function getQtdKits(): int;
 
     abstract public function getIncluirTrafo();
+
+    abstract public function getEstado(): string;
 }

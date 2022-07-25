@@ -16,4 +16,9 @@ class CidadesEstados extends Model
         return $this->newQuery()
             ->find($id);
     }
+
+    public function getSigla($localidae)
+    {
+        return $this->newQuery()->find($localidae)->sigla ?? null;
+    }
 }

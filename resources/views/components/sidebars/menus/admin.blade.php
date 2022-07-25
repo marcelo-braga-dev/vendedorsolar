@@ -171,6 +171,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU === 'margem-estado') active @endif"
+                       href="{{ route('admin.precificacao.estado.index') }}">
+                        Por Estado
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link @if(SUBMENU === 'margem-vendedor') active @endif"
                        href="{{ route('admin.precificacao.vendedor.index') }}">
                         Por Vendedor

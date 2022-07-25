@@ -2,6 +2,7 @@
 
 namespace App\src\Orcamentos\Dimensionamento\Demanda;
 
+use App\Models\CidadesEstados;
 use App\Models\Concessionarias;
 use App\Models\IrradiacaoSolar;
 use App\src\Orcamentos\Dimensionamento\DadosDimensionamento;
@@ -31,6 +32,17 @@ class DemandaDados implements DadosDimensionamento
         $this->qtdKits = $request->qtd_kits;
         $this->tarifas = $this->setTarifas($request->concessionaria);
         $this->incluirTrafo = $request->verificar_trafo;
+        $this->estado = $this->setEstado($request->cidade);
+    }
+
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    public function setEstado($localidae)
+    {
+        return (new CidadesEstados())->getSigla($localidae);
     }
 
     private function setIrradiacao(int $cidade): float

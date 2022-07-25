@@ -3,6 +3,7 @@
 namespace App\src\Orcamentos\Dimensionamento\Convencional;
 
 use App\Http\Requests\Orcamento\ConvencionalRequest;
+use App\Models\CidadesEstados;
 use App\Models\IrradiacaoSolar;
 use App\src\Orcamentos\Dimensionamento\DadosDimensionamento;
 
@@ -17,6 +18,7 @@ class ConvencionalDados implements DadosDimensionamento
     private $incluirTrafo;
     private $tipoConsumo;
     private $potenciakWP;
+    private $estado;
 
     public function __construct(ConvencionalRequest $request)
     {
@@ -29,6 +31,17 @@ class ConvencionalDados implements DadosDimensionamento
         $this->potenciakWP = $request->potencia;
         $this->irradiacao = $this->setIrradiacao($request->cidade);
         $this->correcao = $this->setCorrecaoCalculo();
+        $this->estado = $this->setEstado($request->cidade);
+    }
+
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    public function setEstado($localidae)
+    {
+        return (new CidadesEstados())->getSigla($localidae);
     }
 
     private function setIrradiacao(int $cidade): float

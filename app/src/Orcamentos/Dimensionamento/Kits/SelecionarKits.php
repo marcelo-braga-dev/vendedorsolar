@@ -4,17 +4,18 @@ namespace App\src\Orcamentos\Dimensionamento\Kits;
 
 use App\Models\MargemVendaEstruturas;
 use App\Models\MargemVendaPorVendedor;
+use App\Models\PrecificacaoMetas;
 use App\src\Orcamentos\Dimensionamento\Dimensionamento;
 
 class SelecionarKits extends SelecionarKitsDB
 {
-    /** @var Dimensionamento */
     private $dados;
     private $tensao;
     private $potenciaCalc;
     private $estrutura;
     private SelecionaTrafo $trafo;
     private int $qtdKits;
+    private $estado;
 
     public function __construct(Dimensionamento $dados)
     {
@@ -23,6 +24,7 @@ class SelecionarKits extends SelecionarKitsDB
         $this->potenciaCalc = $dados->getPotencia();
         $this->tensao = $dados->getTensao();
         $this->estrutura = $dados->getEstrutura();
+        $this->estado = $dados->getEstado();
         $this->trafo = new SelecionaTrafo();
     }
 
@@ -41,12 +43,10 @@ class SelecionarKits extends SelecionarKitsDB
         foreach ($kits as $item) {
 
             $item->potencia_kit *= $this->qtdKits;
-            $margemVendedor = $this->margemVendedor();
-            $margemEstrutura = $this->margemEstrutura($item->estrutura);
+            $this->calculaPrecoKits($item);
             $item->geracao = $this->dados->calcularGeracao($item->potencia_kit);
-            $item->preco_cliente = $item->preco_cliente * $this->qtdKits * (1 + ($margemVendedor + $margemEstrutura) / 100);
 
-            if($this->dados->getIncluirTrafo()) $this->trafo->analizaTrafo($item, $this->tensao);
+            if ($this->dados->getIncluirTrafo()) $this->trafo->analizaTrafo($item, $this->tensao);
 
             $preco = $item->preco_cliente;
             $geracao = $item->geracao;
@@ -76,29 +76,35 @@ class SelecionarKits extends SelecionarKitsDB
                 }
             }
         }
-
         return $resposta;
+    }
+
+    private function margemEstado()
+    {
+        return (new PrecificacaoMetas())->getEstado($this->estado);
     }
 
     private function margemVendedor()
     {
-        $margemVenda = new MargemVendaPorVendedor();
-        $margemVendedor = $margemVenda->newQuery()
-            ->where('users_id', '=', id_usuario_atual())
-            ->first();
-
-        if (empty($margemVendedor)) return 1;
-        return $margemVendedor->margem;
+        return (new MargemVendaPorVendedor())->newQuery()
+                ->where('users_id', '=', id_usuario_atual())
+                ->first()->margem ?? 1;
     }
 
     private function margemEstrutura($id)
     {
-        $margemEstruturas = new MargemVendaEstruturas();
-        $margemEstrutura = $margemEstruturas->newQuery()
+        return (new MargemVendaEstruturas())->newQuery()
             ->where('estruturas_id', '=', $id)
-            ->first();
+            ->first()->margem ?? 1;
+    }
 
-        if (empty($margemEstrutura)) return 1;
-        return $margemEstrutura->margem;
+    private function calculaPrecoKits($item): void
+    {
+        $margemEstado = $this->margemEstado();
+        $margemVendedor = $this->margemVendedor();
+        $margemEstrutura = $this->margemEstrutura($item->estrutura);
+        $item->preco_cliente =
+            $item->preco_cliente * $this->qtdKits *
+            (1 + ($margemVendedor + $margemEstrutura + $margemEstado) / 100);
     }
 }

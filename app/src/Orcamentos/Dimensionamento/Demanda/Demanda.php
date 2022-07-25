@@ -18,6 +18,7 @@ class Demanda extends Dimensionamento
     private $tarifas;
     private $qtdKits;
     private $incluirTrafo;
+    private $estado;
 
     public function __construct(DadosDimensionamento $dados)
     {
@@ -30,6 +31,7 @@ class Demanda extends Dimensionamento
         $this->qtdKits = $dados->getQtdKits();
         $this->tarifas = $dados->getTarifas();
         $this->incluirTrafo = $dados->getIncluirTrafo();
+        $this->estado = $dados->getEstado();
     }
 
     public function calcularGeracao(float $potenciaKit): float
@@ -82,5 +84,10 @@ class Demanda extends Dimensionamento
     {
         if ($this->incluirTrafo == 'true') return true;
         return false;
+    }
+
+    public function getEstado(): string
+    {
+        return $this->estado;
     }
 }
