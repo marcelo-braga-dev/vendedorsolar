@@ -27,11 +27,8 @@ class Requisicao
 
             $promise->wait();
         } catch (ClientException $e) {
-            throw new \DomainException('Horário de acesso não permitido');
+            throw new \DomainException('Horário de acesso não permitido.');
         }
-
         return $this->zip;
     }
-
-
 }

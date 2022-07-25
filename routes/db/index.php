@@ -12,7 +12,6 @@ Route::get('atualizar-db', function (\Illuminate\Http\Request $request) {
     include 'orcamentos.php';
     atualizarUsuarios();
     atualizarClientes();
-    atualizarOrcamentos();
     echo '<br>FIM';
 });
 

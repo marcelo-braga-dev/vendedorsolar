@@ -10,10 +10,11 @@ foreach ($orcamentos as $orcamento) {
     foreach ($metas as $meta) {
         $dados[$meta->meta_key] = $meta->value;
     }
-
+    $consumo = $dados['consumo'];
+    if (empty($consumo)) $consumo = null;
     $info->create([
         'orcamentos_id' => $orcamento->id,
-        'consumo' => $dados['consumo'],
+        'consumo' =>  $consumo,
         'consumo_ponta' => $dados['consumo_ponta'],
         'consumo_fora_ponta' => $dados['consumo_fora_ponta'],
         'demanda' => $dados['demanda'],
@@ -21,5 +22,4 @@ foreach ($orcamentos as $orcamento) {
         'tensao' => $dados['tensao'],
         'orientacao' => $dados['orientacao']
     ]);
-
 }

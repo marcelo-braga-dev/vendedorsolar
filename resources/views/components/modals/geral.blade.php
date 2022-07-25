@@ -26,7 +26,7 @@
         <script>
             Swal.fire(
                 'Atenção!',
-                '{{ session('sucesso') }}',
+                '{{ session('erro') }}',
                 'error'
             )
         </script>
