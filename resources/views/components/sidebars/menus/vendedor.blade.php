@@ -9,11 +9,11 @@
         </form>
     @endif
     {{-- Clientes --}}
-    <li class="nav-item border-bottom">
+    <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-clientes" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-clientes">
-            <i class="fas fa-users"></i>
+            <i class="fas fa-users" style="font-size: 18px"></i>
             <span class="nav-link-text">
                 Clientes
             </span>
@@ -44,11 +44,11 @@
     </li>
 
     {{-- Dimensionamento --}}
-    <li class="nav-item border-bottom">
+    <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-dimensionamento" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-dimensionamento">
-            <i class="fas fa-file"></i>
+            <i class="fas fa-file" style="font-size: 18px"></i>
             <span class="nav-link-text">
                 Gerar Propostas
             </span>
@@ -73,11 +73,11 @@
     </li>
 
     {{-- Orcamentos --}}
-    <li class="nav-item border-bottom">
+    <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-orcamentos" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-orcamentos">
-            <i class="fas fa-folder-open"></i>
+            <i class="fas fa-folder-open" style="font-size: 18px"></i>
             <span class="nav-link-text">
                 Orçamentos
             </span>
@@ -125,11 +125,11 @@
         </div>
     </li>
     {{-- Visita --}}
-    <li class="nav-item border-bottom">
+    <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-visita" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-visita">
-            <i class="fas fa-home"></i>
+            <i class="fas fa-home" style="font-size: 18px"></i>
             <span class="nav-link-text">
                 Visita Técnica
             </span>
@@ -147,11 +147,11 @@
     </li>
     {{-- Contratos --}}
     @if (implementadoContratos())
-        <li class="nav-item border-bottom">
+        <li class="nav-item">
             <a class="nav-link text-dark" href="#navbar-contratos" data-toggle="collapse" role="button"
                aria-expanded="true"
                aria-controls="navbar-contratos">
-                <i class="fas fa-file-signature"></i>
+                <i class="fas fa-file-signature" style="font-size: 18px"></i>
                 <span class="nav-link-text">
                 Contratos
             </span>
@@ -192,11 +192,11 @@
     {{--    </li>--}}
 
     {{-- Mensagens --}}
-    <li class="nav-item border-bottom">
+    <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-mensagens" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-mensagens">
-            <i class="fas fa-comments"></i>
+            <i class="fas fa-comments" style="font-size: 18px"></i>
             <span class="nav-link-text">Mensagens</span>
         </a>
         <div class="collapse ml-4 @if(MENU == 'mensagens') show @endif" id="navbar-mensagens">
@@ -218,11 +218,11 @@
     </li>
 
     {{-- Perfil --}}
-    <li class="nav-item border-bottom">
+    <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-perfil" data-toggle="collapse" role="button"
            aria-expanded="true"
            aria-controls="navbar-perfil">
-            <i class="fas fa-user-cog"></i>
+            <i class="fas fa-user-cog" style="font-size: 18px"></i>
             <span class="nav-link-text">
                 Sua Conta
             </span>

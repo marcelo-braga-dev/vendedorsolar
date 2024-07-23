@@ -33,29 +33,6 @@ class Kits extends Model
         'observacoes'
     ];
 
-    // protected $fillable = [
-    //     'titulo',
-    //     // 'sku',
-    //     'inversor_id',
-    //     'painel_id',
-    //     'estrutura_id',
-    //     'tipo_produto',
-    //     // 'tensao',
-    //     'preco_compra',
-    //     'preco_venda',
-    //     'items',
-    //     'potencia_kit',
-    //     'potencia_inversor',
-    //     'potencia_modulo',
-    //     'fase',
-    //     'descricao',
-    //     'status_distribuidora',
-    //     'status',
-    //     'estoque_disponivel',
-    //     'hibrido',
-    //     'estoque_disponivel_data'
-    // ];
-
     public function cadastrarKit(Kit $dados)
     {
         $this->dados($dados, $this);
@@ -71,6 +48,7 @@ class Kits extends Model
 
     private function dados($dados, $class)
     {
+        dd($dados);
         $class->sku = $dados->getSku();
         $class->modelo = $dados->getModelo();
         $class->marca_inversor = $dados->getMarcaInversor();

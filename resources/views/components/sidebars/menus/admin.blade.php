@@ -10,8 +10,8 @@
 @endif
 <ul class="navbar-nav mb-md-5">
     {{--Usuaios --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-dimensionamento" data-toggle="collapse"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-dimensionamento" data-toggle="collapse"
            role="button" aria-expanded="true"
            aria-controls="navbar-dimensionamento">
             <i class="fas fa-user"></i>
@@ -45,43 +45,43 @@
     </li>
 
     {{-- LEADS Site--}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-leads" data-toggle="collapse"
-           role="button" aria-expanded="true"
-           aria-controls="navbar-leads">
-            <i class="fas fa-globe"></i>
-            <span class="nav-link-text">
-                Leads Site
-            </span>
-        </a>
+{{--    <li class="nav-item">--}}
+{{--        <a class="nav-link text-dark" href="#navbar-leads" data-toggle="collapse"--}}
+{{--           role="button" aria-expanded="true"--}}
+{{--           aria-controls="navbar-leads">--}}
+{{--            <i class="fas fa-globe"></i>--}}
+{{--            <span class="nav-link-text">--}}
+{{--                Leads Site--}}
+{{--            </span>--}}
+{{--        </a>--}}
 
-        <div class="collapse ml-4 @if(MENU === 'leads') show @endif" id="navbar-leads">
-            <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                    <a class="nav-link @if(MENU.SUBMENU === 'leads') active @endif"
-                       href="{{ route('admin.leads.index') }}">
-                        Novos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'encaminhados') active @endif"
-                       href="{{ route('admin.leads.index', ['status' => 'encaminhados']) }}">
-                        Não Atendidos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'finalizado') active @endif"
-                       href="{{ route('admin.leads.index', ['status' => 'finalizado']) }}">
-                        Atendidos
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </li>
+{{--        <div class="collapse ml-4 @if(MENU === 'leads') show @endif" id="navbar-leads">--}}
+{{--            <ul class="nav nav-sm flex-column">--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(MENU.SUBMENU === 'leads') active @endif"--}}
+{{--                       href="{{ route('admin.leads.index') }}">--}}
+{{--                        Novos--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'encaminhados') active @endif"--}}
+{{--                       href="{{ route('admin.leads.index', ['status' => 'encaminhados']) }}">--}}
+{{--                        Não Atendidos--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(MENU.SUBMENU === 'leads'.'finalizado') active @endif"--}}
+{{--                       href="{{ route('admin.leads.index', ['status' => 'finalizado']) }}">--}}
+{{--                        Atendidos--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
+{{--    </li>--}}
 
     {{-- Orcamentos --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-orcamentos" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-orcamentos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-orcamentos">
             <i class="fas fa-folder-open"></i>
             <span class="nav-link-text">
@@ -131,9 +131,31 @@
         </div>
     </li>
 
+    {{-- Contratos --}}
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-contratos" data-toggle="collapse" role="button"
+           aria-expanded="true" aria-controls="navbar-contratos">
+            <i class="fas fa-folder-open"></i>
+            <span class="nav-link-text">
+                Contratos
+            </span>
+        </a>
+
+        <div class="collapse ml-4 @if(MENU === 'contratos') show @endif" id="navbar-contratos">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @if(empty($_GET['status']) && SUBMENU === 'todos_contratos') active @endif"
+                       href="#">
+                        Todos Contratos
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
     {{-- kits Fotovoltaicos --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-kits-fv" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-kits-fv" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-kits-fv">
             <i class="fas fa-solar-panel"></i>
             <span class="nav-link-text">
@@ -168,8 +190,8 @@
     </li>
 
     {{-- Precificacao --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-margens" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-margens" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-margens ">
             <i class="fas fa-dollar-sign"></i>
             <span class="nav-link-text">
@@ -214,8 +236,8 @@
     </li>
 
     {{-- Produtos --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-produtos" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-produtos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-produtos">
             <i class="fas fa-dolly-flatbed"></i>
             <span class="nav-link-text">
@@ -250,8 +272,8 @@
     </li>
 
     {{-- Fornecedores --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-fornecedores" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-fornecedores" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-fornecedores">
             <i class="fas fa-truck"></i>
             <span class="nav-link-text">
@@ -272,8 +294,8 @@
     </li>
 
     {{-- Integracoes --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-integracoes" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-integracoes" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-integracoes ">
             <i class="fas fa-link"></i>
             <span class="nav-link-text">
@@ -283,12 +305,12 @@
 
         <div class="collapse ml-4 @if(MENU === 'integracoes') show @endif" id="navbar-integracoes">
             <ul class="nav nav-sm flex-column">
-                <li class="nav-item">
-                    <a class="nav-link @if(SUBMENU === 'aldo') active @endif"
-                       href="{{ route('admin.integracoes.aldo.index') }}">
-                        Aldo
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(SUBMENU === 'aldo') active @endif"--}}
+{{--                       href="{{ route('admin.integracoes.aldo.index') }}">--}}
+{{--                        Aldo--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="nav-item">
                     <a class="nav-link @if(SUBMENU === 'edeltec') active @endif"
                        href="{{ route('admin.integracoes.eldeltec.index') }}">
@@ -312,8 +334,8 @@
     </li>
 
     {{-- Financeiro --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-financeiro" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-financeiro ">
             <i class="fas fa-dollar-sign"></i>
             <span class="nav-link-text">
@@ -346,8 +368,8 @@
     </li>
 
     {{-- Config --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-config" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-config" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-config">
             <i class="fas fa-cogs"></i>
             <span class="nav-link-text">
@@ -385,8 +407,8 @@
         </div>
     </li>
     {{-- Config --}}
-    <li class="nav-item border-bottom">
-        <a class="nav-link text-primary" href="#navbar-perfil" data-toggle="collapse" role="button"
+    <li class="nav-item">
+        <a class="nav-link text-dark" href="#navbar-perfil" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-perfil">
             <i class="fas fa-user-cog"></i>
             <span class="nav-link-text">

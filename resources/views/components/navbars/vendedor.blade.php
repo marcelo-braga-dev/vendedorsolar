@@ -7,4 +7,4 @@
         </ul>
     </div>
 </nav>
-<div class="header bg-gradient-warning pb-4 pb-md-6 pt-5"></div>
+<div class="header pb-4 pb-md-6 pt-5"></div>

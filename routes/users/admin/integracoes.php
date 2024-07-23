@@ -22,6 +22,5 @@ Route::name('admin.integracoes.')
         Route::put('aldo/store', 'AldoController@store')
             ->name('aldo.store');
 
-        Route::get('eldeltec', 'EldeltecController@index')
-            ->name('eldeltec.index');
+        Route::resource('eldeltec', \App\Http\Controllers\Admin\Integracoes\EldeltecController::class);
     });

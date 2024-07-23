@@ -1,4 +1,4 @@
-@extends('layouts.app', ['class' => 'bg-success'])
+@extends('layouts.app', ['class' => 'bg-warning'])
 
 @section('content')
     <div class="container mt-5 pb-5">
