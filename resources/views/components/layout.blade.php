@@ -20,6 +20,8 @@
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
     <link href="{{ asset('assets') }}/select2/css/select2.min.css" rel="stylesheet">
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     @stack('css')
 </head>
 @php define('MENU', $attributes['menu']); define('SUBMENU', $attributes['submenu']) @endphp

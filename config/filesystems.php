@@ -67,7 +67,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app\public'),
+        public_path('storage') => storage_path('app/public'),
     ],
     // ln -s /home1/mundomec/bahia.empreentech.com.br/storage/app/public /home1/mundomec/bahia.empreentech.com.br/public/storage
 ];

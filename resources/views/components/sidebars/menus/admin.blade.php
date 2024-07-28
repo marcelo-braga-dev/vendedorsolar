@@ -14,7 +14,7 @@
         <a class="nav-link text-dark" href="#navbar-dimensionamento" data-toggle="collapse"
            role="button" aria-expanded="true"
            aria-controls="navbar-dimensionamento">
-            <i class="fas fa-user"></i>
+            <i class="bi bi-people" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Usuários
             </span>
@@ -83,10 +83,8 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-orcamentos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-orcamentos">
-            <i class="fas fa-folder-open"></i>
-            <span class="nav-link-text">
-                Orçamentos
-            </span>
+            <i class="bi bi-folder" style="font-size: 20px"></i>
+            <span class="nav-link-text">Orçamentos</span>
         </a>
 
         <div class="collapse ml-4 @if(MENU === 'orcamentos') show @endif" id="navbar-orcamentos">
@@ -135,7 +133,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-contratos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-contratos">
-            <i class="fas fa-folder-open"></i>
+            <i class="bi bi-journal" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Contratos
             </span>
@@ -157,7 +155,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-kits-fv" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-kits-fv">
-            <i class="fas fa-solar-panel"></i>
+            <i class="bi bi-box" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Kits Fotovoltaios
             </span>
@@ -193,7 +191,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-margens" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-margens ">
-            <i class="fas fa-dollar-sign"></i>
+            <i class="bi bi-coin" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Precificação
             </span>
@@ -239,7 +237,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-produtos" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-produtos">
-            <i class="fas fa-dolly-flatbed"></i>
+            <i class="bi bi-box-seam" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Produtos
             </span>
@@ -275,7 +273,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-fornecedores" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-fornecedores">
-            <i class="fas fa-truck"></i>
+            <i class="bi bi-truck" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Fornecedores
             </span>
@@ -297,7 +295,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-integracoes" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-integracoes ">
-            <i class="fas fa-link"></i>
+            <i class="bi bi-link" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Integracões
             </span>
@@ -337,7 +335,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-financeiro" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-financeiro ">
-            <i class="fas fa-dollar-sign"></i>
+            <i class="bi bi-bank" style="font-size: 18px"></i>
             <span class="nav-link-text">
                 Financeiro
             </span>
@@ -371,7 +369,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-config" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-config">
-            <i class="fas fa-cogs"></i>
+            <i class="bi bi-gear" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Configurações
             </span>
@@ -410,7 +408,7 @@
     <li class="nav-item">
         <a class="nav-link text-dark" href="#navbar-perfil" data-toggle="collapse" role="button"
            aria-expanded="true" aria-controls="navbar-perfil">
-            <i class="fas fa-user-cog"></i>
+            <i class="bi bi-person" style="font-size: 20px"></i>
             <span class="nav-link-text">
                 Perfil
             </span>
