@@ -48,23 +48,25 @@ class Kits extends Model
 
     private function dados($dados, $class)
     {
-        $class->sku = $dados->getSku();
-        $class->modelo = $dados->getModelo();
-        $class->marca_inversor = $dados->getMarcaInversor();
-        $class->potencia_inversor = $dados->getPotenciaInversor();
-        $class->marca_painel = $dados->getMarcaPainel();
-        $class->potencia_painel = $dados->getPotenciaPainel();
-        $class->potencia_kit = $dados->getPotenciaKit();
-        $class->fornecedor = $dados->getFornecedor();
-        $class->preco_fornecedor = $dados->getPrecoFornecedor();
-        $class->estrutura = $dados->getEstrutura();
-        $class->tensao = $dados->getTensao();
-        $class->produtos = $dados->getProdutos();
-        $class->observacoes = $dados->getObservacoes();
-        $class->margem = $dados->getMargem();
-
+        $this->newQuery()->updateOrCreate(
+            ['sku' => $dados->getSku()],
+            [
+                'modelo' => $dados->getModelo(),
+                'marca_inversor' => $dados->getMarcaInversor(),
+                'potencia_inversor' => $dados->getPotenciaInversor(),
+                'marca_painel' => $dados->getMarcaPainel(),
+                'potencia_painel' => $dados->getPotenciaPainel(),
+                'potencia_kit' => $dados->getPotenciaKit(),
+                'fornecedor' => $dados->getFornecedor(),
+                'preco_fornecedor' => $dados->getPrecoFornecedor(),
+                'estrutura' => $dados->getEstrutura(),
+                'tensao' => $dados->getTensao(),
+                'produtos' => $dados->getProdutos(),
+                'observacoes' => $dados->getObservacoes(),
+                'margem' => $dados->getMargem(),
+            ]);
         try {
-            $class->push();
+//            $class->push();
         } catch (QueryException $exception) {
             throw new \DomainException('Por favor, Verifique as informações inseridas.');
         }

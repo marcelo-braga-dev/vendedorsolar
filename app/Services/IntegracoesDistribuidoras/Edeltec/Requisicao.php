@@ -25,29 +25,19 @@ class Requisicao
         return $response['items'];
     }
 
-    public function get($token)
+    public function get($token, $pagina)
     {
         $qtds = 0;
         $integracoesDados = (new IntegracaoEdeltec())->dados();
 
-        $marcasEdeltec = [];
-        for ($i = 1; $i <= 6; $i++) {
-            $items = $this->requisicao($token, $i);
+        $items = $this->requisicao($token, $pagina);
 
-            foreach ($items as $item) {
-                if ($item['codProd'] ?? null) {
-//                    $marcasEdeltec[$item['marca']] = $item['marca'];
-//                    $marcasEdeltec[$item['fabricante']] = $item['fabricante'];
-                    $kit = (new KitOnGrid($item, $integracoesDados));
-                    $kit->cadastrar();
-//
-//                    ProdutosKitsSolar::updateOrCreate(['sku' => $produtoData['sku']], $produtoData);
-//                    $qtds++;
-                }
+        foreach ($items as $item) {
+            if ($item['codProd'] ?? null) {
+                $kit = (new KitOnGrid($item, $integracoesDados));
+                $kit->cadastrar();
             }
         }
-        print_pre($marcasEdeltec);
-//        (new ProdutosIntegracoesHistoricos())->create(1, $qtds);
     }
 
     private function fase($fase)

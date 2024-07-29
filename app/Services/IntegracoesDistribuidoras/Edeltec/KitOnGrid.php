@@ -79,7 +79,7 @@ class KitOnGrid extends Kit
 
     public function precoFornecedor(string $dado)
     {
-        $this->setPrecoFornecedor(convert_money_float($dado));
+        $this->setPrecoFornecedor($dado);
     }
 
     public function fornecedor(string $dado)
