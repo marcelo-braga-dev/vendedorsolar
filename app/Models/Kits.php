@@ -48,7 +48,6 @@ class Kits extends Model
 
     private function dados($dados, $class)
     {
-        dd($dados);
         $class->sku = $dados->getSku();
         $class->modelo = $dados->getModelo();
         $class->marca_inversor = $dados->getMarcaInversor();

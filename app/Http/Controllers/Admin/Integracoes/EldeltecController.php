@@ -16,6 +16,7 @@ class EldeltecController extends Controller
     public function edit()
     {
         $token = (new Integracoes())->autenticar();
+
         (new Requisicao())->get($token);
     }
 }

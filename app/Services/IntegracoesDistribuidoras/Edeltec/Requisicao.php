@@ -2,6 +2,8 @@
 
 namespace App\Services\IntegracoesDistribuidoras\Edeltec;
 
+use App\Models\IntegracaoEdeltec;
+use App\Models\Produtos;
 use App\Models\ProdutosMarcas;
 use App\src\Orcamentos\EstruturasGeradores;
 use App\src\Produtos\Kit;
@@ -26,24 +28,26 @@ class Requisicao
     public function get($token)
     {
         $qtds = 0;
-        $infos = [];
-        $marcasNomes = (new ProdutosMarcas())->marcasId();
-        $estruturasNomes = (new EstruturasGeradores())->estruturasId();
+        $integracoesDados = (new IntegracaoEdeltec())->dados();
 
+        $marcasEdeltec = [];
         for ($i = 1; $i <= 6; $i++) {
             $items = $this->requisicao($token, $i);
 
             foreach ($items as $item) {
                 if ($item['codProd'] ?? null) {
-                    $kit = (new KitOnGrid($item, $infos));
+//                    $marcasEdeltec[$item['marca']] = $item['marca'];
+//                    $marcasEdeltec[$item['fabricante']] = $item['fabricante'];
+                    $kit = (new KitOnGrid($item, $integracoesDados));
                     $kit->cadastrar();
-
-                    ProdutosKitsSolar::updateOrCreate(['sku' => $produtoData['sku']], $produtoData);
-                    $qtds++;
+//
+//                    ProdutosKitsSolar::updateOrCreate(['sku' => $produtoData['sku']], $produtoData);
+//                    $qtds++;
                 }
             }
         }
-        (new ProdutosIntegracoesHistoricos())->create(1, $qtds);
+        print_pre($marcasEdeltec);
+//        (new ProdutosIntegracoesHistoricos())->create(1, $qtds);
     }
 
     private function fase($fase)

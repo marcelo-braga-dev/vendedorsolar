@@ -38,7 +38,8 @@ class KitOnGrid extends Kit
 
     public function modelo(string $dado)
     {
-        $this->setModelo($dado);
+        $res = str_replace(' edeltec', '', $dado);
+        $this->setModelo($res);
     }
 
     public function potenciaKit(string $dado)
@@ -48,14 +49,14 @@ class KitOnGrid extends Kit
 
     public function marcaInversor(string $dado)
     {
-        $id = $this->indices['inversor'][$dado]['id_referencia'];
+        $id = $this->indices[$dado];
         $this->setMarcaInversor($id);
     }
 
     public function marcaPainel(string $dado)
     {
         try {
-            $id = $this->indices['painel'][$dado]['id_referencia'];
+            $id = $this->indices[$dado];
             $this->setMarcaPainel($id);
         } catch (\ErrorException $e) {
             throw new \DomainException($dado);
@@ -64,18 +65,13 @@ class KitOnGrid extends Kit
 
     public function potenciaInversor(string $dado)
     {
-        preg_match('/.{5}KW /', $dado, $var);
-        $potenciaInversor = str_replace('KW ', '', $var[0]);
-        $potenciaInversor = preg_replace('/(.+)\s/', '', $potenciaInversor);
-        $this->setPotenciaInversor($potenciaInversor);
+        $this->setPotenciaInversor($dado);
     }
 
     public function potenciaPainel(string $dado)
     {
         try {
-        $potencia = $this->indices['painel'][$dado]['potencia'];
-
-        $this->setPotenciaPainel($potencia);
+        $this->setPotenciaPainel($dado);
         } catch (\ErrorException $e) {
             throw new \DomainException();
         }
@@ -88,7 +84,8 @@ class KitOnGrid extends Kit
 
     public function fornecedor(string $dado)
     {
-        $this->setFornecedor(1);
+        $fornecedor = $this->indices['EDELTEC'];
+        $this->setFornecedor($fornecedor);
     }
 
     public function tensao(string $dado)
@@ -98,12 +95,13 @@ class KitOnGrid extends Kit
 
     public function estrutura(string $dado)
     {
-        $this->setEstrutura($this->indices['estrutura'][$dado]['id_referencia']);
+        $estrutura = $this->indices[$dado];
+        $this->setEstrutura($estrutura);
     }
 
     public function produtos(string $dado)
     {
-        $this->setProdutos((new ProdutosKit())->get($dado));
+        $this->setProdutos($dado);
     }
 
     public function observacoes(string $dado)
