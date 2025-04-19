@@ -9,6 +9,6 @@ class PDFOrcamentoController extends Controller
 {
     public function index(Request $request)
     {
-        (new GerarPDF())->gerar($request);
+        return (new GerarPDF())->gerar($request);
     }
 }

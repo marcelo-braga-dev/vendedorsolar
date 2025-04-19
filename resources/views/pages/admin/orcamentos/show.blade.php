@@ -112,6 +112,7 @@
                                                 <i class="fas fa-file-pdf text-lg pr-2"></i> Abrir PDF
                                             </button>
                                         </form>
+                                        <button onclick="generatePdf()">Gerar PDF</button>
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <a class="btn btn-success btn-block"
@@ -414,6 +415,34 @@
 
                 document.execCommand('copy');
             })
+        </script>
+        <script>
+            async function generatePdf() {
+                //const htmlContent = document.getElementById('proposal-content').innerHTML;
+
+                try {
+                    const response = await fetch("{{ route('orcamento.pdf') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                       body: JSON.stringify({ idOrcamento: 1 })
+                    });
+
+                    const data = await response.json();
+                    const url = data.urlPdf;
+
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'proposta_comercial.pdf');
+                    document.body.appendChild(link);
+                    link.click();
+                } catch (error) {
+                    console.log(error)
+                    // console.error('Erro ao gerar PDF:', error);
+                }
+            }
         </script>
     @endpush
 </x-layout>
