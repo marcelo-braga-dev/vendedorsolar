@@ -374,12 +374,8 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h4>Produtos de cada Kit:</h4>
-                        @php($linhas = explode('<br />', nl2br($orcamentoKit->produtos)))
-                        <ul>
-                            @foreach($linhas as $linha)
-                                <li>{{ $linha }}</li>
-                            @endforeach
-                        </ul>
+                        {!! nl2br(convertHtmlToText($orcamentoKit->produtos)) !!}
+
                         @if ($kit->observacoes)
                             <h5>Observações:</h5>
                             <span>{{ $kit->observacoes }}</span>

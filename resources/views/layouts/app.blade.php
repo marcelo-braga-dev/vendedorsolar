@@ -35,17 +35,17 @@
     </div>
 @endguest
 
-<script src="{{ asset('argon/vendor/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js') }}"></script>
-<script src="{{ asset('argon/js/argon.js?v=1.0.0') }}"></script>
-<script src="{{ asset('assets/sweetalert2/script.js') }}"></script>
-<x-modals.geral></x-modals.geral>
+<script src="{{ asset('argon/vendor/jquery/dist/jquery.min.js') }}"/>
+<script src="{{ asset('argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"/>
+<script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js') }}"/>
+<script src="{{ asset('argon/js/argon.js?v=1.0.0') }}"/>
+<script src="{{ asset('assets/sweetalert2/script.js') }}"/>
+<x-modals.geral/>
 
 @stack('js')
 
 {{-- Argon JS --}}
-<script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+<script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"/>
 </body>
 
 </html>

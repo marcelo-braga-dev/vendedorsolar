@@ -21,10 +21,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <x-inputs.textarea label="Produtos do Kit" name="produtos" rows="10" required>
-                        @php($linhas = explode('<br />', nl2br($orcamentoKit->produtos)))
-                        @foreach($linhas as $linha)
-                            {{ $linha }}
-                        @endforeach
+                        {{ convertHtmlToText($orcamentoKit->produtos) }}
                     </x-inputs.textarea>
                 </div>
             </div>
