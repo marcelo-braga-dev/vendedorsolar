@@ -31,7 +31,7 @@ class OrcamentosController extends Controller
         $orcamentos = (new Orcamentos())->newQuery()
             ->where($where)
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->paginate(30);
 
         $clientes = (new Clientes())->newQuery()->get(['id', 'nome']);
 

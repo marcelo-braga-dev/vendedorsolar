@@ -1,5 +1,6 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
     <x-body title="{{ $label }}" class="p-0">
+
         <x-tables.data-table-clickable>
             <x-slot name="head">
                 <tr>
@@ -34,5 +35,9 @@
                 @endforeach
             </x-slot>
         </x-tables.data-table-clickable>
+        {{-- Paginação --}}
+        <div class="d-flex justify-content-center">
+            {{ $orcamentos->links() }}
+        </div>
     </x-body>
 </x-layout>
