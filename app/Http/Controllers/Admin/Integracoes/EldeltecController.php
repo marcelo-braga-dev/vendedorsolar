@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Admin\Integracoes;
 
+use App\Http\Controllers\Admin\Integracoes\Edeltec\EdeltecIntegracao;
 use App\Http\Controllers\Controller;
-use App\Services\IntegracoesDistribuidoras\Edeltec\Integracoes;
-use App\Services\IntegracoesDistribuidoras\Edeltec\Requisicao;
 use Illuminate\Http\Request;
 
 class EldeltecController extends Controller
@@ -18,10 +17,8 @@ class EldeltecController extends Controller
 
     public function edit($id, Request $request)
     {
-        $pagina = $id ?? 1;
-        $token = (new Integracoes())->autenticar();
+        (new EdeltecIntegracao())->init();
 
-        (new Requisicao())->get($token, $pagina);
         modalSucesso('Integração realizada com sucesso!');
         return redirect()->route('admin.integracoes.eldeltec.index', ['page' => $id]);
     }

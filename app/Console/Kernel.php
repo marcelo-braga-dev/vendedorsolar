@@ -2,7 +2,6 @@
 
 namespace App\Console;
 
-use App\src\Integracoes\Aldo\IntegrarAldo;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,9 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            (new IntegrarAldo())->integrar();
-        })->dailyAt('04:00');
+        $schedule->command('app:integracao-edeltec')->dailyAt('04:00');
     }
 
     /**

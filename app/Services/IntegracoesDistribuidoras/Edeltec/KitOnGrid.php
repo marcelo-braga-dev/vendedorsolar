@@ -49,8 +49,12 @@ class KitOnGrid extends Kit
 
     public function marcaInversor(string $dado)
     {
-        $id = $this->indices[$dado];
-        $this->setMarcaInversor($id);
+        try {
+            $id = $this->indices[$dado];
+            $this->setMarcaInversor($id);
+        } catch (\ErrorException $e) {
+            throw new \DomainException($dado);
+        }
     }
 
     public function marcaPainel(string $dado)

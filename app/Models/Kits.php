@@ -48,25 +48,24 @@ class Kits extends Model
 
     private function dados($dados, $class)
     {
-        $this->newQuery()->updateOrCreate(
-            ['sku' => $dados->getSku()],
-            [
-                'modelo' => $dados->getModelo(),
-                'marca_inversor' => $dados->getMarcaInversor(),
-                'potencia_inversor' => $dados->getPotenciaInversor(),
-                'marca_painel' => $dados->getMarcaPainel(),
-                'potencia_painel' => $dados->getPotenciaPainel(),
-                'potencia_kit' => $dados->getPotenciaKit(),
-                'fornecedor' => $dados->getFornecedor(),
-                'preco_fornecedor' => $dados->getPrecoFornecedor(),
-                'estrutura' => $dados->getEstrutura(),
-                'tensao' => $dados->getTensao(),
-                'produtos' => $dados->getProdutos(),
-                'observacoes' => $dados->getObservacoes(),
-                'margem' => $dados->getMargem(),
-            ]);
         try {
-//            $class->push();
+            $this->newQuery()->updateOrCreate(
+                ['sku' => $dados->getSku()],
+                [
+                    'modelo' => $dados->getModelo(),
+                    'marca_inversor' => $dados->getMarcaInversor(),
+                    'potencia_inversor' => $dados->getPotenciaInversor(),
+                    'marca_painel' => $dados->getMarcaPainel(),
+                    'potencia_painel' => $dados->getPotenciaPainel(),
+                    'potencia_kit' => $dados->getPotenciaKit(),
+                    'fornecedor' => $dados->getFornecedor(),
+                    'preco_fornecedor' => $dados->getPrecoFornecedor(),
+                    'estrutura' => $dados->getEstrutura(),
+                    'tensao' => $dados->getTensao(),
+                    'produtos' => $dados->getProdutos(),
+                    'observacoes' => $dados->getObservacoes(),
+                    'margem' => $dados->getMargem(),
+                ]);
         } catch (QueryException $exception) {
             throw new \DomainException('Por favor, Verifique as informações inseridas.');
         }
