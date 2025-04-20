@@ -2,6 +2,7 @@
 
 namespace App\src\Orcamentos;
 
+use App\Models\Kits;
 use App\Models\Orcamentos;
 use App\Models\TaxaComissoes;
 use App\src\Orcamentos\Status\Novo;
@@ -25,6 +26,7 @@ class CadastrarOrcamento
     private $consumoPonta;
     private $consumoForaPonta;
     private $demandaContratada;
+    private $kit;
 
     public function __construct(DadosOrcamento $dados)
     {
@@ -45,6 +47,7 @@ class CadastrarOrcamento
         $this->consumoPonta = $dados->consumoPonta;
         $this->consumoForaPonta = $dados->consumoForaPonta;
         $this->demandaContratada = $dados->demandaContratada;
+        $this->setKit();
     }
 
     private function setTaxaComissao()
@@ -65,6 +68,16 @@ class CadastrarOrcamento
         } catch (\DomainException $exception) {
             modalErro($exception->getMessage());
         }
+    }
+
+    public function setKit()
+    {
+        $this->kit = (new Kits())->find($this->kits_id);
+    }
+
+    public function getKit()
+    {
+        return $this->kit;
     }
 
     public function getTaxaComissao()

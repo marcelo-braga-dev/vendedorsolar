@@ -67,6 +67,7 @@ class Orcamentos extends Model
     private function cadastrarKits($idOrcamento, $dados)
     {
         $orcamentoKits = new OrcamentosKits();
+
         $orcamentoKits->newQuery()
             ->create([
                 'orcamentos_id' => $idOrcamento,
@@ -74,7 +75,8 @@ class Orcamentos extends Model
                 'qtd_kits' => $dados->getQtdKits(),
                 'preco_cliente' => $dados->getPrecoCliente(),
                 'preco_fornecedor' => 1,
-                'taxa_comissao' => $dados->getTaxaComissao()
+                'taxa_comissao' => $dados->getTaxaComissao(),
+                'produtos' => $dados->getKit()->produtos,
             ]);
     }
 

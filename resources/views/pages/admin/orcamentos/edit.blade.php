@@ -20,6 +20,17 @@
 
             <div class="row">
                 <div class="col-md-12">
+                    <x-inputs.textarea label="Produtos do Kit" name="produtos" rows="10" required>
+                        @php($linhas = explode('<br />', nl2br($orcamentoKit->produtos)))
+                        @foreach($linhas as $linha)
+                            {{ $linha }}
+                        @endforeach
+                    </x-inputs.textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
                     <x-inputs.textarea label="Anotações/Observações"
                                        name="anotacoes">{{ $orcamento->anotacoes }}</x-inputs.textarea>
                 </div>

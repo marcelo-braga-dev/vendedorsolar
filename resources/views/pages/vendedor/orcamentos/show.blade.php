@@ -115,15 +115,16 @@
                             <div class="col-auto">
                                 <div class="row align-items-center">
                                     <div class="col-auto">
-                                        <form method="POST" action="{{ route('orcamento.pdf') }}" target="_blank"> @csrf
-                                            <input type="hidden" name="id" value="{{ $orcamento->id }}">
-                                            <input type="hidden" name="grafico_geracao" id="grafico_geracao">
-                                            <input type="hidden" name="grafico_payback" id="grafico_payback">
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="fas fa-file-pdf mr-2 text-lg"></i>
-                                                Abrir PDF
-                                            </button>
-                                        </form>
+                                        <input type="hidden" name="grafico_geracao" id="grafico_geracao">
+                                        <input type="hidden" name="grafico_payback" id="grafico_payback">
+
+                                        <!-- Botão que aciona o envio do PDF -->
+                                        <button id="btnGerarPdf"
+                                                class="btn btn-danger w-100 d-flex align-items-center justify-content-center"
+                                                onclick="generatePdf()"
+                                        >
+                                            <i class="fas fa-file-pdf pr-2"></i> Abrir PDF
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +310,7 @@
                     <div class="card-body">
                         <h4>Quantidade de Kits: {{ $orcamentoKit->qtd_kits }} kits</h4>
                         <h5>Produtos de cada Kit:</h5>
-                        @php($linhas = explode('<br />', nl2br($kit->produtos)))
+                        @php($linhas = explode('<br />', nl2br($orcamentoKit->produtos)))
                         <ul>
                             @foreach($linhas as $linha)
                                 <li>{{ $linha }}</li>
@@ -372,6 +373,42 @@
 
                 document.execCommand('copy');
             })
+        </script>
+
+        <script>
+            async function generatePdf() {
+                const graficoGeracao = document.getElementById('grafico_geracao').value;
+                const graficoPayback = document.getElementById('grafico_payback').value;
+
+                const payload = {
+                    id: {{ $orcamento->id }},
+                    grafico_geracao: graficoGeracao,
+                    grafico_payback: graficoPayback
+                };
+
+                try {
+                    const response = await fetch("{{ route('orcamento.pdf') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await response.json();
+                    const url = data.urlPdf;
+
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', "{{ getNomeCliente($orcamento->clientes_id).'_'.$orcamento->geracao.'kwh.pdf'}}");
+                    link.setAttribute('target', '_blank');
+                    document.body.appendChild(link);
+                    link.click();
+                } catch (error) {
+                    console.error('Erro ao gerar PDF:', error);
+                }
+            }
         </script>
     @endpush
 </x-layout>

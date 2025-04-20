@@ -17,7 +17,8 @@ class OrcamentosKits extends Model
         'qtd_kits',
         'preco_cliente',
         'preco_fornecedor',
-        'taxa_comissao'
+        'taxa_comissao',
+        'produtos'
     ];
 
     public function getIdKit($id)

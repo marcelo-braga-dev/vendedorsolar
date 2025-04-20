@@ -116,6 +116,12 @@ class OrcamentosController extends Controller
                 'anotacoes' => $request->anotacoes
             ]);
 
+        (new OrcamentosKits())->newQuery()
+            ->where('orcamentos_id', $id)
+            ->update([
+                'produtos' => $request->produtos
+            ]);
+
         modalSucesso('Informações atualizadas com sucesso.');
 
         return redirect()->route('admin.orcamentos.update', $id);
@@ -127,8 +133,12 @@ class OrcamentosController extends Controller
         $orcamento = $orcamentos->newQuery()
             ->findOrFail($id);
 
+        $orcamentoKit = (new OrcamentosKits())->newQuery()
+            ->where('orcamentos_id', $id)
+        ->first();
+
         $todosStatus = (new StatusOrcamentos())->todosStatus();
 
-        return view('pages.admin.orcamentos.edit', compact('orcamento', 'todosStatus'));
+        return view('pages.admin.orcamentos.edit', compact('orcamento','orcamentoKit', 'todosStatus'));
     }
 }

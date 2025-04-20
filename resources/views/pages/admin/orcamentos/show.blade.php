@@ -368,6 +368,27 @@
             </div>
         </div>
 
+        {{-- Produtos --}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4>Produtos de cada Kit:</h4>
+                        @php($linhas = explode('<br />', nl2br($orcamentoKit->produtos)))
+                        <ul>
+                            @foreach($linhas as $linha)
+                                <li>{{ $linha }}</li>
+                            @endforeach
+                        </ul>
+                        @if ($kit->observacoes)
+                            <h5>Observações:</h5>
+                            <span>{{ $kit->observacoes }}</span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Trafo --}}
         @if(!empty($trafo))
             <div class="row mb-4">
@@ -388,9 +409,8 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card shadow">
-                    <div class="card-body pb-0 img-thumbnail">
-                        <x-graficos.geracao-fotovoltaica geracao="{{ $orcamento->geracao }}"
-                                                         cidade="{{ $orcamento->cidade }}"></x-graficos.geracao-fotovoltaica>
+                    <div class="card-body">
+                        <x-graficos.geracao-fotovoltaica geracao="{{ $orcamento->geracao }}" cidade="{{ $orcamento->cidade }}"/>
                     </div>
                 </div>
             </div>
@@ -401,8 +421,7 @@
             <div class="col-12">
                 <div class="card shadow">
                     <div class="card-body pb-0">
-                        <x-graficos.payback-fotovoltaico
-                            preco-cliente="{{ $orcamento->preco_cliente }}"></x-graficos.payback-fotovoltaico>
+                        <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}"/>
                     </div>
                 </div>
             </div>
@@ -411,12 +430,29 @@
 
     @push('js')
         <script>
-            $("#url").click(function () {
-                $('#link').select();
+            let btnLink = document.getElementById('url');
 
-                document.execCommand('copy');
-            })
+            btnLink.addEventListener('click', function () {
+                const input = document.getElementById('link');
+                input.select();
+
+                navigator.clipboard.writeText(input.value)
+                    .then(() => {
+                        console.log('Copiado com sucesso!');
+                        btnLink.innerText = 'Copiado ✔';
+
+                        // Volta ao texto original depois de 2 segundos (opcional)
+                        setTimeout(() => {
+                            btnLink.innerText = 'Copiar link';
+                        }, 3000);
+                    })
+                    .catch(err => {
+                        console.error('Erro ao copiar:', err);
+                    });
+            });
         </script>
+
+
         <script>
             async function generatePdf() {
                 const graficoGeracao = document.getElementById('grafico_geracao').value;
@@ -435,7 +471,7 @@
                             "Content-Type": "application/json",
                             "X-CSRF-TOKEN": "{{ csrf_token() }}"
                         },
-                       body: JSON.stringify(payload)
+                        body: JSON.stringify(payload)
                     });
 
                     const data = await response.json();

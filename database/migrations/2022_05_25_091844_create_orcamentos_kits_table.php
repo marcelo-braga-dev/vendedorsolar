@@ -21,6 +21,7 @@ class CreateOrcamentosKitsTable extends Migration
             $table->float('preco_fornecedor', 12, 2);
             $table->integer('qtd_kits');
             $table->float('taxa_comissao', 6, 3);
+            $table->text('produtos')->nullable();
         });
     }
 

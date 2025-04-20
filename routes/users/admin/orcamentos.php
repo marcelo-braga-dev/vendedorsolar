@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\Orcamentos\OrcamentosController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.')
-    ->namespace('Orcamentos')
     ->group(function () {
-        Route::resource('orcamentos', 'OrcamentosController');
+        Route::resource('orcamentos', OrcamentosController::class);
     });
 
 Route::name('admin.orcamento.')
