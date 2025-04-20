@@ -4,7 +4,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         $(function () {
-            let geracaoMensal = {{ Js::from($geracaoMensal) }};
+            let geracaoMensal = @json($geracaoMensal);
             const corBarra = 'rgb(15,145,210)';
 
             google.charts.load("current", {
@@ -15,7 +15,7 @@
 
             function drawChart() {
                 var geracao = google.visualization.arrayToDataTable([
-                    ['Mês', 'Gerao de Energia', {role: 'style'}],
+                    ['Mês', 'Geração de Energia', {role: 'style'}],
                     ['Jan', geracaoMensal.jan, corBarra],
                     ['Fev', geracaoMensal.fev, corBarra],
                     ['Mar', geracaoMensal.mar, corBarra],
@@ -36,48 +36,34 @@
                     chartArea: {
                         left: 80,
                         top: 50,
-                        'width': '90%',
-                        'height': '75%'
+                        width: '90%',
+                        height: '75%'
                     },
-                    legend: {
-                        position: "none"
-                    },
-                    bar: {
-                        groupWidth: '80%'
-                    },
+                    legend: { position: "none" },
+                    bar: { groupWidth: '80%' },
                     title: 'Geração Mensal de Energia*',
-                    bold: true,
                     fontSize: 16,
-                    series: {
-                        1: {
-                            type: 'line'
-                        }
-                    },
                     vAxis: {
-                        format: ' ',
                         title: 'kWh',
-                        viewWindow: {
-                            //max: 15,
-                            min: 0
-                        },
+                        minValue: 0,
                         titleTextStyle: {
                             fontSize: 18,
                             color: 'black',
                             bold: true
                         }
-                    },
+                    }
                 };
 
-                var view = new google.visualization.DataView(geracao);
+                const chartContainer = document.getElementById('grafico-geracao');
+                const chart = new google.visualization.ColumnChart(chartContainer);
 
-                var g_chart_1 = document.getElementById('grafico-geracao');
-                g_chart_1 = new google.visualization.ColumnChart(g_chart_1);
-
-                google.visualization.events.addListener(g_chart_1, 'ready', function () {
-                    $('#grafico_geracao').val(g_chart_1.getImageURI());
+                // Captura a imagem assim que o gráfico estiver pronto
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    const imageData = chart.getImageURI();
+                    document.getElementById('grafico_geracao').value = imageData;
                 });
 
-                g_chart_1.draw(view, options);
+                chart.draw(geracao, options);
             }
         });
     </script>

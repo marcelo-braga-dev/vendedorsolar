@@ -12,7 +12,7 @@
     function drawChart() {
 
         var payback = google.visualization.arrayToDataTable([
-            ['Ano', 'Gerao de Energia', { role: 'style' }],
+            ['Ano', 'Playback de Investimento', { role: 'style' }],
             ['1', precoCliente / -1.1666, 'red'],
             ['2', precoCliente / -1.4577, 'red'],
             ['3', precoCliente / -2.0713, 'red'],
@@ -40,25 +40,19 @@
             ['25', precoCliente / 0.0355, 'green']
         ]);
 
-        var options_payback = {
+        const options_payback = {
             height: 400,
             width: 800,
             chartArea: {
                 left: 100,
                 top: 50,
-                'width': '90%',
-                'height': '75%'
+                width: '90%',
+                height: '75%'
             },
-            legend: {
-                position: "none"
-            },
-            bar: {
-                groupWidth: '80%'
-            },
-            title: 'Payback do Investimentos*',
-            //bold: true,
+            legend: { position: "none" },
+            bar: { groupWidth: '80%' },
+            title: 'Payback do Investimento*',
             fontSize: 12,
-            //series: {1: {type: 'line'}},
             hAxis: {
                 title: 'Anos',
                 textStyle: {
@@ -83,19 +77,20 @@
                     fontSize: 18,
                     color: 'black',
                     bold: true
-                },
-
-            },
+                }
+            }
         };
 
         //Grafico Payback
-        var g_chart_2 = document.getElementById('grafico-payback');
-        g_chart_2 = new google.visualization.ColumnChart(g_chart_2);
-        google.visualization.events.addListener(g_chart_2, 'ready', function () {
-            $('#grafico_payback').val(g_chart_2.getImageURI());
-        });
-        g_chart_2.draw(payback, options_payback);
+        var chartContainer = document.getElementById('grafico-payback');
+        chart = new google.visualization.ColumnChart(chartContainer);
 
+        google.visualization.events.addListener(chart, 'ready', function () {
+            $('#grafico_payback').val(chart.getImageURI());
+            document.getElementById('grafico_payback').value = chart.getImageURI();
+        });
+
+        chart.draw(payback, options_payback);
     }
 </script>
 @endpush

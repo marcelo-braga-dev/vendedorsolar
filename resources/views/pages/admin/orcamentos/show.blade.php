@@ -104,15 +104,16 @@
                             <div class="col-12">
                                 <div class="row align-items-center">
                                     <div class="col-md-3 mb-3">
-                                        <form method="POST" action="{{ route('orcamento.pdf') }}" target="_blank"> @csrf
-                                            <input type="hidden" name="id" value="{{ $orcamento->id }}">
-                                            <input type="hidden" name="grafico_geracao" id="grafico_geracao">
-                                            <input type="hidden" name="grafico_payback" id="grafico_payback">
-                                            <button type="submit" class="btn btn-danger btn-block">
-                                                <i class="fas fa-file-pdf text-lg pr-2"></i> Abrir PDF
-                                            </button>
-                                        </form>
-                                        <button onclick="generatePdf()">Gerar PDF</button>
+                                        <input type="hidden" name="grafico_geracao" id="grafico_geracao">
+                                        <input type="hidden" name="grafico_payback" id="grafico_payback">
+
+                                        <!-- Botão que aciona o envio do PDF -->
+                                        <button id="btnGerarPdf"
+                                                class="btn btn-danger w-100 d-flex align-items-center justify-content-center"
+                                                onclick="generatePdf()"
+                                        >
+                                            <i class="fas fa-file-pdf pr-2"></i> Abrir PDF
+                                        </button>
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <a class="btn btn-success btn-block"
@@ -418,7 +419,14 @@
         </script>
         <script>
             async function generatePdf() {
-                //const htmlContent = document.getElementById('proposal-content').innerHTML;
+                const graficoGeracao = document.getElementById('grafico_geracao').value;
+                const graficoPayback = document.getElementById('grafico_payback').value;
+
+                const payload = {
+                    id: {{ $orcamento->id }},
+                    grafico_geracao: graficoGeracao,
+                    grafico_payback: graficoPayback
+                };
 
                 try {
                     const response = await fetch("{{ route('orcamento.pdf') }}", {
@@ -427,7 +435,7 @@
                             "Content-Type": "application/json",
                             "X-CSRF-TOKEN": "{{ csrf_token() }}"
                         },
-                       body: JSON.stringify({ idOrcamento: 1 })
+                       body: JSON.stringify(payload)
                     });
 
                     const data = await response.json();
@@ -435,12 +443,12 @@
 
                     const link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download', 'proposta_comercial.pdf');
+                    link.setAttribute('download', "{{ getNomeCliente($orcamento->clientes_id).'_'.$orcamento->geracao.'kwh.pdf'}}");
+                    link.setAttribute('target', '_blank');
                     document.body.appendChild(link);
                     link.click();
                 } catch (error) {
-                    console.log(error)
-                    // console.error('Erro ao gerar PDF:', error);
+                    console.error('Erro ao gerar PDF:', error);
                 }
             }
         </script>
