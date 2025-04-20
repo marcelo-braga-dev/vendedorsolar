@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('app:integracao-edeltec')->dailyAt('04:00');
+//        $schedule->command('app:integracao-edeltec')->dailyAt('04:00');
+        $schedule->command('app:integracao-edeltec')->dailyAt('17:20');
     }
 
     /**
