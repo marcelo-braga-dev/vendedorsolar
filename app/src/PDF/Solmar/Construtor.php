@@ -78,7 +78,7 @@ class Construtor extends DadosOrcamento
         $caminhoCompleto = storage_path('app/' . $caminhoRelativo);
         $this->mpdf->Output($caminhoCompleto, 'F');
         $urlPublica = Storage::url('pdfs/' . $nomeArquivo);
-        Log::error(response()->json(['urlPdf' => $urlPublica]));
+
         return response()->json(['urlPdf' => $urlPublica]);
     }
 
