@@ -38,7 +38,8 @@ class Construtor extends DadosOrcamento
                 'margin_right' => 0
             ]);
         } catch (MpdfException $e) {
-            echo $e->getMessage();
+            Log::error('Erro ao criar Mpdf: ' . $e->getMessage());
+            throw $e; // Impede que o código continue com mpdf não inicializado
         }
         $this->graficoGeracao = $graficoGeracao;
         $this->graficoPayback = $graficoPayback;
