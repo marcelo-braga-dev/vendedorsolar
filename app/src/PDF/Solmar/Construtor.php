@@ -31,6 +31,7 @@ class Construtor extends DadosOrcamento
 
         try {
             $this->mpdf = new Mpdf([
+                'tempDir' => storage_path('app/tmp'),
                 "format" => "A4",
                 'margin_top' => 0,
                 'margin_bottom' => 0,
