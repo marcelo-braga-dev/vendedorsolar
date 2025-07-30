@@ -15,16 +15,19 @@ class EdeltecIntegracao
         $integracaoDados = (new IntegracaoEdeltec())->dados();
 
         $page = 1;
+        $skuAtivos = [];
 
         while (true) {
             $resposta = (new Requisicao())->getProdutos($token, $page);
             $itens = $resposta['items'] ?? [];
             $totalPages = $resposta['meta']['totalPages'] ?? 0;
 
-            // Verifica se há dados a serem processados
             if (!empty($itens)) {
                 foreach ($itens as $produto) {
                     if (isset($produto['codProd'])) {
+                        // Armazena o SKU ativo
+                        $skuAtivos[] = $produto['codProd'];
+
                         try {
                             $kit = new KitOnGrid($produto, $integracaoDados);
                             $kit->cadastrar();
@@ -35,13 +38,18 @@ class EdeltecIntegracao
                 }
             }
 
-            // Se não houver mais páginas, encerra
             if ($totalPages == $page) {
                 break;
             }
 
             $page++;
         }
+
+        // Atualiza status para 0 de todos os produtos que NÃO estão em $skuAtivos
+        \DB::table('produtos')
+            ->whereNotIn('codProd', $skuAtivos)
+            ->update(['status' => 0]);
+
         \Log::info('INTEGRACAO EDELTEC REALIZADA COM SUCESSO');
     }
 }
