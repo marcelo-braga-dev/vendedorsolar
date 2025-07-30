@@ -53,7 +53,7 @@ class KitOnGrid extends Kit
             $id = $this->indices[$dado];
             $this->setMarcaInversor($id);
         } catch (\ErrorException $e) {
-            throw new \DomainException($dado);
+            throw new \DomainException("INVERSOR: " . $dado);
         }
     }
 
@@ -63,7 +63,7 @@ class KitOnGrid extends Kit
             $id = $this->indices[$dado];
             $this->setMarcaPainel($id);
         } catch (\ErrorException $e) {
-            throw new \DomainException($dado);
+            throw new \DomainException("PAINEL: " . $dado);
         }
     }
 
