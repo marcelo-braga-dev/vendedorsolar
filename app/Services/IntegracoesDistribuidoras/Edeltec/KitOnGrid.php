@@ -53,7 +53,7 @@ class KitOnGrid extends Kit
             $id = $this->indices[$dado];
             $this->setMarcaInversor($id);
         } catch (\ErrorException $e) {
-            throw new \DomainException("INVERSOR: " . $dado);
+            throw new \DomainException("Marca do INVERSOR não encontrada: $dado");
         }
     }
 
@@ -63,7 +63,7 @@ class KitOnGrid extends Kit
             $id = $this->indices[$dado];
             $this->setMarcaPainel($id);
         } catch (\ErrorException $e) {
-            throw new \DomainException("PAINEL: " . $dado);
+            throw new \DomainException("Marca do PAINEL não encontrada: $dado");
         }
     }
 
@@ -75,7 +75,7 @@ class KitOnGrid extends Kit
     public function potenciaPainel(string $dado)
     {
         try {
-        $this->setPotenciaPainel($dado);
+            $this->setPotenciaPainel($dado);
         } catch (\ErrorException $e) {
             throw new \DomainException();
         }
