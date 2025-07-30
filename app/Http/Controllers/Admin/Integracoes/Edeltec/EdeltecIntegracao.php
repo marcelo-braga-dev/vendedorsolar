@@ -29,7 +29,7 @@ class EdeltecIntegracao
                             $kit = new KitOnGrid($produto, $integracaoDados);
                             $kit->cadastrar();
                         } catch (\DomainException $exception) {
-                            \Log::info("ERRO NO CADASTRO: " . $exception->getMessage());
+                            \Log::info("ERRO INTEGRACAO EDELTEC: " . $exception->getMessage());
                         }
                     }
                 }
