@@ -31,46 +31,46 @@
     <tbody>
     <tr>
         <td align="right" >
-            <img src="storage/proposta-comercial/solmar/portfolio/1.jpeg"  style="width:280px; height:260px" >
+            <img src="/storage/proposta-comercial/solmar/portfolio/1.jpg"  style="width:280px; height:260px" >
         </td>
         <td align="center">
-            <img src="storage/proposta-comercial/solmar/portfolio/2.jpeg"  style="width:270px; height:260px">
+            <img src="/storage/proposta-comercial/solmar/portfolio/2.jpg"  style="width:270px; height:260px">
         </td>
         <td align="left">
-            <img src="storage/proposta-comercial/solmar/portfolio/3.jpeg"  style="width:270px; height:260px">
+            <img src="/storage/proposta-comercial/solmar/portfolio/3.jpg"  style="width:270px; height:260px">
         </td>
     </tr>
     <tr>
         <td align="right" >
-            <img src="storage/proposta-comercial/solmar/portfolio/4.jpeg"  style="width:280px; height:260px" >
+            <img src="/storage/proposta-comercial/solmar/portfolio/4.jpg"  style="width:280px; height:260px" >
         </td>
         <td align="center">
-            <img src="storage/proposta-comercial/solmar/portfolio/5.jpeg"  style="width:270px; height:260px">
+            <img src="/storage/proposta-comercial/solmar/portfolio/5.jpg"  style="width:270px; height:260px">
         </td>
         <td align="left">
-            <img src="storage/proposta-comercial/solmar/portfolio/6.jpeg"  style="width:270px; height:260px">
+            <img src="/storage/proposta-comercial/solmar/portfolio/6.jpg"  style="width:270px; height:260px">
         </td>
     </tr>
     <tr>
         <td align="right" >
-            <img src="storage/proposta-comercial/solmar/portfolio/7.jpeg"  style="width:280px; height:260px" >
+            <img src="storage/proposta-comercial/solmar/portfolio/7.jpg"  style="width:280px; height:260px" >
         </td>
         <td align="center">
-            <img src="storage/proposta-comercial/solmar/portfolio/8.jpeg"  style="width:270px; height:260px">
+            <img src="storage/proposta-comercial/solmar/portfolio/8.jpg"  style="width:270px; height:260px">
         </td>
         <td align="left">
-            <img src="storage/proposta-comercial/solmar/portfolio/9.jpeg"  style="width:270px; height:260px">
+            <img src="storage/proposta-comercial/solmar/portfolio/9.jpg"  style="width:270px; height:260px">
         </td>
     </tr>
     <tr>
         <td align="right" >
-            <img src="storage/proposta-comercial/solmar/portfolio/10.jpeg"  style="width:280px; height:270px" >
+            <img src="storage/proposta-comercial/solmar/portfolio/10.jpg"  style="width:280px; height:270px" >
         </td>
         <td align="center">
-            <img src="storage/proposta-comercial/solmar/portfolio/11.jpeg"  style="width:270px; height:270px">
+            <img src="storage/proposta-comercial/solmar/portfolio/11.jpg"  style="width:270px; height:270px">
         </td>
         <td align="left">
-            <img src="storage/proposta-comercial/solmar/portfolio/12.jpeg"  style="width:270px; height:270px">
+            <img src="storage/proposta-comercial/solmar/portfolio/12.jpg"  style="width:270px; height:270px">
         </td>
     </tr>
 
