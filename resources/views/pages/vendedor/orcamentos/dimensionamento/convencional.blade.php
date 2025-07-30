@@ -152,10 +152,11 @@
                 $(function () {
                     $('#cliente').change(function () {
                         let estadoCliente = $('#cliente option:selected').attr('localidade');
-console.log('ESTADO: ', estadoCliente)
+
                         $.get("{{ route('api.endereco.id.cidade.estado') }}", {
                                 'id': estadoCliente
                             }, function (result) {
+                            console.log(result)
                                 preencheEstado(result.sigla);
                                 preencheCidade(result.sigla, result.cidade);
                             }
