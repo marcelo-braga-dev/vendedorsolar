@@ -92,37 +92,13 @@
                 <li class="nav-item">
                     <a class="nav-link @if(empty($_GET['status']) && SUBMENU === 'todos_orcamentos') active @endif"
                        href="{{ route('admin.orcamentos.index') }}">
-                        Todos Orçamentos
+                        Geradores Fotovoltaicos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'novos') active @endif"
-                       href="{{ route('admin.orcamentos.index', ['status' => 'novos']) }}">
-                        Novos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'assinados') active @endif"
-                       href="{{ route('admin.orcamentos.index', ['status' => 'assinados']) }}">
-                        Para Aprovação
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'aprovados') active @endif"
-                       href="{{ route('admin.orcamentos.index', ['status' => 'aprovados']) }}">
-                        Aprovados
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'instalandos') active @endif"
-                       href="{{ route('admin.orcamentos.index', ['status' => 'instalandos']) }}">
-                        Em Instalação
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'finalizados') active @endif"
-                       href="{{ route('admin.orcamentos.index', ['status' => 'finalizados']) }}">
-                        Finalizados
+                    <a class="nav-link @if(SUBMENU === 'servicos') active @endif"
+                       href="{{ route('admin.servicos.index') }}">
+                        Serviços
                     </a>
                 </li>
             </ul>

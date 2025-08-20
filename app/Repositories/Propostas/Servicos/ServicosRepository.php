@@ -20,6 +20,13 @@ class ServicosRepository
         return $proposta->id;
     }
 
+    public function all()
+    {
+        return (new PropostaServico())
+            ->orderBy('id', 'desc')
+            ->get();
+    }
+
     public function allVendedor()
     {
         return (new PropostaServico())

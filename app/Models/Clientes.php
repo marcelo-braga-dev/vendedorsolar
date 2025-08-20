@@ -13,6 +13,26 @@ class Clientes extends Model
 
     protected $fillable = ['nome', 'razao_social', 'users_id', 'cidades_estados_id', 'status'];
 
+    protected $appends = ['dados'];
+
+    public function metas()
+    {
+        return $this->hasMany(ClientesMetas::class, 'cliente_id', 'id');
+    }
+
+    public function getDadosAttribute()
+    {
+        // Garante que as metas estejam carregadas; se não, carrega
+        $metas = $this->relationLoaded('metas') ? $this->metas : $this->metas()->get();
+
+        // pluck('value','metas') => ['cnpj' => '...', 'cpf' => '...']
+        $array = $metas->pluck('value', 'meta')->toArray();
+
+        return (object) $array; // permite acessar como $cliente->dados->cnpj
+    }
+
+    //////
+
     public function cadastrar($request)
     {
         $status = (new StatusNovoCliente())->getStatus();

@@ -2,10 +2,19 @@
     <p>
         <b>Cliente:</b> {{ $proposta->cliente->nome ?? $proposta->cliente->razao_social }}
     </p>
-    @if ($proposta->cliente->cpf ?? $proposta->cliente->cnpj)
-        <p>
-            <b>Documento:</b> {{ $proposta->cliente->cpf ?? $proposta->cliente->cnpj }}
-        </p>
+    @if($proposta->cliente->dados->cpf)
+        <div class="col-12">
+            <p>
+                <b>CPF:</b> {{ $proposta->cliente->dados->cpf }}
+            </p>
+        </div>
+    @endif
+    @if($proposta->cliente->dados->cnpj)
+        <div class="col-12">
+            <p>
+                <b>CNPJ:</b> {{ $proposta->cliente->dados->cnpj }}
+            </p>
+        </div>
     @endif
 
     <p>

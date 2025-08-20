@@ -16,7 +16,7 @@ class PropostaServico extends Model
         'descricao',
     ];
 
-    protected $with = ['cliente'];
+    protected $with = ['cliente', 'vendedor'];
 
     public function getPrazoFinalAttribute()
     {
@@ -31,6 +31,12 @@ class PropostaServico extends Model
     public function cliente()
     {
         return $this->hasOne(Clientes::class, 'id', 'cliente_id');
+
+    }
+
+    public function vendedor()
+    {
+        return $this->hasOne(User::class, 'id', 'consultor_id');
 
     }
 }
