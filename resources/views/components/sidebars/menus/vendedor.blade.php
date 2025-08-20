@@ -69,6 +69,12 @@
                         Sistema com Demanda
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(SUBMENU == 'servicos') active @endif"
+                       href="{{ route('vendedor.servicos.create') }}">
+                        Serviços
+                    </a>
+                </li>
             </ul>
         </div>
     </li>
@@ -89,39 +95,15 @@
                 <li class="nav-item">
                     <a class="nav-link @if(empty($_GET['status']) && SUBMENU == 'todos_orcamentos') active @endif"
                        href="{{ route('vendedor.orcamento.index') }}">
-                        Todos Orçamentos
+                        Geradores Fotovoltaicos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'novos') active @endif"
-                       href="{{ route('vendedor.orcamento.index', ['status' => 'novos']) }}">
-                        Novos
+                    <a class="nav-link @if(empty($_GET['status']) && SUBMENU == 'servicos') active @endif"
+                       href="{{ route('vendedor.servicos.index') }}">
+                        Serviços
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'assinados') active @endif"
-                       href="{{ route('vendedor.orcamento.index', ['status' => 'assinados']) }}">
-                        Em Aprovação
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'aprovados') active @endif"
-                       href="{{ route('vendedor.orcamento.index', ['status' => 'aprovados']) }}">
-                        Aprovados
-                    </a>
-                </li>
-                {{--                <li class="nav-item">--}}
-                {{--                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'instalandos') active @endif"--}}
-                {{--                       href="{{ route('vendedor.orcamento.index', ['status' => 'instalandos']) }}">--}}
-                {{--                        Em Instalação--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
-                {{--                <li class="nav-item">--}}
-                {{--                    <a class="nav-link @if(!empty($_GET['status']) && $_GET['status'] == 'finalizados') active @endif"--}}
-                {{--                       href="{{ route('vendedor.orcamento.index', ['status' => 'finalizados']) }}">--}}
-                {{--                        Finalizados--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
             </ul>
         </div>
     </li>

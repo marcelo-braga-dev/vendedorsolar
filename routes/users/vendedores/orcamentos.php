@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Vendedor\Orcamentos\Servicos\GerarPdfServicoController;
+use App\Http\Controllers\Vendedor\Orcamentos\Servicos\ServicosController;
 use Illuminate\Support\Facades\Route;
 
 // Orcamentos
@@ -60,4 +62,13 @@ Route::prefix('orcamentos/dimensionamento/demanda')
 
         Route::post('store', 'DimenDemandaController@store')
             ->name('store');
+    });
+
+// Servicos
+Route::prefix('orcamentos/')
+    ->name('vendedor.')
+    ->namespace('Orcamentos')
+    ->group(function () {
+        Route::resource('servicos', ServicosController::class);
+        Route::post('servicos-pdf', GerarPdfServicoController::class)->name('servicos.pdf');
     });
