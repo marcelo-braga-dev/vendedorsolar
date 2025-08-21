@@ -70,7 +70,7 @@
 
                     const link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download', "{{ ($proposta->cliente->nome ?? $proposta->cliente->razao_social) . '_' . uniqid().'.pdf'}}");
+                    link.setAttribute('download', "{{ ($proposta->cliente->nome ?? $proposta->cliente->razao_social)}}_{{uniqid()}}.pdf");
                     link.setAttribute('target', '_blank');
                     document.body.appendChild(link);
                     link.click();
