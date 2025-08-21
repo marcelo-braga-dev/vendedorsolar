@@ -59,7 +59,7 @@
                     <b>Prazo:</b> {{ $proposta->prazo_final }}
                 </p>
                 <p>
-                    <b>Descrição:</b> {{ $proposta->descricao}}
+                    <b>Descrição:</b><br/> {!!  nl2br($proposta->descricao) !!}
                 </p>
             </div>
         </div>
