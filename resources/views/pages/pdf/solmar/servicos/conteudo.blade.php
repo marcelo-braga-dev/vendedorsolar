@@ -85,9 +85,9 @@
     <div style="border-top:  1px solid #ddd; margin-top: 15px; padding-top: 15px">
         <b>SOLMAR ENERGIA SOLAR LTDA</b><br/>
         CNPJ: 27.908.036/0001-24<br/>
-        Av. Mandacaru, 4943 - Jardim Munique, Maringá - PR, 87084-002.<br/>
         Tel: (44) 99990-3092<br/>
-        Email: contato@solmarenergia.com.br
+        Email: contato@solmarenergia.com.br<br/>
+        Av. Mandacaru, 4943 - Jardim Munique, Maringá - PR, 87084-002.
     </div>
 </div>
 
