@@ -22,8 +22,19 @@
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
+    {{-- Font Awesome --}}
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
     @stack('css')
 </head>
+
 @php define('MENU', $attributes['menu']); define('SUBMENU', $attributes['submenu']) @endphp
 
 <body>
@@ -46,12 +57,28 @@
     @include('layouts.footers.guest')
 @endguest
 
+<script src="{{ asset('js/axios.min.js') }}"></script>
+<script src="{{ asset('js/ui.js') }}"></script>
 <script src="{{ asset('argon/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/vendor/select2/dist/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/mask/data-mask.js') }}"></script>
 <script src="{{ asset('argon/js/argon.js?v=1.0.0') }}"></script>
 <script src="{{ asset('assets/sweetalert2/script.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+<script>
+    // fechar offcanvas ao clicar em links
+    document.addEventListener('click', (e)=>{
+        const link = e.target.closest('.offcanvas a.nav-link, .offcanvas .btn');
+        if(!link) return;
+        const el = document.getElementById('offcanvasMenu');
+        if(!el) return;
+        const off = bootstrap.Offcanvas.getInstance(el);
+        if(off) off.hide();
+    });
+</script>
+
 <x-modals.geral></x-modals.geral>
 
 <script>

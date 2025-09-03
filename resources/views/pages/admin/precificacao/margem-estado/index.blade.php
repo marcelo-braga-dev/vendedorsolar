@@ -1,190 +1,91 @@
 <x-layout menu="margens" submenu="margem-estado">
-    <x-body title="Margem por Estado" class="p-4">
+    @push('css')
+        <style>
+            :root{
+                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
+                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
+            }
+            /* Cabeçalho da seção (dentro do x-body) */
+            .section-head{
+                display:flex; align-items:center; justify-content:space-between;
+                padding:.75rem 0; border-bottom:1px dashed #eef2f6;
+            }
+            .section-title{ margin:0; font-weight:800; letter-spacing:.2px; }
+            .hint{ color:#6c757d; font-size:.9rem; }
+
+            .divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
+
+            /* grid dos inputs */
+            .uf-grid{ row-gap:1rem; }
+            .uf-col{ min-width: 180px; }
+
+            /* botão principal */
+            .btn-primary{ font-weight:800; }
+            .sticky-actions{
+                position: sticky; bottom: -1px; background: transparent;
+                padding: 1rem 0; display:flex; justify-content:center;
+                border-top:1px solid #f1f3f5;
+            }
+        </style>
+    @endpush>
+
+    @php
+        // Regiões -> UFs (corrigido: último bloco é NORTE)
+        $regioes = [
+            'Sudeste'      => ['SP','RJ','ES','MG'],
+            'Sul'          => ['PR','RS','SC'],
+            'Centro-Oeste' => ['MT','MS','GO','DF'],
+            'Nordeste'     => ['AL','BA','CE','MA','PI','RN','PE','PB','SE'],
+            'Norte'        => ['AM','RR','AP','PA','RO','AC','TO'],
+        ];
+    @endphp
+
+    {{-- REMOVIDO p-0 para aproveitar o padding natural do x-body --}}
+    <x-body title="Margem por Estado">
         <form method="POST" action="{{ route('admin.precificacao.estado.store') }}"> @csrf
-            <h4>Sudeste</h4>
-            <div class="row mb-4 border-bottom">
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="SP" type="number"
-                                              name="SP" value="{{ $margens['SP'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="RJ" type="number"
-                                              name="RJ" value="{{ $margens['RJ'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="ES" type="number"
-                                              name="ES" value="{{ $margens['ES'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="MG" type="number"
-                                              name="MG" value="{{ $margens['MG'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
+            <div class="section-head">
+                <h5 class="section-title">Definição de Margem por UF</h5>
+                <div class="hint">Informe o percentual de margem específico para cada estado (em %).</div>
             </div>
 
-            <h4>Sul</h4>
-            <div class="row mb-4 border-bottom">
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="PR" type="number"
-                                              name="PR" value="{{ $margens['PR'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
+            @foreach($regioes as $regiao => $ufs)
+                <div class="mt-3">
+                    <h4 class="mb-2">{{ $regiao }}</h4>
+                    <div class="row uf-grid">
+                        @foreach($ufs as $uf)
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-2 uf-col">
+                                <x-inputs.input-box-right
+                                    box="%"
+                                    label="{{ $uf }}"
+                                    type="number"
+                                    name="{{ $uf }}"
+                                    value="{{ $margens[$uf] ?? '' }}"
+                                    step="0.001"></x-inputs.input-box-right>
+                            </div>
+                        @endforeach
+                    </div>
+                    @if (! $loop->last)
+                        <div class="divider"></div>
+                    @endif
                 </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="RS" type="number"
-                                              name="RS" value="{{ $margens['RS'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
+            @endforeach
 
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="SC" type="number"
-                                              name="SC" value="{{ $margens['SC'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-            </div>
-
-            <h4>Centro Oeste</h4>
-            <div class="row mb-4 border-bottom">
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="MT" type="number"
-                                              name="MT" value="{{ $margens['MT'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="MS" type="number"
-                                              name="MS" value="{{ $margens['MS'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="GO" type="number"
-                                              name="GO" value="{{ $margens['GO'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="DF" type="number"
-                                              name="DF" value="{{ $margens['DF'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-            </div>
-
-            <h4>Nordeste</h4>
-            <div class="row mb-4 border-bottom">
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="AL" type="number"
-                                              name="AL" value="{{ $margens['AL'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="BA" type="number"
-                                              name="BA" value="{{ $margens['BA'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="CE" type="number"
-                                              name="CE" value="{{ $margens['CE'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="MA" type="number"
-                                              name="MA" value="{{ $margens['MA'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="PI" type="number"
-                                              name="PI" value="{{ $margens['PI'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="RN" type="number"
-                                              name="RN" value="{{ $margens['RN'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="PE" type="number"
-                                              name="PE" value="{{ $margens['PE'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="PB" type="number"
-                                              name="PB" value="{{ $margens['PB'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="SE" type="number"
-                                              name="SE" value="{{ $margens['SE'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-            </div>
-
-            <h4>Sul</h4>
-            <div class="row mb-4 border-bottom">
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="AM" type="number"
-                                              name="AM" value="{{ $margens['AM'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="RR" type="number"
-                                              name="RR" value="{{ $margens['RR'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="AP" type="number"
-                                              name="AP" value="{{ $margens['AP'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="PA" type="number"
-                                              name="PA" value="{{ $margens['PA'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="RO" type="number"
-                                              name="RO" value="{{ $margens['RO'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="AC" type="number"
-                                              name="AC" value="{{ $margens['AC'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-                <div class="col-md-2">
-                    <x-inputs.input-box-right box="%" label="TO" type="number"
-                                              name="TO" value="{{ $margens['TO'] ?? '' }}"
-                                              step="0.001"></x-inputs.input-box-right>
-
-                </div>
-            </div>
-            <div class="row p-4">
-                    <button class="btn btn-primary mx-auto">Salvar</button>
+            <div class="sticky-actions">
+                <button class="btn btn-primary px-4">
+                    <i class="bi bi-save2"></i> Salvar
+                </button>
             </div>
         </form>
     </x-body>
+
+    @push('js')
+        <script>
+            // Evita números negativos
+            document.querySelectorAll('input[type="number"][name]').forEach(function(el){
+                el.addEventListener('input', function(){
+                    if (this.value !== '' && parseFloat(this.value) < 0) this.value = 0;
+                });
+            });
+        </script>
+    @endpush
 </x-layout>

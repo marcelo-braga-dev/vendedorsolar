@@ -1,0 +1,233 @@
+/* =========================================
+   THEME / BRAND OVERRIDES (Bootstrap 5)
+   Primária: #e25507
+   ======================================= */
+:root{
+    --brand: #e25507;
+    --brand-600: #cc4c06;
+    --brand-700: #b44405;
+    --brand-100: #ffe7da;
+    --brand-200: #ffd6c2;
+    --brand-300: #ffbe9f;
+    --brand-900: #3b1704;
+
+    --bs-primary: var(--brand);
+    --bs-primary-rgb: 226,85,7;
+    --bs-link-color: var(--brand);
+    --bs-link-hover-color: var(--brand-600);
+    --bs-focus-ring-color: rgba(226,85,7,.25);
+    --bs-border-color: #e9ecef;
+    --bs-body-color: #222;
+    --bs-body-bg: #fff;
+}
+
+/* Botões primários */
+.btn-primary{
+    --bs-btn-color:#fff;
+    --bs-btn-bg:var(--brand);
+    --bs-btn-border-color:var(--brand);
+    --bs-btn-hover-bg:var(--brand-600);
+    --bs-btn-hover-border-color:var(--brand-600);
+    --bs-btn-active-bg:var(--brand-700);
+    --bs-btn-active-border-color:var(--brand-700);
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+    background-image: linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.06));
+}
+.btn-outline-primary{
+    --bs-btn-color:var(--brand);
+    --bs-btn-border-color:var(--brand);
+    --bs-btn-hover-bg:var(--brand);
+    --bs-btn-hover-border-color:var(--brand);
+    --bs-btn-hover-color:#fff;
+    --bs-btn-active-bg:var(--brand-700);
+    --bs-btn-active-border-color:var(--brand-700);
+}
+.text-primary{ color: var(--brand)!important; }
+.bg-primary-subtle{ background-color: var(--brand-100)!important; }
+.border-primary{ border-color: var(--brand)!important; }
+
+a{ text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+/* Navbar com sombra ao rolar */
+.navbar{
+    --bs-navbar-brand-hover-color: var(--brand-700);
+    background:#fff; transition: box-shadow .2s ease;
+}
+.navbar.scrolled{ box-shadow:0 6px 20px rgba(0,0,0,.06); }
+
+/* Hero */
+.hero{
+    background: radial-gradient(1200px 600px at 10% -10%, var(--brand-100), transparent 60%),
+    radial-gradient(1200px 600px at 90% 10%, var(--brand-200), transparent 50%),
+    linear-gradient(180deg, #fff, #fff);
+}
+.hero .badge{
+    background: var(--brand-100);
+    color: var(--brand-700);
+    border:1px solid var(--brand-200);
+}
+
+/* Cards elegantes */
+.card{
+    border:1px solid #eef0f2; border-radius:16px; overflow:hidden;
+    box-shadow:0 4px 16px rgba(0,0,0,.04);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover{ transform: translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.08); }
+.card-img-top{ aspect-ratio:16/9; object-fit:cover; }
+.card .media-badges{
+    position:absolute; left:.75rem; bottom:.75rem; display:flex; gap:.35rem;
+}
+.card .media-badges .badge{
+    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,.85);
+    color:#111; border:1px solid rgba(0,0,0,.06);
+}
+
+/* Pills roláveis */
+.category-pills{ display:flex; gap:.5rem; overflow:auto hidden; padding-bottom:.25rem; scrollbar-width:thin; }
+.category-pills .btn{ border-radius:999px; }
+
+/* CTA */
+.cta{ background:linear-gradient(135deg, var(--brand-100), #fff); border:1px solid var(--brand-200); border-radius:20px; }
+
+/* Footer */
+footer{ border-top:1px solid #eef0f2; background:#fff; }
+
+/* Back to top */
+#backToTop{
+    position:fixed; right:16px; bottom:16px; z-index:1080;
+    opacity:0; visibility:hidden; transform:translateY(10px); transition:all .2s ease;
+}
+#backToTop.show{ opacity:1; visibility:visible; transform:translateY(0); }
+
+/* =========================
+   Utilitários visuais extras
+   ========================= */
+.truncate-1, .truncate-2, .truncate-3{
+    display:-webkit-box; -webkit-box-orient: vertical; overflow: hidden;
+}
+.truncate-1{ -webkit-line-clamp:1; }
+.truncate-2{ -webkit-line-clamp:2; }
+.truncate-3{ -webkit-line-clamp:3; }
+
+/* Avatar inline (meta autor) */
+.meta-inline{
+    display:flex; align-items:center; gap:.5rem; font-size:.9rem; color:#6c757d;
+}
+.meta-inline img{ width:28px; height:28px; border-radius:50%; object-fit:cover; }
+
+/* Input group search mais “limpo” */
+.input-group.search .input-group-text{ background:#fff; }
+
+/* Botão favorito “pill” */
+.btn-fav{ --_c: var(--brand); color: var(--_c); border-color: var(--_c); }
+.btn-fav.active, .btn-fav[aria-pressed="true"]{ background: var(--brand); color:#fff; }
+
+/* Área de foco mais evidente */
+.form-control:focus, .form-select:focus, .btn:focus{
+    box-shadow: 0 0 0 .25rem rgba(226,85,7,.2);
+}
+
+/* ==== Sidebar visual: ícones + setas, subitens recuados ==== */
+.sidebar{
+    width: 260px; flex:0 0 260px; background:#fff; border-right:1px solid #eef0f2;
+    min-height:100vh; position:sticky; top:0;
+}
+.sidebar .brand{ padding:18px 16px 8px; display:flex; align-items:center; gap:10px; }
+.sidebar .brand img{ max-height:34px; }
+.sidebar .menu{ padding:8px; }
+
+.sidebar .nav-link{
+    border-radius:10px; color:#3b3b3b; padding:.6rem .65rem;
+}
+.sidebar .nav-link:hover{ background:#f6f7f9; }
+.sidebar .nav-link.active{ background:var(--brand-100); color:var(--brand-700); font-weight:600; }
+
+.sidebar-link{
+    display:flex; align-items:center; gap:.6rem; position:relative;
+}
+.sidebar-link .icon{ width:22px; display:inline-flex; justify-content:center; color:#6b7280; }
+.sidebar-link .label{ flex:1 1 auto; }
+.sidebar-link .chev{ color:#9aa0a6; transition: transform .2s ease; }
+
+[data-sidebar-group].show ~ .chev,
+.sidebar-link[aria-expanded="true"] .chev{ transform: rotate(180deg); }
+
+/* Subitens */
+.nav-sub{
+    padding-left:2.2rem; color:#8a8f98;
+}
+.nav-sub:hover{ color:#5a5f66; background:transparent; }
+.nav-sub.active{ color:var(--brand-700); font-weight:600; }
+.nav-sub.disabled{
+    pointer-events:none; opacity:.45;
+}
+
+/* Foco acessível */
+.sidebar .nav-link:focus{
+    box-shadow: 0 0 0 .15rem rgba(226,85,7,.18);
+}
+
+/*template*/
+:root{
+    --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
+    --brand-100:#ffe7da; --brand-200:#ffd6c2; --brand-300:#ffbe9f; --brand-900:#3b1704;
+    --bs-primary:var(--brand); --bs-primary-rgb:226,85,7;
+    --bs-link-color:var(--brand); --bs-link-hover-color:var(--brand-600);
+    --bs-focus-ring-color:rgba(226,85,7,.25);
+    --bs-border-color:#e9ecef; --bs-body-color:#222; --bs-body-bg:#f8f9fb;
+}
+.btn-primary{
+    --bs-btn-color:#fff; --bs-btn-bg:var(--brand); --bs-btn-border-color:var(--brand);
+    --bs-btn-hover-bg:var(--brand-600); --bs-btn-hover-border-color:var(--brand-600);
+    --bs-btn-active-bg:var(--brand-700); --bs-btn-active-border-color:var(--brand-700);
+    --bs-btn-focus-shadow-rgb:var(--bs-primary-rgb);
+    background-image:linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.06));
+}
+.btn-outline-primary{
+    --bs-btn-color:var(--brand); --bs-btn-border-color:var(--brand);
+    --bs-btn-hover-bg:var(--brand); --bs-btn-hover-border-color:var(--brand); --bs-btn-hover-color:#fff;
+    --bs-btn-active-bg:var(--brand-700); --bs-btn-active-border-color:var(--brand-700);
+}
+.sidebar{
+    width:280px; flex:0 0 280px; background:#fff; border-right:1px solid #eef0f2;
+    min-height:100vh; position:sticky; top:0;
+}
+.sidebar .brand{
+    padding:20px 20px 8px 20px; display:flex; align-items:center; gap:10px;
+}
+.sidebar .brand img{ max-height:36px; }
+.sidebar .menu { padding:12px 12px 24px 12px; }
+.sidebar .menu .nav-link{
+    display:flex; align-items:center; gap:.6rem;
+    color:#333; border-radius:10px; padding:.65rem .75rem;
+}
+.sidebar .menu .nav-link:hover{ background:#f5f6f8; }
+.sidebar .menu .nav-link.active{ background:var(--brand-100); color:var(--brand-700); font-weight:600; }
+.sidebar .menu .collapse .nav-link{ padding-left:2.4rem; }
+
+.content-wrap{ flex:1; min-width:0; }
+.topbar{
+    background:#fff; border-bottom:1px solid #eef0f2;
+    position:sticky; top:0; z-index:1030;
+}
+.page-title{
+    margin:0; padding:16px 0; font-weight:700;
+}
+.container-app{ padding:24px; }
+.app-card{
+    background:#fff; border:1px solid #eef0f2; border-radius:16px;
+    box-shadow:0 8px 32px rgba(0,0,0,.04);
+}
+.pill-filter .btn{
+    border-radius:999px; padding:.45rem 1rem; border:1px solid #dee2e6;
+    background:#fff;
+}
+.pill-filter .btn.active, .pill-filter .btn:focus{ border-color:var(--brand); color:var(--brand-700); background:var(--brand-100); }
+.divider-v{ width:1px; background:#eef0f2; min-height:40px; margin:0 1rem; }
+@media (max-width: 991.98px){
+    .sidebar{ display:none; }
+    .content-wrap{ width:100%; }
+}

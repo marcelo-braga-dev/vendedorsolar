@@ -18,9 +18,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('admin/fornecedores/alterar-status-kits', [\App\Http\Controllers\Admin\Produtos\StatusKitsController::class, 'update'])
-->name('api.fornecedores.alterar-status-kits');
-
 // Visualizar PDF Orcamento
 Route::get('orcamento/{token}', [App\Http\Controllers\Api\OrcamentoApiController::class, 'show'])
     ->name('api.orcamento.show');

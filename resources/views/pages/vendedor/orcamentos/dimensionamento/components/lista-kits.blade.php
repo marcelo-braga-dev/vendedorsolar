@@ -1,98 +1,110 @@
-@foreach ($kits as $item)
-    <div class="col-12 card-escolher-kits p-0 mb-4 shadow">
-        <div class="card mt-0 border">
-            <div class="card-header pb-0">
-                <div class="row">
-                    <div class="col-auto mb-2">
-                        <small>Potência total dos kit: <b>{{ convert_float_money($item['potencia']) }} kWp</b></small>
-                    </div>
-                    <div class="col-auto mb-2">
-                        <div class="row">
-                            <div class="col-6 col-md-auto text-center">
-                                <img src="{{ asset('storage') . '/' . $produtos[$item['inversor']]['logo'] }}"
-                                     style="max-width:100px"/>
-                            </div>
-                            <div class="col-6 col-md-auto text-center">
-                                <img src="{{ asset('storage') . '/' . $produtos[$item['painel']]['logo'] }}"
-                                     style="max-width:100px"/>
-                            </div>
-                        </div>
-                    </div>
+
+
+{{-- ====== LISTA ====== --}}
+<div class="d-flex flex-column kit-stack">
+
+    @forelse ($kits as $item)
+        <div class="kit-card">
+            {{-- Cabeçalho: potência total + logos --}}
+            <div class="kit-head">
+                <div class="left">
+        <span class="badge-total">
+          <i class="bi bi-battery-charging"></i>
+          Potência total dos kits:
+          <strong>{{ convert_float_money($item['potencia']) }} kWp</strong>
+        </span>
+                </div>
+                <div class="brand-logos">
+                    <img src="{{ asset('storage') . '/' . $produtos[$item['inversor']]['logo'] }}" alt="Logo inversor">
+                    <img src="{{ asset('storage') . '/' . $produtos[$item['painel']]['logo'] }}" alt="Logo painel">
                 </div>
             </div>
-            <div class="card-body py-0">
-                @foreach ($item['kits'] as $kit)
-                    <div class="row py-3 border-bottom">
-                        <div class="col-md-9 text-sm mb-3 mb-md-0" style="white-space: normal">
-                            @if ($kit['trafo'])
-                                <div class="d-block">
-                                    <span class="badge badge-warning">Transformador Incluso</span>
+
+            {{-- Cada kit --}}
+            @foreach ($item['kits'] as $kit)
+                <div class="kit-row">
+                    <div class="kit-grid">
+
+                        <div class="kit-main">
+                            {{-- badges --}}
+                            <div class="kit-badges">
+                                @if ($kit['trafo'])
+                                    <span class="chip"><i class="bi bi-lightning-charge-fill me-1"></i> Transformador incluso</span>
+                                @endif
+                                @if(!empty($kit['modelo_trafo']))
+                                    <span class="chip"><i class="bi bi-tools me-1"></i> {{ $kit['modelo_trafo'] }}</span>
+                                @endif
+                            </div>
+
+                            {{-- título --}}
+                            <div class="kit-title">{{ $item['qtdKits'] }}x {{ $kit['modelo'] }}</div>
+                            <div class="kit-sub">[ID #{{ $kit['id'] }}]</div>
+
+                            {{-- meta --}}
+                            <div class="kit-meta mt-2">
+                                <div class="item">
+                                    <small>Potência total do kit</small>
+                                    <i class="bi bi-sun me-1 text-warning"></i>
+                                    <strong>{{ convert_float_money($item['potencia']) }} kWp</strong>
                                 </div>
-                            @endif
-                            <p>
-                                <b>{{ $item['qtdKits'] }}x {{ $kit['modelo'] }}</b>
-                                <small class="text-muted d-block">[ID #{{ $kit['id'] }}]</small>
-                            </p>
-                            @if(!empty($kit['modelo_trafo']))
-                                <p><b>{{ $kit['modelo_trafo'] }}</b></p>
-                            @endif
-                            <div class="row pt-2">
-                                <div class="col-md-6">
-                                    <span class="d-block"><b>Potência total do kit:</b> {{ convert_float_money($item['potencia']) }} kWp</span>
-                                    <span class="d-block"><b>Geração Estimada: </b> {{ convert_float_money($item['geracao'], 0) }} kWh</span>
+                                <div class="item">
+                                    <small>Geração Estimada</small>
+                                    <i class="bi bi-graph-up-arrow me-1 text-success"></i>
+                                    <strong>{{ convert_float_money($item['geracao'], 0) }} kWh</strong>
                                 </div>
-                                <div class="col-md-6">
-                                        <span class="d-block">
-                                            <b>Inversor:</b> {{ $produtos[$item['inversor']]['nome'] }}
-                                        </span>
-                                    <span>
-                                            <b>Painel:</b> {{ $produtos[$item['painel']]['nome'] }} {{$kit['potencia_painel']}} W
-                                        </span>
+                                <div class="item">
+                                    <small>Inversor</small>
+                                    <i class="bi bi-cpu me-1 text-primary"></i>
+                                    {{ $produtos[$item['inversor']]['nome'] }}
+                                </div>
+                                <div class="item">
+                                    <small>Painel</small>
+                                    <i class="bi bi-grid-1x2 me-1 text-primary"></i>
+                                    {{ $produtos[$item['painel']]['nome'] }} {{ $kit['potencia_painel'] }} W
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="pb-2">
+
+                        <div class="kit-aside">
+                            {{-- preços --}}
+                            <div class="w-100 text-end">
                                 @if(!empty($kit['preco_trafo']))
-                                    <small class="d-block">Kits:
-                                        R$ {{ convert_float_money($kit['preco'] - $kit['preco_trafo']) }}</small>
-                                    <small class="d-block mb-2">Transformador:
-                                        R$ {{ convert_float_money($kit['preco_trafo']) }}</small>
+                                    <div class="small text-muted">Kits: R$ {{ convert_float_money($kit['preco'] - $kit['preco_trafo']) }}</div>
+                                    <div class="small text-muted mb-1">Transformador: R$ {{ convert_float_money($kit['preco_trafo']) }}</div>
                                 @endif
-                                <small class="d-block"><b>Total:</b></small>
-                                <span class="text-center h2">
-                                    <b>R$ {{ convert_float_money($kit['preco']) }}</b>
-                                </span>
+                                <div class="price"><small>Total</small> R$ {{ convert_float_money($kit['preco']) }}</div>
                             </div>
-                            <form method="POST"
-                                  action="{{ route('vendedor.dimensionamento.convencional.store') }}"> @csrf
-                                <input type="hidden" name="consumo" value="{{$request->consumo ?? 0}}">
-                                <input type="hidden" name="consumo_ponta" value="{{$request->consumo_ponta}}">
-                                <input type="hidden" name="consumo_fora_ponta" value="{{$request->consumo_fora_ponta}}">
-                                <input type="hidden" name="demanda" value="{{$request->demanda}}">
-                                <input type="hidden" name="id_kit" value="{{$kit['id']}}">
-                                <input type="hidden" name="preco" value="{{$kit['preco']}}">
-                                <input type="hidden" name="cidade" value="{{$request->cidade}}">
-                                <input type="hidden" name="estrutura" value="{{$request->estrutura}}">
-                                <input type="hidden" name="tensao" value="{{$request->tensao}}">
-                                <input type="hidden" name="orientacao" value="{{$request->orientacao}}">
-                                <input type="hidden" name="cliente" value="{{$request->cliente}}">
-                                <input type="hidden" name="geracao" value="{{$item['geracao']}}">
-                                <input type="hidden" name="trafo" value="{{$kit['trafo']}}">
-                                <input type="hidden" name="qtd_kits" value="{{$item['qtdKits']}}">
-                                <button type="submit" class="btn btn-success  btn-block mt-2 criar-orcamento">
-                                    Escolher Esse Kit
+
+                            {{-- CTA --}}
+                            <form method="POST" action="{{ route('vendedor.dimensionamento.convencional.store') }}" class="w-100">
+                                @csrf
+                                <input type="hidden" name="consumo" value="{{ $request->consumo ?? 0 }}">
+                                <input type="hidden" name="consumo_ponta" value="{{ $request->consumo_ponta }}">
+                                <input type="hidden" name="consumo_fora_ponta" value="{{ $request->consumo_fora_ponta }}">
+                                <input type="hidden" name="demanda" value="{{ $request->demanda }}">
+                                <input type="hidden" name="id_kit" value="{{ $kit['id'] }}">
+                                <input type="hidden" name="preco" value="{{ $kit['preco'] }}">
+                                <input type="hidden" name="cidade" value="{{ $request->cidade }}">
+                                <input type="hidden" name="estrutura" value="{{ $request->estrutura }}">
+                                <input type="hidden" name="tensao" value="{{ $request->tensao }}">
+                                <input type="hidden" name="orientacao" value="{{ $request->orientacao }}">
+                                <input type="hidden" name="cliente" value="{{ $request->cliente }}">
+                                <input type="hidden" name="geracao" value="{{ $item['geracao'] }}">
+                                <input type="hidden" name="trafo" value="{{ $kit['trafo'] }}">
+                                <input type="hidden" name="qtd_kits" value="{{ $item['qtdKits'] }}">
+
+                                <button type="submit" class="btn-cta">
+                                    <i class="bi bi-check2-circle"></i> Escolher esse kit
                                 </button>
                             </form>
                         </div>
+
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
-    </div>
+    @empty
+        <div class="alert alert-info text-center">Não foi encontrado kits para esse dimensionamento.</div>
+    @endforelse
 
-@endforeach
-
-@empty($kits)
-    <div class="col-12 alert alert-info text-center">Não foi encontrado kits para esse dimensionamento.</div>
-@endempty
+</div>

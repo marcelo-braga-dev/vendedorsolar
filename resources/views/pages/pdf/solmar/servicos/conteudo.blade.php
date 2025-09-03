@@ -105,8 +105,4 @@
         border-bottom: 0;
         vertical-align: top;
     }
-
-    #sem_borda {
-        border: 0 solid white;
-    }
 </style>
