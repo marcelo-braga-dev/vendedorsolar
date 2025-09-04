@@ -29,7 +29,7 @@
     <div style="margin-left: 80px">
         <img src="/storage/proposta-comercial/ecovolt/assinatura_ecovolt.png" width="200" />
     </div>
-    
+
     <table border="0px" width="100%">
         <tr>
             <td id="sem_borda" width="5%"></td>
@@ -45,7 +45,7 @@
 
             <td id="assinatura" width="40%">
                 <b>{{ getNomeCliente($orcamento->clientes_id) }}</b><br>
-                {{$clienteDados['cnpj'] ? 'CNPJ: ' . $clienteDados['cnpj'] : 'CPF: ' . $clienteDados['cpf']}}<br>
+{{--                {{$clienteDados['cnpj'] ? 'CNPJ: ' . $clienteDados['cnpj'] : 'CPF: ' . $clienteDados['cpf']}}<br>--}}
                 *Autorização para vistoria técnica
             </td>
             <td id="sem_borda" width="5%"></td>
