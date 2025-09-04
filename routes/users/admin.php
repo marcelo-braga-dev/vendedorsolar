@@ -17,5 +17,6 @@ Route::group([
     include_once 'admin/configuracoes.php';
     include_once 'admin/leads.php';
     include_once 'admin/perfil.php';
+    include_once 'admin/dashboard.php';
 }
 );

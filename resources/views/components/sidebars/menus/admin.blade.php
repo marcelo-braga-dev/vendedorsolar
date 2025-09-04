@@ -214,6 +214,40 @@
         </div>
     </li>
 
+    {{-- Dashboards --}}
+    <li class="nav-item">
+        <a class="nav-link @if(MENU==='dashboards') active @endif"
+           href="#navbar-dashboards" data-toggle="collapse" role="button"
+           aria-expanded="{{ MENU==='dashboards' ? 'true' : 'false' }}"
+           aria-controls="navbar-dashboards">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span class="nav-link-text">Dashboards</span>
+            <i class="bi bi-caret-right-fill nav-caret"></i>
+        </a>
+        <div class="collapse @if(MENU==='dashboards') show @endif" id="navbar-dashboards">
+            <ul class="nav nav-sm flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @if(MENU==='dashboards' && SUBMENU==='dashboards-financeiro') active @endif"
+                       href="{{ route('admin.dashboard.financeiro') }}">
+                        Graficos Financeiro
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(MENU==='dashboards' && SUBMENU==='dashboards-vendas') active @endif"
+                       href="{{ route('admin.dashboard.vendas') }}">
+                        Graficos de Vendas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(MENU==='dashboards' && SUBMENU==='dashboards-gestao') active @endif"
+                       href="{{ route('admin.dashboard.gestao') }}">
+                        Graficos de Gestão
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </li>
+
     {{-- Precificação --}}
     <li class="nav-item">
         <a class="nav-link @if(MENU==='margens') active @endif"
@@ -328,18 +362,18 @@
                         Edeltec Solar
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(MENU==='integracoes' && SUBMENU==='arquivo') active @endif"
-                       href="{{ route('admin.integracoes.arquivo.index') }}">
-                        Planilha Excel
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @if(MENU==='integracoes' && SUBMENU==='historico-integracoes') active @endif"
-                       href="{{ route('admin.integracoes.historico.index') }}">
-                        Histórico de Integrações
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(MENU==='integracoes' && SUBMENU==='arquivo') active @endif"--}}
+{{--                       href="{{ route('admin.integracoes.arquivo.index') }}">--}}
+{{--                        Planilha Excel--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link @if(MENU==='integracoes' && SUBMENU==='historico-integracoes') active @endif"--}}
+{{--                       href="{{ route('admin.integracoes.historico.index') }}">--}}
+{{--                        Histórico de Integrações--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </div>
     </li>

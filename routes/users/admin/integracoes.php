@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Integracoes\EldeltecController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('admin.integracoes.')
@@ -22,5 +23,10 @@ Route::name('admin.integracoes.')
         Route::put('aldo/store', 'AldoController@store')
             ->name('aldo.store');
 
-        Route::resource('eldeltec', \App\Http\Controllers\Admin\Integracoes\EldeltecController::class);
+        Route::name('eldeltec.')
+            ->prefix('eldeltec')
+            ->group(function () {
+                Route::get('page', [EldeltecController::class, 'index'])->name('index');
+                Route::get('integrar', [EldeltecController::class, 'integrar'])->name('integrar');
+            });
     });
