@@ -20,7 +20,7 @@
             .radioswitch .form-check-input:checked + .form-check-label{color:#fff;}
             .radioswitch .form-check:has(.form-check-input:checked){background:var(--brand); border-color:var(--brand);}
         </style>
-    @endpush>
+    @endpush
 
     <x-layout.container title="Seus Dados">
         <div class="card-soft p-3 p-md-4">

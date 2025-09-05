@@ -29,7 +29,7 @@
             @media (max-width: 991.98px){ .truncate{ max-width:180px; } }
             @media (max-width: 575.98px){ .truncate{ max-width:120px; } }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Fornecedores Cadastrados"
             class="p-0"

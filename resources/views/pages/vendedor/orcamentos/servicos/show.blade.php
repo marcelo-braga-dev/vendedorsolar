@@ -25,7 +25,7 @@
             .kv b{color:var(--ink);}
             .divider{border-top:1px dashed #e9ecef;margin:1rem 0;}
         </style>
-    @endpush>
+    @endpush
 
     {{-- CABEÇALHO / AÇÕES --}}
     <x-layout.container title="Proposta" class="p-0">

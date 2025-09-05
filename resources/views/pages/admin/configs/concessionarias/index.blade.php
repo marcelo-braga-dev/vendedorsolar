@@ -38,7 +38,7 @@
             @media (max-width: 991.98px){ .truncate{ max-width:260px; } }
             @media (max-width: 575.98px){ .truncate{ max-width:160px; } }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Concessionarias" class="p-0">
         <x-tables.table-clickable>

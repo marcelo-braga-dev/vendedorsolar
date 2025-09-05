@@ -35,7 +35,7 @@
             .col-actions{ width: 100px; }
             .mono{ font-variant-numeric: tabular-nums; }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Taxa de Comissão por Venda" class="p-0">
         <x-tables.table-default>

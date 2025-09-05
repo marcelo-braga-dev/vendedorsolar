@@ -108,7 +108,7 @@
                 }
             }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Margem Principal de Venda">
         {{-- Formulário --}}

@@ -28,7 +28,7 @@
             @media (max-width: 991.98px){ .title-cell{ max-width: 260px; } }
             @media (max-width: 575.98px){ .title-cell{ max-width: 160px; } }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Propostas de Serviços" class="p-0">
         <x-tables.data-table-clickable>
@@ -85,5 +85,5 @@
                 new (window.bootstrap?.Tooltip || function(){}) (el);
             });
         </script>
-    @endpush>
+    @endpush
 </x-layout>

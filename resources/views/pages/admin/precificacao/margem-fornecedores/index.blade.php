@@ -41,7 +41,7 @@
                 .col-form{ margin-bottom:.75rem; }
             }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Margem por Fornecedores">
         {{-- Formulário --}}

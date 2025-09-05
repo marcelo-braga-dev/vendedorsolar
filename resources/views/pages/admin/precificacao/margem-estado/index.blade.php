@@ -27,7 +27,7 @@
                 border-top:1px solid #f1f3f5;
             }
         </style>
-    @endpush>
+    @endpush
 
     @php
         // Regiões -> UFs (corrigido: último bloco é NORTE)

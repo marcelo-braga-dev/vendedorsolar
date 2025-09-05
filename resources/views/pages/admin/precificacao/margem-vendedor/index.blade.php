@@ -31,7 +31,7 @@
             }
             .btn-danger-soft:hover{ background:rgba(220,53,69,.12); }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Margem por Vendedor">
         {{-- Formulário --}}

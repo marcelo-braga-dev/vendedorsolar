@@ -69,7 +69,7 @@
                 font-size: .85rem
             }
         </style>
-    @endpush>
+    @endpush
 
     <x-layout.container title="Cadastrar Cliente">
         <form method="POST" id="form-cliente" action="{{ route('vendedor.clientes.store') }}"> @csrf

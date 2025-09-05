@@ -93,7 +93,7 @@
             .form-check-input:focus{ box-shadow:0 0 0 .2rem rgba(226,85,7,.18); }
             .form-check-input:checked{ background-color:var(--brand); border-color:var(--brand); }
         </style>
-    @endpush>
+    @endpush
 
     <x-layout.container title="Alterar Status dos Kits do Fornecedor">
         {{-- Fornecedores como chips + busca --}}

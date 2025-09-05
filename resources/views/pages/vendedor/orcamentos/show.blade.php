@@ -112,7 +112,7 @@
             .ic-green  { background: var(--good); }
             .ic-danger { background: var(--danger); }
         </style>
-    @endpush>
+    @endpush
 
     <x-layout.container>
         <div class="page-wrap">

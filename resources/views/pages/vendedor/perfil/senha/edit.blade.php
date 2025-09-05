@@ -22,7 +22,7 @@
             .pw-meter > span{display:block; height:100%; width:0%; background:#ef4444; transition:width .2s ease, background .2s ease; border-radius:8px}
             .pw-strength-label{font-size:.85rem; color:var(--muted)}
         </style>
-    @endpush>
+    @endpush
 
     <x-layout.container title="Atualizar Senha">
         <div class="card-soft p-3 p-md-4">

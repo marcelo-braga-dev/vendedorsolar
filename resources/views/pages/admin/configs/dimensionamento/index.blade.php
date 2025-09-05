@@ -33,7 +33,7 @@
                 border-top:1px solid #f1f3f5;
             }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Dados para dimensionamento">
         <form method="POST" action="{{ route('admin.configs.dimensionamento.store') }}"> @csrf

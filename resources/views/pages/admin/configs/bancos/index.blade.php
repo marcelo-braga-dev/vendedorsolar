@@ -46,7 +46,7 @@
 
             .col-actions{ width:110px; }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="Bancos" class="p-0"
             text-button="Cadastrar Banco"

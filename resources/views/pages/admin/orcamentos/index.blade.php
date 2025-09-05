@@ -40,7 +40,7 @@
             }
             .btn-ghost:hover{ color:#fff; background:var(--brand); border-color:var(--brand); }
         </style>
-    @endpush>
+    @endpush
 
     <x-body title="{{ $label }}" class="p-0">
         <div class="px-3 pt-3 pb-1">
