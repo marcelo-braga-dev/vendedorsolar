@@ -15,8 +15,12 @@
         </span>
                 </div>
                 <div class="brand-logos">
+                        <?php if (!empty($produtos[$item['inversor']]['logo'])) : ?>
                     <img src="{{ asset('storage') . '/' . $produtos[$item['inversor']]['logo'] }}" alt="Logo inversor">
-                    <img src="{{ asset('storage') . '/' . $produtos[$item['painel']]['logo'] }}" alt="Logo painel">
+                    <?php endif; ?>
+                        <?php if (!empty($produtos[$item['painel']]['logo'])) : ?>
+                            <img src="{{ asset('storage') . '/' . $produtos[$item['painel']]['logo'] }}" alt="Logo painel">
+                        <?php endif; ?>
                 </div>
             </div>
 
