@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <x-inputs.textarea label="Produtos do Kit" name="produtos" rows="10" required>
-                        {{ convertHtmlToText($orcamentoKit->produtos) }}
+                        {{ convertHtmlToText($orcamentoKit->produtos ?? '-') }}
                     </x-inputs.textarea>
                 </div>
             </div>

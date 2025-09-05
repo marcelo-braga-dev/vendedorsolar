@@ -359,7 +359,7 @@
                             <div class="bubble"><i class="bi bi-box-seam"></i></div>
                             <h4 class="mb-0">Produtos de cada Kit</h4>
                         </div>
-                        {!! nl2br(convertHtmlToText($orcamentoKit->produtos)) !!}
+                        {!! nl2br(convertHtmlToText($orcamentoKit->produtos ?? '-')) !!}
 
                         @if ($kit->observacoes)
                             <h5 class="mt-3">Observações</h5>

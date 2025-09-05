@@ -348,7 +348,7 @@
                         <h4 class="mb-0">Produtos</h4>
                     </div>
                     <h6 class="text-muted mb-2">Quantidade de Kits: {{ $orcamentoKit->qtd_kits }} kits</h6>
-                    {!! nl2br(convertHtmlToText($orcamentoKit->produtos)) !!}
+                    {!! nl2br(convertHtmlToText($orcamentoKit->produtos ?? '-')) !!}
 
                     @if ($kit->observacoes)
                         <div class="divider"></div>
