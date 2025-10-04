@@ -96,7 +96,7 @@ if (!function_exists('getNomeCliente')) {
         $cliente = (new Clientes)->newQuery()->find($id);
         if (empty($cliente)) return '-';
         if ($cliente->nome && !$cliente->razao_social) return $cliente->nome;
-        if ($cliente->nome && $cliente->razao_social) return $cliente->nome . ' / ' . $cliente->razao_social;
+        if ($cliente->nome && $cliente->razao_social) return $cliente->nome . ' - ' . $cliente->razao_social;
         if ($cliente->razao_social) return $cliente->razao_social;
         return '-';
     }
