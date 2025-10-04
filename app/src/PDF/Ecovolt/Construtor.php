@@ -72,8 +72,12 @@ class Construtor extends DadosOrcamento
         $orcamento = $this->getOrcamento();
 
         $nomeArquivo = getNomeCliente($orcamento->clientes_id) . '_' . $orcamento->geracao . 'kwh_' . uniqid() . '.pdf';
-        $caminhoRelativo = 'public/pdfs/' . $nomeArquivo;
+        $nomeArquivo = filter_var($nomeArquivo, FILTER_SANITIZE_URL);
+        $nomeArquivo = str_replace('/', '', $nomeArquivo);
+
+        $caminhoRelativo = 'public/pdfs/' . $orcamento->id .'/'. $nomeArquivo;
         $caminhoCompleto = storage_path('app/' . $caminhoRelativo);
+
         $this->mpdf->Output($caminhoCompleto, 'F');
         $urlPublica = Storage::url('pdfs/' . $nomeArquivo);
 
