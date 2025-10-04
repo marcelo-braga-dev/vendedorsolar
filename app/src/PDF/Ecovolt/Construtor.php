@@ -78,8 +78,17 @@ class Construtor extends DadosOrcamento
         $nomeArquivo = filter_var($nomeArquivo, FILTER_SANITIZE_URL);
         $nomeArquivo = str_replace('/', '', $nomeArquivo);
 
-        $caminhoRelativo = 'public/pdfs/' . $this->idOrcamento .'/'. $nomeArquivo;
-        $caminhoCompleto = storage_path('app/' . $caminhoRelativo);
+        // pasta dentro de storage/app/public
+        $dir = "pdfs/{$this->idOrcamento}";
+        Storage::disk('public')->makeDirectory($dir);
+        $caminhoRelativo = "$dir/$nomeArquivo";
+        $caminhoCompleto = Storage::disk('public')->path($caminhoRelativo);
+
+
+//        $caminhoRelativo = 'public/pdfs/' . $this->idOrcamento .'/'. $nomeArquivo;
+//        $caminhoCompleto = storage_path('app/' . $caminhoRelativo);
+
+
 
         $this->mpdf->Output($caminhoCompleto, 'F');
         $urlPublica = Storage::url('pdfs/' . $nomeArquivo);
