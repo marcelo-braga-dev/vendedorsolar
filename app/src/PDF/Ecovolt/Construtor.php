@@ -23,6 +23,7 @@ class Construtor extends DadosOrcamento
     public Mpdf $mpdf;
     private string $graficoGeracao;
     private string $graficoPayback;
+    private string $idOrcamento;
 
     public function __construct(int $idOrcamento, string $graficoGeracao, string $graficoPayback)
     {
@@ -40,8 +41,10 @@ class Construtor extends DadosOrcamento
         } catch (MpdfException $e) {
             echo $e->getMessage();
         }
+
         $this->graficoGeracao = $graficoGeracao;
         $this->graficoPayback = $graficoPayback;
+        $this->idOrcamento = $idOrcamento;
     }
 
     public function gerar()
@@ -75,7 +78,7 @@ class Construtor extends DadosOrcamento
         $nomeArquivo = filter_var($nomeArquivo, FILTER_SANITIZE_URL);
         $nomeArquivo = str_replace('/', '', $nomeArquivo);
 
-        $caminhoRelativo = 'public/pdfs/' . $orcamento->id .'/'. $nomeArquivo;
+        $caminhoRelativo = 'public/pdfs/' . $this->idOrcamento .'/'. $nomeArquivo;
         $caminhoCompleto = storage_path('app/' . $caminhoRelativo);
 
         $this->mpdf->Output($caminhoCompleto, 'F');
