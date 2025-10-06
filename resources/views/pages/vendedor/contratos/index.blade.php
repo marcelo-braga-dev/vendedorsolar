@@ -1,5 +1,5 @@
 <x-layout menu="contratos" submenu="contratos-gerados">
-    <x-body title="Seus Visitas Agendadas" class="p-0" text-button="Agendar Visita"
+    <x-body title="Contratos Gerados" class="p-0" text-button="Agendar Visita"
             url-button="">
         <x-tables.data-table-clickable>
             <x-slot name="head">

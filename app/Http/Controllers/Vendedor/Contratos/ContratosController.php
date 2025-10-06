@@ -65,6 +65,8 @@ class ContratosController
 
     public function show($id)
     {
-        (new Constructor())->gerar($id);
+        //(new Constructor())->gerar($id);
+
+        return view('pages.vendedor.contratos.show');
     }
 }
