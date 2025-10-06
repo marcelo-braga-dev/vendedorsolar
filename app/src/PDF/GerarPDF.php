@@ -2,9 +2,9 @@
 
 namespace App\src\PDF;
 
-//use App\src\PDF\Solmar\Construtor;
+use App\src\PDF\Solmar\Construtor;
 
-use App\src\PDF\Ecovolt\Construtor;
+//use App\src\PDF\Ecovolt\Construtor;
 
 class GerarPDF
 {
