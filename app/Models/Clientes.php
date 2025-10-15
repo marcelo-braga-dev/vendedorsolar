@@ -25,10 +25,17 @@ class Clientes extends Model
         // Garante que as metas estejam carregadas; se não, carrega
         $metas = $this->relationLoaded('metas') ? $this->metas : $this->metas()->get();
 
-        // pluck('value','metas') => ['cnpj' => '...', 'cpf' => '...']
         $array = $metas->pluck('value', 'meta')->toArray();
+        $enderecoCompleto = '';
 
-        return (object) $array; // permite acessar como $cliente->dados->cnpj
+        if($array['endereco'] ?? null) {
+            $enderecoCompleto =
+                $array['endereco'] . ', n. ' . $array['numero'] . ($array['complemento'] ? (', ' . $array['complemento']) : '') . ', ' . $array['bairro'];
+        }
+
+        $array = [...$array, 'endereco_completo' => $enderecoCompleto];
+
+        return (object)$array;
     }
 
     //////

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendedor\Contratos;
 
+use App\Models\Clientes;
 use App\Models\Contratos;
 use App\Models\Kits;
 use App\Models\Orcamentos;
@@ -33,9 +34,10 @@ class ContratosController
         $kit = (new Kits())->newQuery()->find($orcamentoKit->kits_id);
 
         $produtos = (new Produtos())->getDados();
+        $cliente = (new Clientes())->find($orcamento->clientes_id);
 
         return view('pages.vendedor.contratos.create',
-            compact('orcamento', 'orcamentoKit', 'kit', 'produtos', 'orcamentoInfo'));
+            compact('orcamento', 'orcamentoKit', 'kit', 'produtos', 'orcamentoInfo', 'cliente'));
     }
 
     public function store(Request $request)
@@ -46,18 +48,18 @@ class ContratosController
         $dados->nome_cliente = $request->nome;
         $dados->documento_cliente = $request->documento;
         $dados->endereco = $request->endereco;
-        $dados->potencia_projeto = $request->potencia;
-        $dados->qtd_paineis = $request->qtd_paineis;
-        $dados->qtd_inversor = $request->qtd_inversores;
-        $dados->potencia_inversor = $request->potencia_inversor;
-        $dados->consumo = $request->consumo;
-        $dados->garantia_paineis = $request->garantia_paineis;
-        $dados->garantia_inversor = $request->garantia_inversores;
-        $dados->valor_projeto = $request->valor;
-        $dados->formas_pagamento = $request->formas_pagamento;
-        $dados->clausulas_adicionais = $request->clausulas;
-        $dados->geracao = $request->geracao;
-        $dados->produtos = $request->produtos;
+//        $dados->potencia_projeto = $request->potencia;
+//        $dados->qtd_paineis = $request->qtd_paineis;
+//        $dados->qtd_inversor = $request->qtd_inversores;
+//        $dados->potencia_inversor = $request->potencia_inversor;
+//        $dados->consumo = $request->consumo;
+//        $dados->garantia_paineis = $request->garantia_paineis;
+//        $dados->garantia_inversor = $request->garantia_inversores;
+//        $dados->valor_projeto = $request->valor;
+//        $dados->formas_pagamento = $request->formas_pagamento;
+//        $dados->clausulas_adicionais = $request->clausulas;
+//        $dados->geracao = $request->geracao;
+//        $dados->produtos = $request->produtos;
         $dados->push();
 
         return redirect()->route('contratos.contratos-gerados.show', $dados->id);
@@ -65,8 +67,8 @@ class ContratosController
 
     public function show($id)
     {
-        //(new Constructor())->gerar($id);
+        $contrato = (new Contratos())->newQuery()->findOrFail($id);
 
-        return view('pages.vendedor.contratos.show');
+        return view('pages.vendedor.contratos.show', compact('contrato'));
     }
 }
