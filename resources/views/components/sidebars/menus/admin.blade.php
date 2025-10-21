@@ -127,7 +127,11 @@
         </a>
         <div class="collapse @if(MENU==='contratos') show @endif" id="navbar-contratos">
             <ul class="nav nav-sm flex-column">
-                <li class="nav-item"><a class="nav-link @if(MENU==='contratos' && SUBMENU==='todos_contratos') active @endif" href="#">Todos Contratos</a></li>
+                <li class="nav-item">
+                    <a class="nav-link @if(MENU==='usuarios' && SUBMENU==='admins') active @endif" href="{{ route('admin.contratos.index') }}">
+                        Todos Contratos
+                    </a>
+                </li>
             </ul>
         </div>
     </li>

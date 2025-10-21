@@ -100,6 +100,10 @@
                        href="{{ route('admin.orcamento.aprovacao.show', $orcamento->id) }}">
                         <i class="bi bi-check2-circle"></i><span>Dados para Aprovação</span>
                     </a>
+                    <a class="btn btn-icon btn-brand w-100-sm"
+                       href="{{ route('admin.contratos.edit', $orcamento->id) }}">
+                        <i class="fas fa-file-signature"></i><span>Gerar Contrato</span>
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\Vendedor\Contratos\ContratosController;
-use App\Http\Controllers\Vendedor\Contratos\GerarPdfContratoController;
+use App\Http\Controllers\Admin\Contratos\ContratosController;
+use App\Http\Controllers\Admin\Contratos\GerarPdfContratoController;
 use Illuminate\Support\Facades\Route;
 
-Route::name('vendedor.')
-    ->namespace('Contratos')
+Route::name('admin.')
     ->group(function () {
         Route::resource('contratos', ContratosController::class);
         Route::post('contratos-pdf', GerarPdfContratoController::class)->name('contratos.pdf');

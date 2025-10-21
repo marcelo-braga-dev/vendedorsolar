@@ -9,14 +9,15 @@ use App\Models\Orcamentos;
 use App\Models\OrcamentosInfos;
 use App\Models\OrcamentosKits;
 use App\Models\Produtos;
-use App\src\Contratos\Constructor;
 use Illuminate\Http\Request;
 
 class ContratosController
 {
     public function index()
     {
-        $items = (new Contratos())->newQuery()->orderByDesc('id')->get();
+        $items = (new Contratos())->newQuery()
+            ->where('users_id', id_usuario_atual())
+            ->orderByDesc('id')->get();
 
         return view('pages.vendedor.contratos.index', compact('items'));
     }
