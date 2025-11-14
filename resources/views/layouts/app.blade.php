@@ -33,6 +33,43 @@
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('icons/icon-192.png') }}">
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const btnAndroid = document.getElementById('btn-android');
+            const btnIOS = document.getElementById('btn-ios-install');
+
+            const ua = navigator.userAgent.toLowerCase();
+
+            const isAndroid = ua.includes("android");
+            const isIOS = /iphone|ipad|ipod/.test(ua);
+
+            // Se estiver em standalone (PWA no iPhone), esconder o botão iPhone (já desenvolvido)
+            const isInStandalone =
+                window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone === true;
+
+            if (isInStandalone && btnIOS) {
+                btnIOS.style.display = "none";
+            }
+
+            // Mostrar apenas o botão correto
+            if (isIOS) {
+                if (btnAndroid) btnAndroid.style.display = "none";
+                if (btnIOS) btnIOS.style.display = "inline-flex";
+            } else if (isAndroid) {
+                if (btnIOS) btnIOS.style.display = "none";
+                if (btnAndroid) btnAndroid.style.display = "inline-flex";
+            } else {
+                // Se não for iPhone nem Android → mostrar ambos
+                if (btnIOS) btnIOS.style.display = "inline-flex";
+                if (btnAndroid) btnAndroid.style.display = "inline-flex";
+            }
+
+        });
+    </script>
+
+
+    <script>
         function isInWebView() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -49,6 +86,27 @@
             document.documentElement.classList.add("in-webview");
         }
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const iosButton = document.getElementById('btn-ios-install');
+
+            // Detectar se está rodando como PWA/Standalone no iPhone
+            const isInStandaloneMode =
+                window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone === true;
+
+            if (isInStandaloneMode) {
+                // Esconde o botão iPhone
+                if (iosButton) {
+                    iosButton.style.display = "none";
+                }
+            }
+
+        });
+    </script>
+
 
 </head>
 
