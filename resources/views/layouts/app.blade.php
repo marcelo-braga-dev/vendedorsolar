@@ -32,7 +32,31 @@
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('icons/icon-192.png') }}">
     <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('icons/icon-192.png') }}">
 
+    <script>
+        function isInWebView() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Detecta WebView Android
+            const androidWV = userAgent.includes("wv") || userAgent.includes("Android") && userAgent.includes("Version/");
+
+            // Detecta WebView iOS
+            const iOSWV = (/(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i).test(userAgent);
+
+            return androidWV || iOSWV;
+        }
+
+        if (isInWebView()) {
+            document.documentElement.classList.add("in-webview");
+        }
+    </script>
+
 </head>
+
+<style>
+    .in-webview .link-playstore {
+        display: none !important;
+    }
+</style>
 
 <body class="{{ $class }}">
 @auth()
