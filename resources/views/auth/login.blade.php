@@ -65,11 +65,10 @@
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 30px ">
-                    <a href="https://play.google.com/store/apps/details?id=br.com.solmarengenharia&hl=pt_BR">
-                        <img style="width: 200px" src="/assets/img/logos/download_android.png">
+                    <a class="link-playstore" href="https://play.google.com/store/apps/details?id=br.com.solmarengenharia&hl=pt_BR">
+                        <img alt="" style="width: 200px" src="/assets/img/logos/download_android.png">
                     </a>
                 </div>
-
             </div>
         </div>
     </div>
