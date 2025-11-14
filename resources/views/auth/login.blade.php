@@ -12,9 +12,8 @@
                         </div>
                         <div class="text-center text-muted mb-4">
                             @if (env('APP_ENV') == 'local')
-                                <b>Contas de Teste</b><br>
-                                <b>Vendedor:</b> vendedor@teste.com<br>
-                                <b>Admin:</b> admin@teste.com
+                                <b>Admin:</b> admin@teste.com<br>
+                                <b>Vendedor:</b> vendedor@teste.com
                                 </span>
                             @endif
                         </div>
@@ -43,7 +42,7 @@
                                     </div>
                                     <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                            name="password" placeholder="Senha" type="password"
-                                           value="@if (env('APP_ENV') == 'local'){{ '10203040' }}@endif" required>
+                                           value="@if (env('APP_ENV') == 'local'){{ '1234' }}@endif" required>
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -60,27 +59,17 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">Entrar</button>
+                                <button type="submit" class="btn btn-dark my-4">Entrar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                @if (env('APP_ENV') == 'local')
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="text-white">
-                                    <small>Recuperar senha</small>
-                                </a>
-                            @endif
-                        </div>
-                        <div class="col-6 text-right">
-                            <a href="{{ route('register') }}" class="text-white">
-                                <small>Criar conta</small>
-                            </a>
-                        </div>
-                    </div>
-                @endif
+                <div style="text-align: center; margin-top: 30px ">
+                    <a href="https://play.google.com/store/apps/details?id=br.com.solmarengenharia&hl=pt_BR">
+                        <img style="width: 200px" src="/assets/img/logos/download_android.png">
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

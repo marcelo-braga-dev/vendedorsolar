@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,22 @@
     <link href="{{ asset('argon') }}/vendor/nucleo/css/nucleo.css" rel="stylesheet">
     <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+
+    {{-- Manifest PWA --}}
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+    {{-- Cor da barra do navegador (Android/Chrome) --}}
+    <meta name="theme-color" content="#e25507">
+
+    {{-- iOS: permitir modo "app" --}}
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Propostas Energia Solar">
+
+    {{-- Ícones para iPhone/iPad --}}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/icon-192.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('icons/icon-192.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('icons/icon-192.png') }}">
 
 </head>
 
@@ -46,6 +62,20 @@
 
 {{-- Argon JS --}}
 <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"/>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('{{ asset('service-worker.js') }}')
+                .then(function (registration) {
+                    console.log('ServiceWorker registrado com sucesso:', registration.scope);
+                })
+                .catch(function (error) {
+                    console.log('Falha ao registrar o ServiceWorker:', error);
+                });
+        });
+    }
+</script>
 </body>
 
 </html>
