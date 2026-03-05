@@ -14,7 +14,7 @@ class Requisicao
             ->get($url, [
                 'limit' => '1000',
                 'page' => $page,
-                'tipo' => 'GERADOR FOTOVOLTAICO,GERADOR MICROINVERSOR'
+                'tipo' => 'GERADOR FOTOVOLTAICO,GERADOR MICROINVERSOR,GERADOR HIBRIDO'
             ])->json();
     }
 }
