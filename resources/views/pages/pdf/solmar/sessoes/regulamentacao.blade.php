@@ -65,7 +65,7 @@
     <div style="text-align: center; color: black;">
         <h4>
             <b>SOLMAR ENERGIA SOLAR LTDA</b><br>
-            <small>CNPJ: 24.908.036/0001-24</small>
+            <small style="color: black">CNPJ: 24.908.036/0001-24</small>
         </h4>
         Av. Mandacarú, 4943, Maringá/PR
     </div>
