@@ -224,7 +224,7 @@
         </a>
         <div class="collapse @if(MENU==='integracoes') show @endif" id="navbar-integracoes">
             <ul class="nav nav-sm flex-column">
-                <li class="nav-item"><a class="nav-link @if(MENU==='integracoes' && SUBMENU==='edeltec') active @endif" href="{{ route('admin.integracoes.eldeltec.index') }}">Edeltec Solar</a></li>
+                <li class="nav-item"><a class="nav-link @if(MENU==='integracoes' && SUBMENU==='eldeltec') active @endif" href="{{ route('admin.integracoes.eldeltec.index') }}">Edeltec Solar</a></li>
             </ul>
         </div>
     </li>
