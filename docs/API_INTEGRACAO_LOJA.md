@@ -14,7 +14,8 @@ serviço de integração sem precisar inspecionar o código-fonte do AppSolar.
 ## Visão geral
 
 - **Fornece:** catálogo de kits de energia solar fotovoltaica, já com preço de venda
-  calculado, imagens de marca e dados técnicos.
+  calculado, categoria do produto, álbum de fotos do produto, imagens de marca e dados
+  técnicos.
 - **Fornecedor único disponível:** apenas produtos do fornecedor **Edeltec** são
   retornados (outros fornecedores são legados/descontinuados e nunca aparecem na API).
 - **Filtro automático e obrigatório:** só retorna produtos com `status` ativo,
@@ -117,6 +118,13 @@ curl -s \
             "marca_painel_imagem": "https://<host-do-appsolar>/storage/produtos/MktE....png",
             "potencia_painel": 555,
             "estrutura": "Sem Estrutura",
+            "categoria": "GERADOR FOTOVOLTAICO",
+            "imagens": [
+                {
+                    "url": "https://assets.edeltecsolar.com.br/produtos/278327/principal?v=1781204485",
+                    "principal": true
+                }
+            ],
             "fornecedor": "EDELTEC",
             "componentes": "<table><tr><th>Sku</th><th>Quantidade</th><th>Descrição</th></tr>...</table>",
             "observacoes": null,
@@ -180,6 +188,13 @@ curl -s \
         "marca_painel_imagem": "https://<host-do-appsolar>/storage/produtos/MktE....png",
         "potencia_painel": 555,
         "estrutura": "Sem Estrutura",
+        "categoria": "GERADOR FOTOVOLTAICO",
+        "imagens": [
+            {
+                "url": "https://assets.edeltecsolar.com.br/produtos/278327/principal?v=1781204485",
+                "principal": true
+            }
+        ],
         "fornecedor": "EDELTEC",
         "componentes": "<table>...</table>",
         "observacoes": null,
@@ -211,6 +226,8 @@ Se o SKU não existir, estiver inativo, ou pertencer a outro fornecedor, a respo
 | `marca_painel_imagem`       | string (URL)\|null | URL absoluta da foto do produto (painel).                                                  |
 | `potencia_painel`           | number          | Potência de cada painel, em Watts.                                                            |
 | `estrutura`                 | string\|null    | Tipo de estrutura de fixação (ex.: "Telha Colonial", "Solo", "Sem Estrutura").                |
+| `categoria`                  | string\|null    | Categoria do produto, no mesmo padrão usado pela distribuidora Edeltec. Valores possíveis hoje: `"GERADOR FOTOVOLTAICO"`, `"GERADOR MICROINVERSOR"`, `"GERADOR HIBRIDO"`. Pode ser `null` em kits legados ainda não ressincronizados. |
+| `imagens`                    | array           | Álbum de fotos do produto, na ordem em que devem ser exibidas. Cada item tem `url` (string, URL absoluta hospedada pela Edeltec) e `principal` (boolean — `true` na foto de capa). Hoje a Edeltec normalmente fornece só 1 foto (a capa); a lista pode crescer no futuro sem mudança de contrato. Pode vir como array vazio `[]` se o produto não tiver nenhuma imagem cadastrada. |
 | `fornecedor`                 | string          | Sempre `"EDELTEC"` atualmente.                                                                |
 | `componentes`                | string (HTML)   | Tabela HTML (`<table>...</table>`) com a lista de itens que compõem o kit (SKU interno, quantidade, descrição). Trate como HTML/texto livre, não como JSON estruturado. |
 | `observacoes`                | string\|null    | Observações gerais do produto.                                                                |
@@ -294,5 +311,10 @@ Todas as respostas de erro são JSON (mesmo que o cliente não envie
 - [ ] Mapear `preco_venda` para o preço exibido ao cliente final; manter `preco_custo`
       apenas para uso interno (margem/relatórios), nunca exposto publicamente na loja.
 - [ ] Tratar `marca_*_logo` / `marca_*_imagem` nulos com fallback visual.
+- [ ] Usar `categoria` para agrupar/filtrar produtos na loja, se necessário (valores:
+      `"GERADOR FOTOVOLTAICO"`, `"GERADOR MICROINVERSOR"`, `"GERADOR HIBRIDO"`, ou `null`
+      em kits ainda não ressincronizados).
+- [ ] Renderizar o álbum a partir de `imagens` (lista ordenada de `{url, principal}`);
+      tratar lista vazia `[]` com uma imagem placeholder.
 - [ ] Tratar `401`, `404`, `422` e `429` conforme a tabela de erros acima.
 - [ ] Respeitar rate limit de 60 req/min (espaçar chamadas de paginação se necessário).

@@ -52,7 +52,7 @@ class ProdutosLojaController extends Controller
             ->where('status_fornecedor', 1)
             ->whereNotNull('sku')
             ->where('sku', '!=', '')
-            ->with(['marcaInversorRel', 'marcaPainelRel', 'estruturaRel', 'fornecedorRel']);
+            ->with(['marcaInversorRel', 'marcaPainelRel', 'estruturaRel', 'fornecedorRel', 'imagens']);
     }
 
     private function idFornecedorEdeltec(): int

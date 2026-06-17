@@ -12,6 +12,7 @@ use App\src\Produtos\Kit;
 class KitOnGrid extends Kit
 {
     private $indices;
+    private array $imagens = [];
 
     public function __construct($produto, $indices)
     {
@@ -28,6 +29,8 @@ class KitOnGrid extends Kit
         $this->fornecedor('');
         $this->tensao($produto['tensaoSaida']);
         $this->estrutura($produto['estrutura']);
+        $this->categoria($produto['tipoDeProduto']);
+        $this->imagens($produto['imagem_principal'] ?? null, $produto['imagens_alternativas'] ?? null);
         $this->produtos($produto['componentes']);
         $this->observacoes('');
         $this->margem($produto['potenciaGerador']);
@@ -89,6 +92,40 @@ class KitOnGrid extends Kit
     public function estrutura(string $dado)
     {
         $this->setEstrutura($this->resolverIndice($dado, 'estrutura'));
+    }
+
+    public function categoria(?string $dado)
+    {
+        $this->setCategoria($dado);
+    }
+
+    /**
+     * A Edeltec retorna a foto de capa em `imagem_principal` e o restante do
+     * álbum em `imagens_alternativas` (JSON com lista de URLs). Normaliza os
+     * dois em uma única lista ordenada (capa primeiro).
+     */
+    public function imagens(?string $principal, ?string $alternativasJson): void
+    {
+        $lista = [];
+
+        if (!empty($principal)) {
+            $lista[] = ['url' => $principal, 'principal' => true];
+        }
+
+        $alternativas = json_decode($alternativasJson ?? '[]', true) ?: [];
+
+        foreach ($alternativas as $url) {
+            if (!empty($url)) {
+                $lista[] = ['url' => $url, 'principal' => false];
+            }
+        }
+
+        $this->imagens = $lista;
+    }
+
+    public function getImagens(): array
+    {
+        return $this->imagens;
     }
 
     /**

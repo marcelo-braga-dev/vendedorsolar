@@ -27,6 +27,7 @@ class Kits extends Model
         'fornecedor',
         'tensao',
         'estrutura',
+        'categoria',
         'produtos',
         'complementos',
         'observacoes',
@@ -57,6 +58,7 @@ class Kits extends Model
                 'fornecedor',
                 'preco_fornecedor',
                 'estrutura',
+                'categoria',
                 'tensao',
                 'produtos',
                 'observacoes',
@@ -92,6 +94,7 @@ class Kits extends Model
                     'fornecedor'        => $dados->getFornecedor(),
                     'preco_fornecedor'  => $dados->getPrecoFornecedor(),
                     'estrutura'         => $dados->getEstrutura(),
+                    'categoria'         => $dados->getCategoria(),
                     'tensao'            => $dados->getTensao(),
                     'produtos'          => $dados->getProdutos(),
                     'observacoes'       => $dados->getObservacoes(),
@@ -152,5 +155,10 @@ class Kits extends Model
     public function fornecedorRel()
     {
         return $this->belongsTo(Fornecedores::class, 'fornecedor');
+    }
+
+    public function imagens()
+    {
+        return $this->hasMany(KitImagem::class, 'kit_id')->orderBy('ordem');
     }
 }

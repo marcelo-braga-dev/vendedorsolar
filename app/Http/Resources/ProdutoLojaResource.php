@@ -27,6 +27,11 @@ class ProdutoLojaResource extends JsonResource
             'marca_painel_imagem'  => $this->urlImagem($this->marcaPainelRel?->img_produto),
             'potencia_painel'      => $this->potencia_painel,
             'estrutura'            => $this->estruturaRel?->nome,
+            'categoria'            => $this->categoria,
+            'imagens'              => $this->imagens->map(fn ($imagem) => [
+                'url'       => $imagem->url,
+                'principal' => (bool) $imagem->principal,
+            ])->values(),
             'fornecedor'           => $this->fornecedorRel?->nome,
             'componentes'          => $this->produtos,
             'observacoes'          => $this->observacoes,

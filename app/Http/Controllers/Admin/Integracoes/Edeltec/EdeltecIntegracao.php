@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Integracoes\Edeltec;
 use App\Models\Fornecedores;
 use App\Models\Integracao\Edeltec\IntegracaoEdeltecHistorico;
 use App\Models\IntegracaoEdeltec;
+use App\Models\KitImagem;
 use App\Models\Kits;
 use App\Services\IntegracoesDistribuidoras\Edeltec\Integracoes;
 use App\Services\IntegracoesDistribuidoras\Edeltec\KitOnGrid;
@@ -91,7 +92,8 @@ class EdeltecIntegracao
                 'Processando página ' . $page . ($totalPages > 0 ? " de {$totalPages}" : '')
             );
 
-            $lote = [];
+            $lote          = [];
+            $imagensPorSku = [];
 
             foreach ($items as $produto) {
                 $sku = $produto['codProd'] ?? null;
@@ -101,8 +103,10 @@ class EdeltecIntegracao
                 }
 
                 try {
-                    $lote[]           = (new KitOnGrid($produto, $integracaoDados))->toDataArray();
-                    $skuAtivos[$sku]  = true; // só marca ativo se processado com sucesso
+                    $kit                       = new KitOnGrid($produto, $integracaoDados);
+                    $lote[]                    = $kit->toDataArray();
+                    $imagensPorSku[(string) $sku] = $kit->getImagens();
+                    $skuAtivos[$sku]           = true; // só marca ativo se processado com sucesso
                 } catch (\DomainException $e) {
                     $notas[] = "SKU {$sku}: " . $e->getMessage();
                     Log::warning('Edeltec integração (DomainException)', [
@@ -119,6 +123,7 @@ class EdeltecIntegracao
             }
 
             (new Kits())->bulkUpsert($lote);
+            $this->sincronizarImagens($imagensPorSku);
 
             if ($totalPages > 0 && $page >= $totalPages) {
                 break;
@@ -169,6 +174,36 @@ class EdeltecIntegracao
         $this->historico->save();
 
         $this->complete('Concluído');
+    }
+
+    /**
+     * Soma ao álbum de cada kit da página atual as imagens recebidas da Edeltec
+     * (sem remover as que já existiam) e atualiza a capa do produto para a
+     * primeira imagem fornecida pela distribuidora nesta rodada.
+     */
+    private function sincronizarImagens(array $imagensPorSku): void
+    {
+        if (empty($imagensPorSku)) {
+            return;
+        }
+
+        $idsPorSku = Kits::query()
+            ->whereIn('sku', array_keys($imagensPorSku))
+            ->pluck('id', 'sku');
+
+        $imagensPorKitId = [];
+
+        foreach ($imagensPorSku as $sku => $imagens) {
+            $kitId = $idsPorSku[$sku] ?? null;
+
+            if (!$kitId || empty($imagens)) {
+                continue;
+            }
+
+            $imagensPorKitId[$kitId] = $imagens;
+        }
+
+        (new KitImagem())->adicionarAoAlbum($imagensPorKitId);
     }
 
     private function jaEmExecucao(): bool

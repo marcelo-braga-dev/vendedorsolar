@@ -16,6 +16,7 @@ abstract class Kit extends InfoKit
     private $preco_fornecedor;
     private $preco_cliente;
     private $estrutura;
+    private $categoria;
     private $produtos;
     private $observacoes;
     private $fornecedor;
@@ -48,6 +49,7 @@ abstract class Kit extends InfoKit
             'fornecedor'        => $this->getFornecedor(),
             'preco_fornecedor'  => $this->getPrecoFornecedor(),
             'estrutura'         => $this->getEstrutura(),
+            'categoria'         => $this->getCategoria(),
             'tensao'            => $this->getTensao(),
             'produtos'          => $this->getProdutos(),
             'observacoes'       => $this->getObservacoes(),
@@ -147,6 +149,16 @@ abstract class Kit extends InfoKit
     protected function setEstrutura($estrutura): void
     {
         $this->estrutura = $estrutura;
+    }
+
+    public function getCategoria()
+    {
+        return $this->categoria;
+    }
+
+    protected function setCategoria($categoria): void
+    {
+        $this->categoria = $categoria;
     }
 
     public function getProdutos()
