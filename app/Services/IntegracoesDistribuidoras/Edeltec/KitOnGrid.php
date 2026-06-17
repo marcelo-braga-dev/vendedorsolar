@@ -2,6 +2,9 @@
 
 namespace App\Services\IntegracoesDistribuidoras\Edeltec;
 
+use App\Models\Estruturas;
+use App\Models\IntegracaoEdeltec;
+use App\Models\Produtos;
 use App\src\Produtos\CalculoPrecos\CalcularPrecoVenda;
 use App\src\Produtos\CalculoPrecos\MargensPadrao;
 use App\src\Produtos\Kit;
@@ -47,18 +50,12 @@ class KitOnGrid extends Kit
 
     public function marcaInversor(string $dado)
     {
-        if (!isset($this->indices[$dado])) {
-            throw new \DomainException("Marca do INVERSOR não encontrada: {$dado}");
-        }
-        $this->setMarcaInversor($this->indices[$dado]);
+        $this->setMarcaInversor($this->resolverIndice($dado, 'inversor'));
     }
 
     public function marcaPainel(string $dado)
     {
-        if (!isset($this->indices[$dado])) {
-            throw new \DomainException("Marca do PAINEL não encontrada: {$dado}");
-        }
-        $this->setMarcaPainel($this->indices[$dado]);
+        $this->setMarcaPainel($this->resolverIndice($dado, 'painel'));
     }
 
     public function potenciaInversor(string $dado)
@@ -91,10 +88,35 @@ class KitOnGrid extends Kit
 
     public function estrutura(string $dado)
     {
-        if (!isset($this->indices[$dado])) {
-            throw new \DomainException("Estrutura não encontrada: {$dado}");
+        $this->setEstrutura($this->resolverIndice($dado, 'estrutura'));
+    }
+
+    /**
+     * Resolve o ID de uma marca de inversor/painel ou de uma estrutura pelo nome
+     * vindo da Edeltec. Quando o nome ainda não está mapeado, cadastra
+     * automaticamente (em `produtos` ou `estruturas`) e registra o mapeamento em
+     * `integracao_edeltecs`, para que a importação não precise de cadastro manual
+     * prévio nem falhe por marca/estrutura desconhecida.
+     */
+    private function resolverIndice(string $nome, string $tipo): int
+    {
+        if (isset($this->indices[$nome])) {
+            return $this->indices[$nome];
         }
-        $this->setEstrutura($this->indices[$dado]);
+
+        $id = $tipo === 'estrutura'
+            ? Estruturas::query()->create(['nome' => $nome])->id
+            : Produtos::query()->create(['tipo' => $tipo, 'nome' => $nome])->id;
+
+        IntegracaoEdeltec::query()->create([
+            'produto_id' => $id,
+            'categoria'  => $tipo === 'estrutura' ? 'estrutura' : 'produto',
+            'nome'       => $nome,
+        ]);
+
+        $this->indices->put($nome, $id);
+
+        return $id;
     }
 
     public function produtos(string $dado)

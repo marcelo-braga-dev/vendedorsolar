@@ -9,6 +9,13 @@ class IntegracaoEdeltec extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'produto_id',
+        'categoria',
+        'nome',
+        'potencia',
+    ];
+
     public function dados()
     {
         return $this->newQuery()

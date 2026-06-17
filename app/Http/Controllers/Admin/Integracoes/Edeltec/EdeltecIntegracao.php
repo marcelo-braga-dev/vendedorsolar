@@ -26,6 +26,20 @@ class EdeltecIntegracao
 
         $this->createHistorico();
 
+        try {
+            $this->executar();
+        } catch (\Throwable $e) {
+            // Garante que toda falha não tratada feche o histórico (status + data_fim).
+            // Sem isso, um registro travado em status "Processando" bloqueia novas
+            // execuções por até 2h (ver jaEmExecucao()), deixando a integração
+            // inoperante até alguém corrigir manualmente no banco.
+            Log::error('Edeltec integração: erro não tratado', ['exception' => $e]);
+            $this->fail('Erro inesperado: ' . $e->getMessage());
+        }
+    }
+
+    private function executar(): void
+    {
         // Garante margens frescas a cada execução
         MargensPadrao::limparCache();
 
@@ -122,7 +136,7 @@ class EdeltecIntegracao
 
         $this->historico->produtos_importados = $skusImportados;
         $this->historico->qtd_importados      = count($skusImportados);
-        $this->historico->anotacoes           = implode(PHP_EOL, $notas) ?: null;
+        $this->historico->anotacoes           = $this->truncarNotas($notas);
         $this->historico->save();
 
         // ── Desativa produtos ausentes na importação ──────────────────────────
@@ -193,9 +207,38 @@ class EdeltecIntegracao
 
         $this->historico->status    = 'Falha';
         $this->historico->data_fim  = now();
-        $this->historico->anotacoes = trim($atual . ($atual !== '' ? PHP_EOL : '') . $mensagem);
+        $this->historico->anotacoes = $this->limitarTamanho(trim($atual . ($atual !== '' ? PHP_EOL : '') . $mensagem));
         $this->historico->save();
 
         Log::error('Edeltec integração falhou', ['mensagem' => $mensagem]);
+    }
+
+    /**
+     * Junta as notas em texto, limitando o tamanho para não exceder a coluna TEXT
+     * (65.535 bytes no MySQL) — sem isso, um excesso de SKUs com erro (ex.: marca
+     * nova ainda não mapeada) derruba o save() do histórico com QueryException.
+     */
+    private function truncarNotas(array $notas): ?string
+    {
+        if (empty($notas)) {
+            return null;
+        }
+
+        return $this->limitarTamanho(implode(PHP_EOL, $notas), count($notas));
+    }
+
+    private function limitarTamanho(string $texto, ?int $totalLinhas = null): string
+    {
+        $limite = 60000;
+
+        if (mb_strlen($texto) <= $limite) {
+            return $texto;
+        }
+
+        $resumo = $totalLinhas
+            ? "... ({$totalLinhas} avisos no total; truncado por limite de tamanho da coluna)"
+            : '... (truncado por limite de tamanho da coluna)';
+
+        return mb_substr($texto, 0, $limite) . PHP_EOL . $resumo;
     }
 }

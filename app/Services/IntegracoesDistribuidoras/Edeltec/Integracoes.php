@@ -28,9 +28,13 @@ class Integracoes
         $body = $response->json();
 
         // A API pode retornar o token em campos diferentes; tenta os mais comuns.
-        return $body['token']
+        $token = $body['token']
             ?? $body['access_token']
             ?? $body['accessToken']
-            ?? '';
+            ?? null;
+
+        // Quando a resposta não é JSON (ex.: Content-Type text/html), a API devolve
+        // o próprio token JWT como corpo em texto puro.
+        return $token ?? trim($response->body());
     }
 }
