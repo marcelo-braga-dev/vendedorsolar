@@ -27,3 +27,12 @@ Route::get('endereco/id', [App\Http\Controllers\Api\EnderecoController::class, '
 
 Route::post('lead', [App\Http\Controllers\Api\LeadsController::class, 'store'])
     ->name('api.leads');
+
+// Integração com a loja online: sincronização de catálogo de produtos
+Route::middleware('auth.loja_api')->prefix('v1/loja')->name('api.v1.loja.')->group(function () {
+    Route::get('produtos', [App\Http\Controllers\Api\ProdutosLojaController::class, 'index'])
+        ->name('produtos.index');
+
+    Route::get('produtos/{sku}', [App\Http\Controllers\Api\ProdutosLojaController::class, 'show'])
+        ->name('produtos.show');
+});

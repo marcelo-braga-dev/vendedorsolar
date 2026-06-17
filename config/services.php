@@ -36,4 +36,8 @@ return [
         'base_url' => env('EDELTEC_BASE_URL', 'https://api.edeltecsolar.com.br'),
     ],
 
+    'loja' => [
+        'api_token' => env('LOJA_API_TOKEN'),
+    ],
+
 ];

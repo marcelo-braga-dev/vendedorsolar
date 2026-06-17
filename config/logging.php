@@ -67,6 +67,13 @@ return [
             'days' => 14,
         ],
 
+        'loja_api' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/loja-api.log'),
+            'level' => 'info',
+            'days' => 30,
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

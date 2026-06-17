@@ -133,4 +133,24 @@ class Kits extends Model
             ['marca_painel', '=', $painel],
         ])->update(['status' => $status]);
     }
+
+    public function marcaInversorRel()
+    {
+        return $this->belongsTo(Produtos::class, 'marca_inversor');
+    }
+
+    public function marcaPainelRel()
+    {
+        return $this->belongsTo(Produtos::class, 'marca_painel');
+    }
+
+    public function estruturaRel()
+    {
+        return $this->belongsTo(Estruturas::class, 'estrutura');
+    }
+
+    public function fornecedorRel()
+    {
+        return $this->belongsTo(Fornecedores::class, 'fornecedor');
+    }
 }

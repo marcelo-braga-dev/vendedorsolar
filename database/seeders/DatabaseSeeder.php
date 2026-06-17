@@ -19,10 +19,8 @@ class DatabaseSeeder extends Seeder
             ConcessionariasSeeder::class,
             IrradiacaoSolarSeeder::class,
             ProdutosSeeder::class,
-            IntegracaoAldoSeeder::class,
             EstruturasSeeder::class,
             MargemPrincipalSeeder::class,
-            FornecedorSeeder::class,
             TrafoSeeder::class
         ]);
     }
