@@ -38,7 +38,7 @@
             <td></td>
 
             <td>
-                <img src="storage/proposta-comercial/solmar/assinatura-antonio.jpg"
+                <img src="storage/proposta-comercial/solmar/assinatura-engenheiro.jpg"
                      style="width:180px;margin-left:30px">
             </td>
 
@@ -59,9 +59,9 @@
             <td id="sem_borda" width="5%"></td>
 
             <td id="assinatura" width="30%">
-                <b>Waldir Antonio <br>Armolinski de Souza</b><br>
+                <b>MATHEUS ANDRE <br/>SILVA BRITO</b><br>
                 Engenheiro Responsável<br>
-                CREA PR-164409/D
+                CREA-PR 217975/D
             </td>
 
             <td id="sem_borda" width="5%"></td>
