@@ -6,15 +6,31 @@ use Illuminate\Support\Facades\Http;
 
 class Integracoes
 {
-    public function autenticar()
+    private string $baseUrl;
+
+    public function __construct()
     {
-        $url = 'https://api.edeltecsolar.com.br/api-access/token';
+        $this->baseUrl = rtrim(config('services.edeltec.base_url'), '/');
+    }
+
+    public function autenticar(): string
+    {
         $response = Http::withHeader('Content-Type', 'application/json')
-            ->post($url, [
-                'apiKey' => 'c2ea3401-18b0-4aa0-8776-c0a0e9a4505a',
-                'secret' => 'PxEWSPizufT9Zb9O5jnPoNj/Vb8ng0yfY/EQ9ZLkd2U=',
+            ->post("{$this->baseUrl}/api-access/token", [
+                'apiKey' => config('services.edeltec.api_key'),
+                'secret' => config('services.edeltec.secret'),
             ]);
 
-        return $response->body();
+        if (!$response->successful()) {
+            return '';
+        }
+
+        $body = $response->json();
+
+        // A API pode retornar o token em campos diferentes; tenta os mais comuns.
+        return $body['token']
+            ?? $body['access_token']
+            ?? $body['accessToken']
+            ?? '';
     }
 }

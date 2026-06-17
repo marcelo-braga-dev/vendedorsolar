@@ -3,8 +3,6 @@
 namespace App\src\Produtos;
 
 use App\Models\Kits;
-use App\src\Produtos\CalculoPrecos\CalcularPrecoVenda;
-use App\src\Produtos\CalculoPrecos\MargensPadrao;
 
 abstract class Kit extends InfoKit
 {
@@ -35,9 +33,35 @@ abstract class Kit extends InfoKit
         (new Kits())->atualizarKit($id, $this);
     }
 
+    public function toDataArray(): array
+    {
+        $now = now();
+
+        return [
+            'sku'               => $this->getSku(),
+            'modelo'            => $this->getModelo(),
+            'marca_inversor'    => $this->getMarcaInversor(),
+            'potencia_inversor' => $this->getPotenciaInversor(),
+            'marca_painel'      => $this->getMarcaPainel(),
+            'potencia_painel'   => $this->getPotenciaPainel(),
+            'potencia_kit'      => $this->getPotenciaKit(),
+            'fornecedor'        => $this->getFornecedor(),
+            'preco_fornecedor'  => $this->getPrecoFornecedor(),
+            'estrutura'         => $this->getEstrutura(),
+            'tensao'            => $this->getTensao(),
+            'produtos'          => $this->getProdutos(),
+            'observacoes'       => $this->getObservacoes(),
+            'margem'            => $this->getMargem(),
+            'status'            => 1,
+            'status_fornecedor' => 1,
+            'created_at'        => $now,
+            'updated_at'        => $now,
+        ];
+    }
+
     public function atualizarPreco($dados, $skus): void
     {
-        $precoAtual = number_format($skus[strip_tags($dados->codigo)], 2, '.', '');;
+        $precoAtual = number_format($skus[strip_tags($dados->codigo)], 2, '.', '');
         $precoFornecedor = convert_money_float(strip_tags($dados->preco));
 
         if ($precoAtual != $precoFornecedor) {

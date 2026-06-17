@@ -66,8 +66,6 @@ class Construtor extends DadosOrcamento
         $this->mpdf->WriteHTML($pageBreakAfter);
         $this->mpdf = $body->execute(new Portfolio(), $this);
         $this->mpdf->WriteHTML($pageBreakAfter);
-        $this->mpdf = $body->execute(new Anotacoes(), $this);
-        $this->mpdf->WriteHTML($pageBreakAfter);
         $this->mpdf = $body->execute(new Regulamentacao(), $this);
         $this->mpdf = $body->execute(new Assinaturas(), $this);
 

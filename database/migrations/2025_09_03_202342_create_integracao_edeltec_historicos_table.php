@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('integracao_edeltec_hostoricos');
+        Schema::dropIfExists('integracao_edeltec_historicos');
     }
 };

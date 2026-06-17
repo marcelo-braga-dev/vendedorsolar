@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'edeltec' => [
+        'api_key' => env('EDELTEC_API_KEY'),
+        'secret'  => env('EDELTEC_SECRET'),
+        'base_url' => env('EDELTEC_BASE_URL', 'https://api.edeltecsolar.com.br'),
+    ],
+
 ];

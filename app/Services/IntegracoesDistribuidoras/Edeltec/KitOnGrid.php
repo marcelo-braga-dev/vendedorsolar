@@ -2,7 +2,6 @@
 
 namespace App\Services\IntegracoesDistribuidoras\Edeltec;
 
-use App\src\Integracoes\Aldo\Produtos\Infos\ProdutosKit;
 use App\src\Produtos\CalculoPrecos\CalcularPrecoVenda;
 use App\src\Produtos\CalculoPrecos\MargensPadrao;
 use App\src\Produtos\Kit;
@@ -38,8 +37,7 @@ class KitOnGrid extends Kit
 
     public function modelo(string $dado)
     {
-        $res = str_replace(' edeltec', '', $dado);
-        $this->setModelo($res);
+        $this->setModelo(str_replace(' edeltec', '', $dado));
     }
 
     public function potenciaKit(string $dado)
@@ -49,22 +47,18 @@ class KitOnGrid extends Kit
 
     public function marcaInversor(string $dado)
     {
-        try {
-            $id = $this->indices[$dado];
-            $this->setMarcaInversor($id);
-        } catch (\ErrorException $e) {
-            throw new \DomainException("Marca do INVERSOR não encontrada: $dado");
+        if (!isset($this->indices[$dado])) {
+            throw new \DomainException("Marca do INVERSOR não encontrada: {$dado}");
         }
+        $this->setMarcaInversor($this->indices[$dado]);
     }
 
     public function marcaPainel(string $dado)
     {
-        try {
-            $id = $this->indices[$dado];
-            $this->setMarcaPainel($id);
-        } catch (\ErrorException $e) {
-            throw new \DomainException("Marca do PAINEL não encontrada: $dado");
+        if (!isset($this->indices[$dado])) {
+            throw new \DomainException("Marca do PAINEL não encontrada: {$dado}");
         }
+        $this->setMarcaPainel($this->indices[$dado]);
     }
 
     public function potenciaInversor(string $dado)
@@ -74,11 +68,7 @@ class KitOnGrid extends Kit
 
     public function potenciaPainel(string $dado)
     {
-        try {
-            $this->setPotenciaPainel($dado);
-        } catch (\ErrorException $e) {
-            throw new \DomainException();
-        }
+        $this->setPotenciaPainel($dado);
     }
 
     public function precoFornecedor(string $dado)
@@ -88,8 +78,10 @@ class KitOnGrid extends Kit
 
     public function fornecedor(string $dado)
     {
-        $fornecedor = $this->indices['EDELTEC'];
-        $this->setFornecedor($fornecedor);
+        if (!isset($this->indices['EDELTEC'])) {
+            throw new \DomainException("Fornecedor 'EDELTEC' não configurado nos índices de integração.");
+        }
+        $this->setFornecedor($this->indices['EDELTEC']);
     }
 
     public function tensao(string $dado)
@@ -99,8 +91,10 @@ class KitOnGrid extends Kit
 
     public function estrutura(string $dado)
     {
-        $estrutura = $this->indices[$dado];
-        $this->setEstrutura($estrutura);
+        if (!isset($this->indices[$dado])) {
+            throw new \DomainException("Estrutura não encontrada: {$dado}");
+        }
+        $this->setEstrutura($this->indices[$dado]);
     }
 
     public function produtos(string $dado)

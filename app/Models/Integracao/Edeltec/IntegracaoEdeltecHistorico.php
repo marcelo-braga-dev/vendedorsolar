@@ -10,7 +10,6 @@ class IntegracaoEdeltecHistorico extends Model
         'status',
         'data_inicio',
         'data_fim',
-        'data_fim',
         'produtos_importados',
         'qtd_importados',
         'produtos_desativados',
@@ -19,10 +18,9 @@ class IntegracaoEdeltecHistorico extends Model
     ];
 
     protected $casts = [
-        'produtos_importados' => 'array',
+        'produtos_importados'  => 'array',
         'produtos_desativados' => 'array',
-        'data_inicio' => 'datetime',
-        'data_fim' => 'datetime',
+        'data_inicio'          => 'datetime',
+        'data_fim'             => 'datetime',
     ];
-
 }
