@@ -47,6 +47,9 @@ class SelecionarKits extends SelecionarKitsDB
             $item->geracao = $this->dados->calcularGeracao($item->potencia_kit);
             $preco = $item->preco_cliente;
             $geracao = $item->geracao;
+            $atualizadoEm = $item->updated_at?->format('d/m/y');
+            $diasSemAtualizar = AtualizacaoKit::diasDesatualizado($item->updated_at);
+            $atualizadoEmAlerta = AtualizacaoKit::emAlerta($diasSemAtualizar, getKitLimiteDiasAtualizacao());
 
             $dados[$item->marca_inversor][$item->marca_painel]['\'' . $item->potencia_kit . '\'']['qtdKits'] = $this->qtdKits;
             $dados[$item->marca_inversor][$item->marca_painel]['\'' . $item->potencia_kit . '\'']['inversor'] = $item->marca_inversor;
@@ -62,7 +65,9 @@ class SelecionarKits extends SelecionarKitsDB
                 'preco' => $preco,
                 'trafo' => $item->trafo,
                 'modelo_trafo' => $item->nome_trafo,
-                'preco_trafo' => $item->preco_trafo
+                'preco_trafo' => $item->preco_trafo,
+                'atualizado_em' => $atualizadoEm,
+                'atualizado_em_alerta' => $atualizadoEmAlerta,
             ];
         }
 

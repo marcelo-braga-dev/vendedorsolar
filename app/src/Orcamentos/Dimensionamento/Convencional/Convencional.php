@@ -19,6 +19,8 @@ class Convencional extends Dimensionamento
     private $tipoConsumo;
     private $potenciaKWP;
     private $estado;
+    private $perdaOrientacao;
+    private $performanceRatio;
 
     public function __construct(DadosDimensionamento $dados)
     {
@@ -32,11 +34,14 @@ class Convencional extends Dimensionamento
         $this->incluirTrafo = $dados->getIncluirTrafo();
         $this->tipoConsumo = $dados->getTipoConsumo();
         $this->estado = $dados->getEstado();
+        $this->perdaOrientacao = $dados->getPerdaOrientacao();
+        $this->performanceRatio = $dados->getPerformanceRatio();
     }
 
     public function calcularGeracao(float $potenciaKit): float
     {
-        return $this->irradiacao * 30 / (1 + $this->correcao / 100) * $potenciaKit;
+        return $this->irradiacao * 30 / (1 + $this->correcao / 100)
+            * (1 - $this->perdaOrientacao / 100) * $potenciaKit;
     }
 
     public function selecionarKits(): array
@@ -52,8 +57,11 @@ class Convencional extends Dimensionamento
     {
         if ($this->potenciaKWP) $this->potencia = $this->potenciaKWP;
         else {
-            $resultado =
-                ($this->consumo / 30) / ($this->irradiacao * (1 - 0.15));
+            $irradiacaoEfetiva = $this->irradiacao
+                * $this->performanceRatio
+                * (1 - $this->perdaOrientacao / 100);
+
+            $resultado = ($this->consumo / 30) / $irradiacaoEfetiva;
             $resultado = $resultado * (1 + $this->correcao / 100);
             $this->potencia = round($resultado, 3);
         }
@@ -76,7 +84,7 @@ class Convencional extends Dimensionamento
 
     public function getQtdKits(): int
     {
-        return $this->qtdKits;
+        return $this->qtdKits ?? 1;
     }
 
     public function getIncluirTrafo(): bool

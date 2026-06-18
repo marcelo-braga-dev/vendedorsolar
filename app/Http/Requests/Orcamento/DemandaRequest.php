@@ -31,7 +31,8 @@ class DemandaRequest extends FormRequest
             'orientacao' => 'required',
             'consumo_fora_ponta' => 'required',
             'consumo_ponta' => 'required',
-            'concessionaria' => 'required',
+            'concessionaria' => 'required|exists:concessionarias,id',
+            'qtd_kits' => 'required|integer|min:1',
         ];
     }
 }

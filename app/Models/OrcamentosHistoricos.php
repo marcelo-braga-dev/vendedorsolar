@@ -25,7 +25,12 @@ class OrcamentosHistoricos extends Model
             ]);
     }
 
-    public function statusExist($id, $status)
+    /**
+     * Renomeado de statusExist() — o nome anterior dizia o contrário do que o
+     * método fazia (retornava true quando o status NÃO existia no histórico),
+     * o que já causou leitura equivocada da regra de negócio em Aprovado.php.
+     */
+    public function statusNaoExiste($id, $status): bool
     {
         return !$this->newQuery()
             ->where('orcamentos_id', $id)

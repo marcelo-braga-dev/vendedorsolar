@@ -60,6 +60,78 @@
 
             <div class="divider"></div>
 
+            {{-- Performance Ratio (perdas do sistema) --}}
+            <div class="subhead">
+                <span class="dot"></span> <span>Performance Ratio (perdas do sistema)</span>
+            </div>
+            <div class="hint mb-2">
+                PR composto atual: <strong>{{ $dados['performance_ratio'] }}%</strong>. Os fatores abaixo se
+                compõem multiplicativamente (não somam) e substituem a antiga perda fixa de 15%.
+            </div>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-md-2 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Temperatura"
+                        name="pr_temperatura"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['pr_temperatura'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-2 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Sujeira"
+                        name="pr_sujeira"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['pr_sujeira'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-2 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Sombreamento"
+                        name="pr_sombreamento"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['pr_sombreamento'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-2 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Cabeamento"
+                        name="pr_cabeamento"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['pr_cabeamento'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-2 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Mismatch"
+                        name="pr_mismatch"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['pr_mismatch'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-2 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Degradação inicial (LID)"
+                        name="pr_degradacao_inicial"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['pr_degradacao_inicial'] }}"></x-inputs.input-box-right>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
             {{-- Perda por orientação --}}
             <div class="subhead">
                 <span class="dot"></span> <span>Perda por orientação</span>
@@ -103,6 +175,59 @@
                         type="number"
                         step="0.01"
                         value="{{ $dados['orientacao_sul'] }}"></x-inputs.input-box-right>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            {{-- Premissas financeiras (payback) --}}
+            <div class="subhead">
+                <span class="dot"></span> <span>Premissas Financeiras (Payback)</span>
+            </div>
+            <div class="hint mb-2">
+                Usadas no gráfico de payback das propostas. Fio B conforme Lei 14.300/2022 — percentual abaixo é
+                uma estimativa nacional simplificada da parcela TUSD-Fio B sobre a tarifa cheia (não decompõe por
+                concessionária).
+            </div>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-md-3 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Degradação no 1º ano (LID)"
+                        name="degradacao_ano1"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['degradacao_ano1'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Degradação anual (a partir do 2º ano)"
+                        name="degradacao_anual"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['degradacao_anual'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Inflação energética (a.a.)"
+                        name="inflacao_energetica"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['inflacao_energetica'] }}"></x-inputs.input-box-right>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3 field-col">
+                    <x-inputs.input-box-right
+                        box="%"
+                        label="Fio B (% estimado da tarifa)"
+                        name="fio_b_percentual_tarifa"
+                        type="number"
+                        step="0.01"
+                        value="{{ $dados['fio_b_percentual_tarifa'] }}"></x-inputs.input-box-right>
                 </div>
             </div>
 

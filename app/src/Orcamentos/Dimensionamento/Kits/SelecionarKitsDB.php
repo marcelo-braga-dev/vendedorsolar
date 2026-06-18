@@ -24,7 +24,7 @@ abstract class SelecionarKitsDB
                 'id', 'marca_inversor', 'marca_painel',
                 'modelo', 'preco_fornecedor', 'tensao', 'fornecedor',
                 'potencia_kit', 'potencia_painel',
-                'potencia_inversor', 'estrutura'
+                'potencia_inversor', 'estrutura', 'updated_at'
             ]);
     }
 

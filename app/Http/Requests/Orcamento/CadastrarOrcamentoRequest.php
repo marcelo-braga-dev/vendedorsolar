@@ -30,7 +30,8 @@ class CadastrarOrcamentoRequest extends FormRequest
             'estrutura' => 'required',
             'tensao' => 'required',
             'orientacao' => 'required',
-            'consumo' => 'required'
+            'consumo' => 'required',
+            'qtd_kits' => 'required|integer|min:1'
         ];
     }
 }

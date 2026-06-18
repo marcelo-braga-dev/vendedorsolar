@@ -9,8 +9,9 @@ class DirecaoInstalacao
         return [
             'desconsiderar' => 'Desconsiderar',
             'norte' => 'Norte',
-            'sudeste_noroeste' => 'Sudeste/Noroeste',
+            'nordeste_noroeste' => 'Nordeste/Noroeste',
             'leste_oeste' => 'Leste/Oeste',
+            'sudeste_sudoeste' => 'Sudeste/Sudoeste',
             'sul' => 'Sul'
         ];
     }

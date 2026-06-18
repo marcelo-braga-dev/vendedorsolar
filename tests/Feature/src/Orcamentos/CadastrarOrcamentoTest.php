@@ -26,6 +26,7 @@ class CadastrarOrcamentoTest extends TestCase
         $request->orientacao = 'sul';
         $request->consumo = '1234';
         $request->cliente = '2';
+        $request->qtd_kits = 1;
 
         $orcamento = new Orcamento();
 

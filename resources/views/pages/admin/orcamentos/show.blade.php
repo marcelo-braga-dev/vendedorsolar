@@ -409,7 +409,10 @@
             <div class="col-12">
                 <div class="card card-soft">
                     <div class="card-body pb-0">
-                        <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}"/>
+                        <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}"
+                                                         geracao="{{ $orcamento->geracao }}"
+                                                         cidade="{{ $orcamento->cidade }}"
+                                                         data-orcamento="{{ $orcamento->created_at }}"/>
                     </div>
                 </div>
             </div>

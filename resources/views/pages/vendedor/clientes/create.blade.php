@@ -144,10 +144,10 @@
                 </div>
                 <div class="form-row">
                     <div class="col-6 col-md-3">
-                        <x-inputs.input label="Celular" name="celular" type="text" class="mask-celular"/>
+                        <x-inputs.input label="Celular" name="celular" id="celular" type="text" class="mask-celular"/>
                     </div>
                     <div class="col-6 col-md-3">
-                        <x-inputs.input label="Telefone" name="telefone" type="text" class="mask-telefone"/>
+                        <x-inputs.input label="Telefone" name="telefone" id="telefone" type="text" class="mask-telefone"/>
                     </div>
                     <div class="col-md-6">
                         <x-inputs.input label="E-mail" name="email" type="email"/>
@@ -277,6 +277,15 @@
                 if (!cidade || !estado) {
                     e.preventDefault();
                     alertBox.innerText = 'Selecione a Cidade e o Estado.';
+                    alertBox.classList.remove('d-none');
+                    return;
+                }
+
+                const celular = document.getElementById('celular').value.trim();
+                const telefone = document.getElementById('telefone').value.trim();
+                if (!celular && !telefone) {
+                    e.preventDefault();
+                    alertBox.innerText = 'Informe ao menos um contato: Celular ou Telefone.';
                     alertBox.classList.remove('d-none');
                 }
             });

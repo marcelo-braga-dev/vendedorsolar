@@ -19,6 +19,8 @@ class ConvencionalDados implements DadosDimensionamento
     private $tipoConsumo;
     private $potenciakWP;
     private $estado;
+    private $perdaOrientacao;
+    private $performanceRatio;
 
     public function __construct(ConvencionalRequest $request)
     {
@@ -32,6 +34,8 @@ class ConvencionalDados implements DadosDimensionamento
         $this->irradiacao = $this->setIrradiacao($request->cidade);
         $this->correcao = $this->setCorrecaoCalculo();
         $this->estado = $this->setEstado($request->cidade);
+        $this->perdaOrientacao = $this->setPerdaOrientacao($request->orientacao);
+        $this->performanceRatio = (new \App\Models\DadosDimensionamento())->getPerformanceRatio();
     }
 
     public function getEstado()
@@ -102,5 +106,20 @@ class ConvencionalDados implements DadosDimensionamento
     public function getPotenciakWP()
     {
         return $this->potenciakWP;
+    }
+
+    private function setPerdaOrientacao(?string $orientacao): float
+    {
+        return (new \App\Models\DadosDimensionamento())->getPerdaPorOrientacao((string) $orientacao);
+    }
+
+    public function getPerdaOrientacao(): float
+    {
+        return $this->perdaOrientacao;
+    }
+
+    public function getPerformanceRatio(): float
+    {
+        return $this->performanceRatio;
     }
 }

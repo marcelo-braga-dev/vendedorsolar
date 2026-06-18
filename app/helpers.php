@@ -151,4 +151,14 @@ if (!function_exists('getLogoPrincipal')) {
     }
 }
 
+if (!function_exists('getKitLimiteDiasAtualizacao')) {
+    function getKitLimiteDiasAtualizacao(): int
+    {
+        $config = (new \App\Models\Configs())->newQuery()
+            ->where('meta_key', 'kit_limite_dias_atualizacao')->first();
+
+        return (int) ($config->value ?? 10);
+    }
+}
+
 

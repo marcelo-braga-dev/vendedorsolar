@@ -9,7 +9,13 @@ class Orcamento
 {
     public function cadastrar(CadastrarOrcamentoRequest $request): int
     {
-        $orcamento = new CadastrarOrcamento(new DadosOrcamento($request));
+        $recalculo = new RecalculaPrecoOrcamento($request);
+
+        $dados = new DadosOrcamento($request);
+        $dados->preco = $recalculo->getPrecoCliente();
+        $dados->geracao = $recalculo->getGeracao();
+
+        $orcamento = new CadastrarOrcamento($dados);
 
         return $orcamento->cadastrar();
     }

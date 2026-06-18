@@ -7,6 +7,7 @@ use App\src\Orcamentos\ChavesOrcamentos;
 use App\src\Orcamentos\Status\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Orcamentos extends Model
 {
@@ -47,7 +48,7 @@ class Orcamentos extends Model
                 'geracao' => $dados->getGeracao(),
                 'cidade' => $dados->getCidade(),
                 'trafo' => $dados->getTrafo(),
-                'token' => uniqid()
+                'token' => Str::random(48)
             ]);
 
         modalSucesso('Orçamento criado com sucesso');

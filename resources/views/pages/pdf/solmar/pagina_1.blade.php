@@ -288,7 +288,10 @@
                 <div class="card-body pb-0 align-items-center">
                     <div class="row justify-content-center">
                         <div class="col-auto">
-                            <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}">
+                            <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}"
+                                                             geracao="{{ $orcamento->geracao }}"
+                                                             cidade="{{ $orcamento->cidade }}"
+                                                             data-orcamento="{{ $orcamento->created_at }}">
                             </x-graficos.payback-fotovoltaico>
                         </div>
                     </div>

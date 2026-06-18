@@ -26,6 +26,11 @@ class ClientesController extends Controller
 
     public function store(Request $request)
     {
+        if (empty($request->celular) && empty($request->telefone)) {
+            modalErro('Informe ao menos um contato: Celular ou Telefone.');
+            return redirect()->back()->withInput();
+        }
+
         (new Clientes())->cadastrar($request);
 
         return redirect()->route('vendedor.clientes.index');

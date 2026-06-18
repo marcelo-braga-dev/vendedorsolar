@@ -29,7 +29,10 @@ if (!function_exists('getIrradiacao')) {
 if (!function_exists('getDirecaoInstalacao')) {
     function getDirecaoInstalacao($direcao)
     {
-        $todosStatus = (new \App\src\Orcamentos\DirecaoInstalacao())->direcoes();
+        // 'sudeste_noroeste' é uma chave legada (substituída por 'nordeste_noroeste' e
+        // 'sudeste_sudoeste'), mantida aqui só para exibir corretamente propostas já emitidas.
+        $legado = ['sudeste_noroeste' => 'Sudeste/Noroeste'];
+        $todosStatus = (new \App\src\Orcamentos\DirecaoInstalacao())->direcoes() + $legado;
         return $todosStatus[$direcao] ?? 'Não encontrado';
     }
 }

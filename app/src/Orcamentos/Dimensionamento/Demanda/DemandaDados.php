@@ -19,6 +19,8 @@ class DemandaDados implements DadosDimensionamento
     private $tarifas;
     private $qtdKits;
     private $incluirTrafo;
+    private $perdaOrientacao;
+    private $performanceRatio;
 
     public function __construct($request)
     {
@@ -33,6 +35,8 @@ class DemandaDados implements DadosDimensionamento
         $this->tarifas = $this->setTarifas($request->concessionaria);
         $this->incluirTrafo = $request->verificar_trafo;
         $this->estado = $this->setEstado($request->cidade);
+        $this->perdaOrientacao = $this->setPerdaOrientacao($request->orientacao);
+        $this->performanceRatio = (new \App\Models\DadosDimensionamento())->getPerformanceRatio();
     }
 
     public function getEstado()
@@ -111,5 +115,20 @@ class DemandaDados implements DadosDimensionamento
     public function getIncluirTrafo()
     {
         return $this->incluirTrafo;
+    }
+
+    private function setPerdaOrientacao(?string $orientacao): float
+    {
+        return (new \App\Models\DadosDimensionamento())->getPerdaPorOrientacao((string) $orientacao);
+    }
+
+    public function getPerdaOrientacao(): float
+    {
+        return $this->perdaOrientacao;
+    }
+
+    public function getPerformanceRatio(): float
+    {
+        return $this->performanceRatio;
     }
 }

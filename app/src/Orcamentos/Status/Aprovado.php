@@ -28,7 +28,7 @@ class Aprovado implements Status
     private function condicoesAlteracaoStatus($id)
     {
         $status = (new Assinado())->getStatus();
-        if ((new OrcamentosHistoricos())->statusExist($id, $status))
-        throw new \DomainException('Esse orçamento precisa ser assinado.');
+        if ((new OrcamentosHistoricos())->statusNaoExiste($id, $status))
+            throw new \DomainException('Esse orçamento precisa ser assinado.');
     }
 }

@@ -1,8 +1,20 @@
 <div id="grafico-payback" style="overflow-x: auto"></div>
+<p class="text-center" style="font-size:13px;color:#555;">
+    Investimento: <strong>R$ {{ number_format($precoCliente, 2, ',', '.') }}</strong>
+    @if($anoPayback !== null)
+        &nbsp;|&nbsp; Payback estimado: <strong>{{ number_format($anoPayback, 1, ',', '.') }} anos</strong>*
+    @else
+        &nbsp;|&nbsp; Payback estimado além do horizonte de 25 anos projetado*
+    @endif
+</p>
+<p class="text-center" style="font-size:11px;color:#888;">
+    *Estimativa com base em degradação, inflação energética e Fio B (Lei 14.300/2022) configurados pelo administrador. Não constitui garantia de retorno financeiro.
+</p>
 
 @push('js')
 <script>
-    let precoCliente = {{ $precoCliente }};
+    let fluxoCaixa = @json($fluxo);
+
     google.charts.load("current", {
         packages: ['corechart'],
         'language': 'pt-br'
@@ -11,34 +23,16 @@
 
     function drawChart() {
 
-        var payback = google.visualization.arrayToDataTable([
-            ['Ano', 'Playback de Investimento', { role: 'style' }],
-            ['1', precoCliente / -1.1666, 'red'],
-            ['2', precoCliente / -1.4577, 'red'],
-            ['3', precoCliente / -2.0713, 'red'],
-            ['4', precoCliente / -4.1070, 'red'],
-            ['5', precoCliente / 27.4617, 'green'],
-            ['6', precoCliente / 2.7628, 'green'],
-            ['7', precoCliente / 1.3537, 'green'],
-            ['8', precoCliente / 0.8526, 'green'],
-            ['9', precoCliente / 0.5983, 'green'],
-            ['10', precoCliente / 0.4461, 'green'],
-            ['11', precoCliente / 0.3457, 'green'],
-            ['12', precoCliente / 0.2752, 'green'],
-            ['13', precoCliente / 0.2235, 'green'],
-            ['14', precoCliente / 0.1843, 'green'],
-            ['15', precoCliente / 0.1537, 'green'],
-            ['16', precoCliente / 0.1295, 'green'],
-            ['17', precoCliente / 0.1100, 'green'],
-            ['18', precoCliente / 0.0940, 'green'],
-            ['19', precoCliente / 0.0809, 'green'],
-            ['20', precoCliente / 0.0699, 'green'],
-            ['21', precoCliente / 0.0606, 'green'],
-            ['22', precoCliente / 0.0528, 'green'],
-            ['23', precoCliente / 0.0461, 'green'],
-            ['24', precoCliente / 0.0404, 'green'],
-            ['25', precoCliente / 0.0355, 'green']
-        ]);
+        var linhas = [['Ano', 'Saldo Acumulado', { role: 'style' }]];
+        fluxoCaixa.forEach(function (item) {
+            linhas.push([String(item.ano), item.acumulado, item.cor]);
+        });
+
+        var payback = google.visualization.arrayToDataTable(linhas);
+
+        var valores = fluxoCaixa.map(function (item) { return item.acumulado; });
+        var maxValor = Math.max.apply(null, valores);
+        var minValor = Math.min.apply(null, valores);
 
         const options_payback = {
             height: 400,
@@ -70,8 +64,8 @@
             vAxis: {
                 format: 'currency',
                 viewWindow: {
-                    max: precoCliente / 0.0355,
-                    min: precoCliente / -1.1666
+                    max: maxValor,
+                    min: minValor
                 },
                 titleTextStyle: {
                     fontSize: 18,

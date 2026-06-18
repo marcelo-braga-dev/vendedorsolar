@@ -3,6 +3,7 @@
 namespace App\src\Orcamentos\Status;
 
 use App\Models\Orcamentos;
+use App\Models\OrcamentosHistoricos;
 
 class Assinado implements Status
 {
@@ -26,5 +27,6 @@ class Assinado implements Status
     public function alterarStatus($id)
     {
         (new Orcamentos())->alterarStatus($id, $this);
+        (new OrcamentosHistoricos())->criar($id, $this->status);
     }
 }

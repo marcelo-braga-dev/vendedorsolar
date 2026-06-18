@@ -390,7 +390,10 @@
                         <i class="fas fa-chart-line"></i>
                         <h4 class="mb-0">Payback</h4>
                     </div>
-                    <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}"/>
+                    <x-graficos.payback-fotovoltaico preco-cliente="{{ $orcamento->preco_cliente }}"
+                                                     geracao="{{ $orcamento->geracao }}"
+                                                     cidade="{{ $orcamento->cidade }}"
+                                                     data-orcamento="{{ $orcamento->created_at }}"/>
                 </div>
             </div>
         </div>

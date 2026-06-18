@@ -19,6 +19,8 @@ class Demanda extends Dimensionamento
     private $qtdKits;
     private $incluirTrafo;
     private $estado;
+    private $perdaOrientacao;
+    private $performanceRatio;
 
     public function __construct(DadosDimensionamento $dados)
     {
@@ -32,11 +34,14 @@ class Demanda extends Dimensionamento
         $this->tarifas = $dados->getTarifas();
         $this->incluirTrafo = $dados->getIncluirTrafo();
         $this->estado = $dados->getEstado();
+        $this->perdaOrientacao = $dados->getPerdaOrientacao();
+        $this->performanceRatio = $dados->getPerformanceRatio();
     }
 
     public function calcularGeracao(float $potenciaKit): float
     {
-        return $this->irradiacao * 30 / (1 + $this->correcao / 100) * $potenciaKit;
+        return $this->irradiacao * 30 / (1 + $this->correcao / 100)
+            * (1 - $this->perdaOrientacao / 100) * $potenciaKit;
     }
 
     public function selecionarKits(): array
@@ -51,10 +56,13 @@ class Demanda extends Dimensionamento
     protected function calcularPotencia(): void
     {
         $fc = $this->tarifas->ponta / $this->tarifas->fora_ponta;
-        $mediaConsumo = $this->consumoForaPonta + ($fc * $this->consumoPonta);//
+        $mediaConsumo = $this->consumoForaPonta + ($fc * $this->consumoPonta);
 
-        $resultado =
-            ($mediaConsumo / 30) / ($this->irradiacao * (1 - 0.15));
+        $irradiacaoEfetiva = $this->irradiacao
+            * $this->performanceRatio
+            * (1 - $this->perdaOrientacao / 100);
+
+        $resultado = ($mediaConsumo / 30) / $irradiacaoEfetiva;
         $resultado = $resultado * (1 + $this->correcao / 100);
 
         $this->potencia = round($resultado, 3);

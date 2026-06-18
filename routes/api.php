@@ -19,7 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Visualizar PDF Orcamento
-Route::get('orcamento/{token}', [App\Http\Controllers\Api\OrcamentoApiController::class, 'show'])
+Route::middleware('throttle:orcamento-publico')
+    ->get('orcamento/{token}', [App\Http\Controllers\Api\OrcamentoApiController::class, 'show'])
     ->name('api.orcamento.show');
 
 Route::get('endereco/id', [App\Http\Controllers\Api\EnderecoController::class, 'getIdCidadeEstado'])
