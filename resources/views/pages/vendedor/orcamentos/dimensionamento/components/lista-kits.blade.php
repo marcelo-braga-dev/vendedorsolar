@@ -38,17 +38,6 @@
                                 @if(!empty($kit['modelo_trafo']))
                                     <span class="chip"><i class="bi bi-tools me-1"></i> {{ $kit['modelo_trafo'] }}</span>
                                 @endif
-                                @if(!empty($kit['atualizado_em']))
-                                    @if(!empty($kit['atualizado_em_alerta']))
-                                        <span class="chip" style="background:#f8d7da;color:#842029;" title="Valores deste kit desatualizados há mais dias do que o limite configurado em Sistema">
-                                            <i class="bi bi-exclamation-triangle-fill me-1"></i> Última atualização: {{ $kit['atualizado_em'] }}
-                                        </span>
-                                    @else
-                                        <span class="chip" style="background:#d1f5dd;color:#0f6b32;" title="Data da última atualização dos valores deste kit">
-                                            <i class="bi bi-clock-history me-1"></i> Última atualização: {{ $kit['atualizado_em'] }}
-                                        </span>
-                                    @endif
-                                @endif
                             </div>
 
                             {{-- título --}}
@@ -112,6 +101,20 @@
                                     <i class="bi bi-check2-circle"></i> Escolher esse kit
                                 </button>
                             </form>
+
+                            @if(!empty($kit['atualizado_em']))
+                                <div class="w-100 text-end mt-2">
+                                    @if(!empty($kit['atualizado_em_alerta']))
+                                        <span class="chip" style="background:#f8d7da;color:#842029;" title="Valores deste kit desatualizados há mais dias do que o limite configurado em Sistema">
+                                            <i class="bi bi-exclamation-triangle-fill me-1"></i> Última atualização: {{ $kit['atualizado_em'] }}
+                                        </span>
+                                    @else
+                                        <span class="chip" style="background:#d1f5dd;color:#0f6b32;" title="Data da última atualização dos valores deste kit">
+                                            <i class="bi bi-clock-history me-1"></i> Última atualização: {{ $kit['atualizado_em'] }}
+                                        </span>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
 
                     </div>
