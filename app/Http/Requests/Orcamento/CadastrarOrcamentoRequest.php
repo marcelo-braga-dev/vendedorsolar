@@ -24,14 +24,15 @@ class CadastrarOrcamentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_kit' => 'required',
+            'id_kit' => 'required|integer|exists:kits,id',
             'cliente' => 'required',
-            'cidade' => 'required',
+            'cidade' => 'required|integer|exists:cidades_estados,id',
             'estrutura' => 'required',
             'tensao' => 'required',
             'orientacao' => 'required',
             'consumo' => 'required',
-            'qtd_kits' => 'required|integer|min:1'
+            'qtd_kits' => 'required|integer|min:1',
+            'trafo' => 'nullable|integer|exists:trafos,id'
         ];
     }
 }

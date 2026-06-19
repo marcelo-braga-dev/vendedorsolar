@@ -42,7 +42,7 @@ class CadastrarOrcamento
         $this->trafo = $dados->trafo;
         $this->qtdKits = $dados->qtdKits;
         $this->taxa_comissao = $this->setTaxaComissao();
-        $this->preco_cliente = $dados->preco;//setPrecoKit($dados->id_kit);
+        $this->preco_cliente = $dados->preco;
         $this->status = (new Novo())->getStatus();
         $this->consumoPonta = $dados->consumoPonta;
         $this->consumoForaPonta = $dados->consumoForaPonta;

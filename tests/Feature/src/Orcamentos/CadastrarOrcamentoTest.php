@@ -19,7 +19,7 @@ class CadastrarOrcamentoTest extends TestCase
         Auth::loginUsingId(3);
 
         $request = new CadastrarOrcamentoRequest();
-        $request->id_kit = '832';
+        $request->id_kit = '32277';
         $request->cidade = '1';
         $request->estrutura = '1';
         $request->tensao = '380';
