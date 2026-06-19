@@ -1,5 +1,5 @@
 <div class="body">
-    <div style="text-align: center;margin-bottom:60px">
+    <div style="text-align: center;margin-bottom:40px">
         <br>
         _____/_____/_________ <br>
         <span style="font-size:13px">

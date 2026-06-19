@@ -22,7 +22,7 @@
         border: 0px solid orange;
     }
 </style>
-<br><br>
+
 <div class="body">
     <table>
         <tbody>
@@ -72,7 +72,7 @@
         </tr>
         </tbody>
     </table>
-    <br>&nbsp;<br>&nbsp;<br>
+    <br>
     <div style="text-align: center; color: black;">
         <h4>
             <b>SOLMAR ENERGIA SOLAR LTDA</b><br>
