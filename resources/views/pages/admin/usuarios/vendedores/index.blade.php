@@ -107,6 +107,26 @@
                 color: #8891a0;
             }
 
+            .vendedor-meta {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: .5rem;
+                margin-top: .35rem;
+            }
+
+            .vendedor-celular {
+                font-size: .8rem;
+                color: #495057;
+                display: inline-flex;
+                align-items: center;
+                gap: .35rem;
+            }
+
+            .vendedor-celular i {
+                color: #8891a0;
+            }
+
             .badge-active {
                 background: rgba(25, 135, 84, .1);
                 color: #198754;
@@ -241,10 +261,8 @@
                 <tr>
                     <th class="text-center" style="width:46px"></th>
                     <th class="text-start">Vendedor</th>
-                    <th>Celular</th>
                     <th class="text-center">Comissão</th>
                     <th class="text-center">Clientes</th>
-                    <th class="text-center">Status</th>
                     <th class="text-center">Cadastro</th>
                     <th class="col-actions"></th>
                 </tr>
@@ -268,14 +286,22 @@
                         <td style="white-space: normal">
                             <div class="vendedor-nome">{{ $usuario->name }}</div>
                             <div class="vendedor-email">{{ $usuario->email }}</div>
-                        </td>
-
-                        <td>
-                            @if(!empty($celulares[$usuario->id]))
-                                {{ $celulares[$usuario->id] }}
-                            @else
-                                <span class="text-muted-soft">-</span>
-                            @endif
+                            <div class="vendedor-meta">
+                                @if(!empty($celulares[$usuario->id]))
+                                    <span class="vendedor-celular">
+                                        <i class="fas fa-mobile-alt"></i> {{ $celulares[$usuario->id] }}
+                                    </span>
+                                @endif
+                                @if ($usuario->status)
+                                    <span class="badge badge-pill badge-active">
+                                        <i class="fas fa-check-circle me-1"></i> Ativo
+                                    </span>
+                                @else
+                                    <span class="badge badge-pill badge-inactive">
+                                        <i class="fas fa-times-circle me-1"></i> Inativo
+                                    </span>
+                                @endif
+                            </div>
                         </td>
 
                         <td class="text-center">
@@ -291,18 +317,6 @@
                                class="badge badge-pill badge-clientes text-decoration-none">
                                 {{ $totalClientes }}
                             </a>
-                        </td>
-
-                        <td class="text-center">
-                            @if ($usuario->status)
-                                <span class="badge badge-pill badge-active">
-                                    <i class="fas fa-check-circle me-1"></i> Ativo
-                                </span>
-                            @else
-                                <span class="badge badge-pill badge-inactive">
-                                    <i class="fas fa-times-circle me-1"></i> Inativo
-                                </span>
-                            @endif
                         </td>
 
                         <td class="text-center">
@@ -333,7 +347,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-center text-muted py-4">
+                        <td colspan="6" class="text-center text-muted py-4">
                             <i class="fas fa-info-circle"></i> Nenhum vendedor encontrado.
                         </td>
                     </tr>
