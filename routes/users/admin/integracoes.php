@@ -15,5 +15,9 @@ Route::name('admin.integracoes.')
             ->group(function () {
                 Route::get('page', [EldeltecController::class, 'index'])->name('index');
                 Route::get('integrar', [EldeltecController::class, 'integrar'])->name('integrar');
+                Route::get('detalhes/{id}/{tipo}', [EldeltecController::class, 'detalhes'])
+                    ->name('detalhes')
+                    ->where('id', '[0-9]+')
+                    ->where('tipo', 'importados|desativados');
             });
     });

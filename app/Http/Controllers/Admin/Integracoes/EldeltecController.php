@@ -46,11 +46,13 @@ class EldeltecController extends Controller
             ksort($distribuicaoPotencia);
 
             // Distribuição por marca inversor
+            // kits.marca_inversor referencia produtos.id (não produtos_marcas,
+            // que fica vazia — ver Kits::marcaInversorRel()).
             $marcasInv = DB::table('kits')
-                ->leftJoin('produtos_marcas', 'produtos_marcas.id', '=', 'kits.marca_inversor')
-                ->selectRaw('COALESCE(produtos_marcas.nome, "Desconhecida") as nome, COUNT(*) as total')
+                ->leftJoin('produtos', 'produtos.id', '=', 'kits.marca_inversor')
+                ->selectRaw('COALESCE(produtos.nome, "Desconhecida") as nome, COUNT(*) as total')
                 ->where('kits.fornecedor', $idFornecedor)->where('kits.status', 1)
-                ->groupBy('produtos_marcas.nome')->orderByDesc('total')->limit(8)->get();
+                ->groupBy('produtos.nome')->orderByDesc('total')->limit(8)->get();
 
             foreach ($marcasInv as $r) {
                 $distribuicaoMarcaInversor[$r->nome] = (int) $r->total;
@@ -58,10 +60,10 @@ class EldeltecController extends Controller
 
             // Distribuição por marca painel
             $marcasPnl = DB::table('kits')
-                ->leftJoin('produtos_marcas', 'produtos_marcas.id', '=', 'kits.marca_painel')
-                ->selectRaw('COALESCE(produtos_marcas.nome, "Desconhecida") as nome, COUNT(*) as total')
+                ->leftJoin('produtos', 'produtos.id', '=', 'kits.marca_painel')
+                ->selectRaw('COALESCE(produtos.nome, "Desconhecida") as nome, COUNT(*) as total')
                 ->where('kits.fornecedor', $idFornecedor)->where('kits.status', 1)
-                ->groupBy('produtos_marcas.nome')->orderByDesc('total')->limit(8)->get();
+                ->groupBy('produtos.nome')->orderByDesc('total')->limit(8)->get();
 
             foreach ($marcasPnl as $r) {
                 $distribuicaoMarcaPainel[$r->nome] = (int) $r->total;
@@ -80,14 +82,24 @@ class EldeltecController extends Controller
         }
 
         // ── Histórico paginado ────────────────────────────────────────────
+        // produtos_importados/produtos_desativados ficam de fora do SELECT:
+        // cada coluna pode ter >1MB de SKUs, e decodificá-las para as 20
+        // linhas da página de uma vez estourava o memory_limit do PHP-FPM.
+        // A lista completa só é carregada sob demanda via self::detalhes().
+        $colunasHistorico = ['id', 'status', 'data_inicio', 'data_fim', 'qtd_importados', 'qtd_desativados', 'anotacoes', 'updated_at'];
+
         $historicos = IntegracaoEdeltecHistorico::query()
+            ->select($colunasHistorico)
             ->orderByDesc('id')
             ->paginate(20);
 
         $historicos->getCollection()->transform(fn($h) => $this->formatarHistorico($h));
 
         // ── Última sincronização ──────────────────────────────────────────
-        $ultimaSync = IntegracaoEdeltecHistorico::query()->orderByDesc('id')->first();
+        $ultimaSync = IntegracaoEdeltecHistorico::query()
+            ->select($colunasHistorico)
+            ->orderByDesc('id')
+            ->first();
         if ($ultimaSync) {
             $ultimaSync = $this->formatarHistorico($ultimaSync);
         }
@@ -108,6 +120,7 @@ class EldeltecController extends Controller
 
         // ── Gráfico histórico (últimas 20 execuções) ──────────────────────
         $graficoHistorico = IntegracaoEdeltecHistorico::query()
+            ->select(['id', 'status', 'data_inicio', 'qtd_importados', 'qtd_desativados'])
             ->orderByDesc('id')
             ->limit(20)
             ->get()
@@ -122,6 +135,7 @@ class EldeltecController extends Controller
 
         // ── Logs de erros / anotações ─────────────────────────────────────
         $logsErros = IntegracaoEdeltecHistorico::query()
+            ->select(['id', 'status', 'data_inicio', 'anotacoes'])
             ->whereNotNull('anotacoes')
             ->where('anotacoes', '!=', '')
             ->orderByDesc('id')
@@ -144,8 +158,8 @@ class EldeltecController extends Controller
         $filtroStatus  = $request->input('st', 'ativos');
 
         $produtosQuery = DB::table('kits')
-            ->leftJoin('produtos_marcas as pm_inv', 'pm_inv.id', '=', 'kits.marca_inversor')
-            ->leftJoin('produtos_marcas as pm_pnl', 'pm_pnl.id', '=', 'kits.marca_painel')
+            ->leftJoin('produtos as pm_inv', 'pm_inv.id', '=', 'kits.marca_inversor')
+            ->leftJoin('produtos as pm_pnl', 'pm_pnl.id', '=', 'kits.marca_painel')
             ->leftJoin('estruturas', 'estruturas.id', '=', 'kits.estrutura')
             ->select([
                 'kits.id', 'kits.sku', 'kits.modelo', 'kits.potencia_kit',
@@ -207,22 +221,32 @@ class EldeltecController extends Controller
         return redirect()->route('admin.integracoes.eldeltec.index');
     }
 
+    /**
+     * Retorna a lista de SKUs (importados/desativados) de UMA execução,
+     * sob demanda. As colunas produtos_importados/produtos_desativados podem
+     * conter dezenas de milhares de SKUs (>1MB de JSON cada) — decodificá-las
+     * para as 20 linhas da listagem paginada de uma vez estourava o
+     * memory_limit do PHP-FPM, então elas só são lidas aqui, uma linha por vez.
+     */
+    public function detalhes(int $id, string $tipo)
+    {
+        $coluna = $tipo === 'importados' ? 'produtos_importados' : 'produtos_desativados';
+
+        $historico = IntegracaoEdeltecHistorico::query()
+            ->select(['id', $coluna])
+            ->findOrFail($id);
+
+        return response()->json([
+            'items' => $historico->{$coluna} ?? [],
+        ]);
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────
 
     private function formatarHistorico($h)
     {
-        $importados = is_array($h->produtos_importados)
-            ? $h->produtos_importados
-            : (array) json_decode($h->produtos_importados ?? '[]', true);
-
-        $desativados = is_array($h->produtos_desativados)
-            ? $h->produtos_desativados
-            : (array) json_decode($h->produtos_desativados ?? '[]', true);
-
-        $h->importados      = $importados;
-        $h->desativados     = $desativados;
-        $h->qtd_importados  = $h->qtd_importados ?? count($importados);
-        $h->qtd_desativados = $h->qtd_desativados ?? count($desativados);
+        $h->qtd_importados  = $h->qtd_importados ?? 0;
+        $h->qtd_desativados = $h->qtd_desativados ?? 0;
         $h->data_inicio_fmt = optional($h->data_inicio)->format('d/m/Y H:i:s');
         $h->data_fim_fmt    = optional($h->data_fim ?? $h->updated_at)->format('d/m/Y H:i:s');
 

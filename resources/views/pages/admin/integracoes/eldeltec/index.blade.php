@@ -482,17 +482,17 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex gap-1 justify-content-center">
-                                            @if(count($h->importados) > 0)
+                                            @if($h->qtd_importados > 0)
                                                 <button class="btn-icon btn btn-sm" data-view-list
                                                         data-title="SKUs Importados — Execução #{{ $h->id }}"
-                                                        data-items="{{ e(json_encode($h->importados)) }}">
+                                                        data-url="{{ route('admin.integracoes.eldeltec.detalhes', ['id' => $h->id, 'tipo' => 'importados']) }}">
                                                     <i class="bi bi-box-seam"></i>
                                                 </button>
                                             @endif
-                                            @if(count($h->desativados) > 0)
+                                            @if($h->qtd_desativados > 0)
                                                 <button class="btn-icon btn btn-sm" data-view-list
                                                         data-title="SKUs Desativados — Execução #{{ $h->id }}"
-                                                        data-items="{{ e(json_encode($h->desativados)) }}"
+                                                        data-url="{{ route('admin.integracoes.eldeltec.detalhes', ['id' => $h->id, 'tipo' => 'desativados']) }}"
                                                         data-variant="danger">
                                                     <i class="bi bi-x-circle text-danger"></i>
                                                 </button>
@@ -671,22 +671,34 @@
 
             $(document).on('click','[data-view-list]', function(){
                 const title = this.getAttribute('data-title') || 'Itens';
-                const raw   = this.getAttribute('data-items') || '[]';
-                let items   = [];
-                try { items = JSON.parse(raw); } catch(e){ items = []; }
-                _copyText   = items.join('\n');
-
+                const url   = this.getAttribute('data-url');
                 const isDanger = this.dataset.variant === 'danger';
-                const html = items.length
-                    ? `<div class="mb-2 text-muted" style="font-size:.82rem">${items.length} item(s)</div>
-                       <div style="column-count:2;column-gap:1rem">` +
-                      items.map(x => `<div style="font-family:monospace;font-size:.8rem;margin-bottom:.2rem;${isDanger ? 'color:#dc2626' : ''}">${String(x)}</div>`).join('') +
-                      '</div>'
-                    : '<div class="text-muted">Nada a exibir.</div>';
 
+                _copyText = '';
                 $title.text(title);
-                $body.html(html);
+                $body.html('<div class="text-muted">Carregando…</div>');
                 $modal.modal('show');
+
+                if (!url) return;
+
+                fetch(url, { headers: { 'Accept': 'application/json' } })
+                    .then(r => r.json())
+                    .then(data => {
+                        const items = Array.isArray(data.items) ? data.items : [];
+                        _copyText   = items.join('\n');
+
+                        const html = items.length
+                            ? `<div class="mb-2 text-muted" style="font-size:.82rem">${items.length} item(s)</div>
+                               <div style="column-count:2;column-gap:1rem">` +
+                              items.map(x => `<div style="font-family:monospace;font-size:.8rem;margin-bottom:.2rem;${isDanger ? 'color:#dc2626' : ''}">${String(x)}</div>`).join('') +
+                              '</div>'
+                            : '<div class="text-muted">Nada a exibir.</div>';
+
+                        $body.html(html);
+                    })
+                    .catch(() => {
+                        $body.html('<div class="text-danger">Erro ao carregar os itens.</div>');
+                    });
             });
 
             $(document).on('click','[data-view-notes]', function(){

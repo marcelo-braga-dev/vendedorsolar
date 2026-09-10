@@ -158,6 +158,7 @@ class EdeltecIntegracao
         // um whereIn com lista potencialmente enorme na query de atualização
         $queryDesativar = fn () => Kits::query()
             ->where('fornecedor', $idFornecedor)
+            ->where('status', 1)
             ->when(!empty($skusImportados), fn ($q) => $q->whereNotIn('sku', $skusImportados));
 
         $skuDesativar = $queryDesativar()->pluck('sku')->toArray();
