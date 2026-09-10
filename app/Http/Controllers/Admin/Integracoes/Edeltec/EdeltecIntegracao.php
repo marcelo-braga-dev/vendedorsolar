@@ -144,6 +144,14 @@ class EdeltecIntegracao
         $this->historico->anotacoes           = $this->truncarNotas($notas);
         $this->historico->save();
 
+        // Nenhum produto processado com sucesso: provavelmente falha na API/parsing
+        // (não confiabilidade do feed), não o catálogo real esvaziando. Interrompe
+        // aqui para não interpretar "0 importados" como "desative tudo".
+        if (empty($skusImportados)) {
+            $this->fail('Nenhum produto importado com sucesso nesta execução; desativação foi ignorada por segurança.');
+            return;
+        }
+
         // ── Desativa produtos ausentes na importação ──────────────────────────
         $idFornecedor = Fornecedores::query()
             ->where('nome', 'EDELTEC')
@@ -154,18 +162,24 @@ class EdeltecIntegracao
             return;
         }
 
+        // Só mexe em status_fornecedor (disponibilidade automática pelo feed).
+        // 'status' (visibilidade do kit no site) é controle manual do admin e é
+        // deliberadamente preservado pelo Kits::bulkUpsert() nos reimports — se
+        // esta rotina também zerasse 'status', o campo nunca voltaria a 1 quando
+        // o SKU reaparecesse num import futuro (era exatamente esse o bug que
+        // zerou os ~124 mil kits da Edeltec ao longo de várias execuções).
+        //
         // Reutiliza a mesma condição para pluck e update, evitando
         // um whereIn com lista potencialmente enorme na query de atualização
         $queryDesativar = fn () => Kits::query()
             ->where('fornecedor', $idFornecedor)
-            ->where('status', 1)
-            ->when(!empty($skusImportados), fn ($q) => $q->whereNotIn('sku', $skusImportados));
+            ->where('status_fornecedor', 1)
+            ->whereNotIn('sku', $skusImportados);
 
         $skuDesativar = $queryDesativar()->pluck('sku')->toArray();
 
         if (!empty($skuDesativar)) {
             $queryDesativar()->update([
-                'status'            => 0,
                 'status_fornecedor' => 0,
             ]);
         }

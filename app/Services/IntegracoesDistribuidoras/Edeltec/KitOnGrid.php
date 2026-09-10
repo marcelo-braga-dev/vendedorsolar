@@ -21,8 +21,8 @@ class KitOnGrid extends Kit
         $this->sku($produto['codProd']);
         $this->modelo($produto['titulo']);
         $this->potenciaKit($produto['potenciaGerador']);
-        $this->marcaInversor($produto['fabricante']);
-        $this->marcaPainel($produto['marca']);
+        $this->marcaInversor($produto['fabricante'] ?? null);
+        $this->marcaPainel($produto['marca'] ?? null);
         $this->potenciaInversor($produto['potenciaInversor']);
         $this->potenciaPainel($produto['potenciaModulo']);
         $this->precoFornecedor($produto['precoDoIntegrador']);
@@ -51,13 +51,19 @@ class KitOnGrid extends Kit
         $this->setPotenciaKit($dado);
     }
 
-    public function marcaInversor(string $dado)
+    public function marcaInversor(?string $dado)
     {
+        if (empty($dado)) {
+            throw new \DomainException('Marca do inversor não informada pela Edeltec.');
+        }
         $this->setMarcaInversor($this->resolverIndice($dado, 'inversor'));
     }
 
-    public function marcaPainel(string $dado)
+    public function marcaPainel(?string $dado)
     {
+        if (empty($dado)) {
+            throw new \DomainException('Marca do painel não informada pela Edeltec.');
+        }
         $this->setMarcaPainel($this->resolverIndice($dado, 'painel'));
     }
 
