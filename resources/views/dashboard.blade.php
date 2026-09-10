@@ -2,8 +2,10 @@
     @push('css')
         <style>
             :root{
-                --brand:#e25507; --brand-600:#cc4c06;
-                --ink:#0f172a; --muted:#64748b; --line:#e5e7eb; --soft:#f8fafc;
+                --ink:#0f172a;
+                --muted:#64748b;
+                --line:#e5e7eb;
+                --soft:#f8fafc;
             }
             .section-title{font-weight:800;color:var(--ink);font-size:1.05rem}
             .card-soft{border:1px solid #eef2f6;border-radius:16px;background:#fff}

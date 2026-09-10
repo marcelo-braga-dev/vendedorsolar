@@ -2,12 +2,12 @@
     @push('css')
         <style>
             :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
+                --ink:#111827;
+                --muted:#6b7280;
+                --line:#e5e7eb;
                 --shadow:0 10px 30px rgba(17,24,39,.08);
             }
 
-            .card-soft{border:1px solid #eef2f6;border-radius:16px;box-shadow:0 8px 26px rgba(0,0,0,.04);background:#fff;}
             .section-title{font-weight:800;font-size:1.05rem;color:var(--ink);}
             .subtle{color:var(--muted);}
 
@@ -23,7 +23,7 @@
             .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
             .kv{display:flex;gap:.5rem;flex-wrap:wrap;}
             .kv b{color:var(--ink);}
-            .divider{border-top:1px dashed #e9ecef;margin:1rem 0;}
+            
         </style>
     @endpush
 
@@ -53,7 +53,6 @@
                     @endif
                 </div>
             </div>
-
 
         </div>
     </x-layout.container>

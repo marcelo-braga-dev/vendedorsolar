@@ -13,27 +13,31 @@
     {{-- Fonts --}}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
-    {{-- Icons --}}
-    {{--    <link href="{{ asset('argon') }}/vendor/nucleo/css/nucleo.css" rel="stylesheet">--}}
-    <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-    {{-- Argon CSS --}}
+    {{-- Argon CSS (framework base — Bootstrap 4 compilado) --}}
     <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
     <link href="{{ asset('assets') }}/select2/css/select2.min.css" rel="stylesheet">
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
-    {{-- Font Awesome --}}
+    {{-- Ícones — uma única fonte por conjunto (evita duas versões da mesma
+         biblioteca brigando pela mesma classe, com a mais nova perdendo por
+         ordem de carregamento):
+         · Bootstrap Icons: local v1.11.3 (mais completo que o CDN v1.8.1)
+         · Font Awesome: CDN v6.5.2 (a versão que já prevalecia antes)
+         · Tabler Icons: CDN (conjunto próprio, sem duplicidade) --}}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.css') }}?v={{ @filemtime(public_path('css/bootstrap-icons.css')) }}">
     <link
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         rel="stylesheet"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
-
-    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
+    {{-- ?v=filemtime: cache-busting automático — o Cloudflare (e o
+         navegador) cacheiam CSS estático por 12h; sem isso, uma
+         edição neste arquivo só apareceria pros usuários horas
+         depois, mesmo já publicada no servidor. --}}
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}?v={{ @filemtime(public_path('css/theme.css')) }}">
     @stack('css')
 </head>
 
@@ -67,6 +71,12 @@
 <script src="{{ asset('assets/mask/data-mask.js') }}"></script>
 <script src="{{ asset('argon/js/argon.js?v=1.0.0') }}"></script>
 <script src="{{ asset('assets/sweetalert2/script.js') }}"></script>
+{{-- Bootstrap 5 (além do bundle 4 do Argon acima): telas mais novas usam
+     data-bs-toggle (tooltip/tab/pill) e a API bootstrap.* diretamente, que
+     só esse bundle entende. Não é redundância acidental — o resto do app
+     ainda depende do bundle 4 do Argon para os data-toggle (collapse/modal/
+     dropdown) do menu lateral e telas antigas. Migrar tudo para um só
+     exige revisar cada data-toggle do projeto; fora do escopo desta limpeza. --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
 <script>

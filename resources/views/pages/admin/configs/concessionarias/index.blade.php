@@ -1,16 +1,8 @@
 <x-layout menu="configs" submenu="concessionarias">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
             /* Tabela */
-            .table thead th{
-                font-weight:700; font-size:.9rem; color:#4a5568;
-                background:#fafafa; border-bottom:2px solid #e9ecef;
-                white-space:nowrap;
-            }
+            
             .table td, .table th{ vertical-align: middle; }
             .table tbody tr{ transition: background .15s ease; }
             .table tbody tr:hover{ background:#fff8f5; }

@@ -1,12 +1,7 @@
 <x-layout menu="orcamentos" submenu="servicos">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
-            /* Card / tabela */
-            .card-soft{ border:1px solid #eef2f6; border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.04); }
+            /* Tabela */
             .table thead th{ border-bottom:1px solid #eef2f6; font-weight:700; color:#4a5568; white-space:nowrap; }
             .table tbody tr{ transition: background .15s ease; }
             .table tbody tr:hover{ background:#fcfcfd; }
@@ -15,22 +10,30 @@
             /* Valor em destaque */
             .price{ font-weight:800; letter-spacing:.2px; }
 
-            /* Botão ação (opção B: Bootstrap Icons) */
-            .btn-ghost{
-                display:inline-flex; align-items:center; gap:.45rem;
-                border:1px solid var(--brand); color:var(--brand); background:#fff;
-                border-radius:10px; padding:.35rem .65rem; font-weight:800;
-            }
-            .btn-ghost:hover{ color:#fff; background:var(--brand); border-color:var(--brand); }
-
             /* Título truncado com tooltip */
             .title-cell{ max-width: 380px; }
             @media (max-width: 991.98px){ .title-cell{ max-width: 260px; } }
             @media (max-width: 575.98px){ .title-cell{ max-width: 160px; } }
+
+            .badge-soft{ border-radius:999px; padding:.3rem .6rem; font-weight:700; font-size:.72rem; border:1px solid transparent; white-space:nowrap; }
+            .badge-vencido{ background:rgba(220,53,69,.08); color:#dc3545; border-color:rgba(220,53,69,.22); }
+            .badge-no-prazo{ background:rgba(108,117,125,.08); color:#6c757d; border-color:rgba(108,117,125,.18); }
         </style>
     @endpush
 
     <x-body title="Propostas de Serviços" class="p-0">
+        <div class="px-3 pt-3 pb-1">
+            <form class="d-flex flex-wrap align-items-end gap-2">
+                <div class="flex-grow-1" style="min-width:220px">
+                    <x-inputs.input label="Buscar" name="busca" type="text" value="{{ $request->busca }}"
+                                    placeholder="Cliente, consultor ou título"></x-inputs.input>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Pesquisar</button>
+                <a href="{{ url()->current() }}" class="btn btn-outline-secondary">Limpar</a>
+                <small class="text-muted ms-auto">{{ $propostas->total() }} proposta(s)</small>
+            </form>
+        </div>
+
         <x-tables.data-table-clickable>
             <x-slot name="head">
                 <tr>
@@ -38,13 +41,18 @@
                     <th>Cliente</th>
                     <th>Consultor</th>
                     <th>Valor</th>
+                    <th>Prazo</th>
                     <th class="title-cell">Título</th>
                     <th class="text-end"></th>
                 </tr>
             </x-slot>
 
             <x-slot name="body">
-                @foreach($propostas as $item)
+                @forelse($propostas as $item)
+                    @php
+                        $prazoRaw = $item->getRawOriginal('prazo_final');
+                        $vencido  = $prazoRaw && \Carbon\Carbon::parse($prazoRaw)->isPast();
+                    @endphp
                     <tr>
                         <td><strong>#{{ $item->id }}</strong></td>
 
@@ -60,6 +68,16 @@
                             R$ {{ convert_float_money($item->valor) }}
                         </td>
 
+                        <td>
+                            @if($prazoRaw)
+                                <span class="badge-soft {{ $vencido ? 'badge-vencido' : 'badge-no-prazo' }}">
+                                    {{ $item->prazo_final }} @if($vencido) · vencido @endif
+                                </span>
+                            @else
+                                <span class="text-muted">-</span>
+                            @endif
+                        </td>
+
                         <td class="title-cell">
                             @php $titulo = $item->titulo ?? '-'; @endphp
                             <span class="text-truncate d-inline-block w-100" data-bs-toggle="tooltip" title="{{ $titulo }}">
@@ -73,10 +91,20 @@
                             </a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">
+                            <i class="bi bi-info-circle"></i> Nenhuma proposta encontrada.
+                        </td>
+                    </tr>
+                @endforelse
             </x-slot>
         </x-tables.data-table-clickable>
     </x-body>
+
+    <div class="d-flex justify-content-center my-3">
+        {{ $propostas->onEachSide(1)->links() }}
+    </div>
 
     @push('js')
         <script>

@@ -1,11 +1,6 @@
 <x-layout menu="margens" submenu="margem-vendedor">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
-
             /* ====== Form ====== */
             .form-panel{ background:#fff; border:1px solid #eef2f6; border-radius:16px; padding:1.25rem; box-shadow:0 8px 26px rgba(0,0,0,.04); }
             .hint{ font-size:.9rem; color:#6c757d; }

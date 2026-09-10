@@ -20,11 +20,23 @@ class ServicosRepository
         return $proposta->id;
     }
 
-    public function all()
+    public function all(?string $busca = null, int $perPage = 30)
     {
         return (new PropostaServico())
+            ->when($busca, function ($query) use ($busca) {
+                $query->where(function ($sub) use ($busca) {
+                    $sub->where('titulo', 'like', "%{$busca}%")
+                        ->orWhereHas('cliente', function ($c) use ($busca) {
+                            $c->where('nome', 'like', "%{$busca}%")
+                                ->orWhere('razao_social', 'like', "%{$busca}%");
+                        })
+                        ->orWhereHas('vendedor', function ($v) use ($busca) {
+                            $v->where('name', 'like', "%{$busca}%");
+                        });
+                });
+            })
             ->orderBy('id', 'desc')
-            ->get();
+            ->paginate($perPage);
     }
 
     public function allVendedor()

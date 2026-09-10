@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Usuarios;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clientes;
+use App\Models\TaxaComissoes;
 use App\Models\User;
 use App\Models\UserMeta;
 use App\src\Usuarios\Vendedores;
@@ -19,11 +21,44 @@ class VendedoresController extends Controller
         $this->vendedor = new Vendedores();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = (new User())->vendedores();
+        $where = [['tipo', '=', $this->tipo]];
+        if ($request->filled('nome')) {
+            $where[] = ['name', 'like', '%'.$request->nome.'%'];
+        }
+        if ($request->filled('email')) {
+            $where[] = ['email', 'like', '%'.$request->email.'%'];
+        }
+        if ($request->status !== null && $request->status !== '') {
+            $where[] = ['status', '=', $request->status];
+        }
 
-        return view('pages.admin.usuarios.vendedores.index', compact('usuarios'));
+        $usuarios = (new User())->newQuery()
+            ->where($where)
+            ->orderBy('id', 'DESC')
+            ->paginate(20)
+            ->withQueryString();
+
+        $ids = $usuarios->pluck('id');
+
+        $celulares = UserMeta::query()
+            ->whereIn('users_id', $ids)
+            ->where('meta', 'celular')
+            ->pluck('value', 'users_id');
+
+        $comissoes = TaxaComissoes::query()
+            ->whereIn('user_id', $ids)
+            ->pluck('taxa', 'user_id');
+
+        $clientesCount = Clientes::query()
+            ->whereIn('users_id', $ids)
+            ->selectRaw('users_id, count(*) as total')
+            ->groupBy('users_id')
+            ->pluck('total', 'users_id');
+
+        return view('pages.admin.usuarios.vendedores.index',
+            compact('usuarios', 'request', 'celulares', 'comissoes', 'clientesCount'));
     }
 
     public function create()

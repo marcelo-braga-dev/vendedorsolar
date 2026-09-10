@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class ServicosController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $propostas = (new ServicosRepository)->all();
+        $busca = trim($request->string('busca')->toString());
 
-        return view('pages.admin.orcamentos.servicos.index', compact('propostas'));
+        $propostas = (new ServicosRepository)->all($busca ?: null)->appends($request->query());
+
+        return view('pages.admin.orcamentos.servicos.index', compact('propostas', 'request'));
     }
 
     public function show($id)

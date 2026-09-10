@@ -1,10 +1,6 @@
 <x-layout menu="usuarios" submenu="admins">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
             /* ---------- Tabela moderna ---------- */
             .table-wrap{ border:1px solid #eef2f6; border-radius:16px; overflow:hidden; box-shadow:0 8px 26px rgba(0,0,0,.04); }
             .table-modern{ margin-bottom:0; }
@@ -16,9 +12,7 @@
             .table-modern tbody tr:hover{ background: #fafbfc; }
             .table-modern td, .table-modern th{ vertical-align: middle; }
             .table-modern .col-actions{ width: 80px; text-align: right; }
-            .badge-pill{
-                border-radius:999px; padding:.35rem .65rem; font-weight:600; font-size:.78rem;
-            }
+            
             .badge-active{
                 background: rgba(25,135,84,.1); color:#198754; border:1px solid rgba(25,135,84,.25);
             }

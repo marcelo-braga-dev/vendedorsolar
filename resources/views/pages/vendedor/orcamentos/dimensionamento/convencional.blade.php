@@ -2,8 +2,6 @@
     @push('css')
         <style>
             :root {
-                --brand: #e25507;
-                --brand-600: #cc4c06;
                 --ink: #111827;
                 --muted: #6b7280;
                 --line: #e5e7eb;
@@ -215,30 +213,9 @@
     @endpush
     @push('css')
         <style>
-            :root {
-                --brand: #e25507;
-                --brand-600: #cc4c06;
-                --brand-700: #b44405;
-                --brand-050: #fff4ed;
-                --brand-100: #ffe7da;
-                --brand-200: #ffd6c2;
-            }
-
-            .card-soft {
-                border: 1px solid #eef2f6;
-                border-radius: 16px;
-                box-shadow: 0 8px 26px rgba(0, 0, 0, .04);
-                background: #fff;
-            }
-
             .section-title {
                 font-weight: 800;
                 font-size: 1.05rem;
-            }
-
-            .divider {
-                border-top: 1px dashed #e9ecef;
-                margin: 1rem 0;
             }
 
             .btn-brand {

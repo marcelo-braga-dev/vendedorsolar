@@ -34,17 +34,39 @@ class OrcamentosController extends Controller
         $statusValue = $this->statusMap()[$statusKey] ?? null;
         $label       = $this->labelMap()[$statusKey]  ?? 'Todos Orçamentos Gerados';
 
+        $busca = trim($request->string('busca')->toString());
+
         $query = Orcamentos::query()
             ->when($statusValue, fn ($q) => $q->where('status', $statusValue))
+            ->when($busca !== '', function ($q) use ($busca) {
+                $clientesIds = Clientes::query()
+                    ->where('nome', 'like', "%{$busca}%")
+                    ->orWhere('razao_social', 'like', "%{$busca}%")
+                    ->pluck('id');
+                $vendedoresIds = User::query()->where('name', 'like', "%{$busca}%")->pluck('id');
+
+                $q->where(function ($sub) use ($busca, $clientesIds, $vendedoresIds) {
+                    $sub->whereIn('clientes_id', $clientesIds)
+                        ->orWhereIn('users_id', $vendedoresIds);
+
+                    if (is_numeric($busca)) {
+                        $sub->orWhere('id', (int) $busca);
+                    }
+                });
+            })
             ->orderByDesc('created_at');
 
         $orcamentos = $query->paginate(30)->appends($request->query());
 
-        // mapas id => nome
-        $cliente  = Clientes::query()->pluck('nome', 'id');     // ['id' => 'nome']
-        $vendedor = User::query()->pluck('name', 'id');         // ['id' => 'name']
+        // mapas id => nome/objeto (evita N+1 no getNomeCliente() por linha)
+        $vendedor    = User::query()->pluck('name', 'id');
+        $clientesMap = Clientes::query()
+            ->whereIn('id', $orcamentos->pluck('clientes_id')->filter()->unique())
+            ->get(['id', 'nome', 'razao_social'])
+            ->keyBy('id');
 
-        return view('pages.admin.orcamentos.index', compact('orcamentos', 'cliente', 'vendedor', 'label'));
+        return view('pages.admin.orcamentos.index',
+            compact('orcamentos', 'clientesMap', 'vendedor', 'label', 'request'));
     }
 
     /**

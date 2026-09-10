@@ -1,10 +1,6 @@
 <x-layout menu="kits_fv" submenu="cadastrar_kit_fv">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
             /* Card e seções */
             .card-soft{ border:1px solid #eef2f6; border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.04); }
             .section-title{
@@ -16,7 +12,6 @@
                 box-shadow:0 0 0 .18rem rgba(226,85,7,.18);
             }
             .section-subtle{ color:#6c757d; font-size:.925rem; }
-            .divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
 
             /* Barra de ações do form (cola no fim do card) */
             .form-actions{
@@ -25,10 +20,6 @@
                 border-top:1px solid #eef2f6; padding: .75rem 1rem; z-index: 5;
                 display:flex; justify-content:center;
             }
-            .btn-primary{
-                background:var(--brand); border-color:var(--brand);
-            }
-            .btn-primary:hover{ background:var(--brand-600); border-color:var(--brand-600); }
         </style>
     @endpush
 

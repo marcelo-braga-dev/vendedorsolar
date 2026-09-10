@@ -1,10 +1,6 @@
 <x-layout menu="orcamentos" submenu="todos_orcamentos">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
             /* Card/table polish */
             .card-soft{ border:1px solid #eef2f6; border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.04); }
             .table thead th{ border-bottom:1px solid #eef2f6; font-weight:700; color:#4a5568; }
@@ -31,14 +27,6 @@
             .chip.active{ border-color:var(--brand); color:var(--brand-700); background:var(--brand-100); }
             .chip .dot{ width:8px; height:8px; border-radius:999px; background:#adb5bd; }
             .chip.active .dot{ background:var(--brand); }
-
-            /* Botão olho */
-            .btn-ghost{
-                display:inline-flex; align-items:center; gap:.45rem;
-                border:1px solid var(--brand); color:var(--brand); background:#fff;
-                border-radius:10px; padding:.35rem .65rem; font-weight:800;
-            }
-            .btn-ghost:hover{ color:#fff; background:var(--brand); border-color:var(--brand); }
         </style>
     @endpush
 
@@ -48,16 +36,37 @@
             @php
                 $st = strtolower(request('status',''));
                 $urlBase = request()->url();
-                function chipUrl($base,$key){ return $key ? $base.'?status='.$key : $base; }
+                // fecha sobre $urlBase/$request; preserva a busca ativa ao trocar de status
+                $chipUrl = function (?string $key) use ($urlBase, $request) {
+                    $params = $key ? ['status' => $key] : [];
+                    if ($request->filled('busca')) {
+                        $params['busca'] = $request->busca;
+                    }
+                    return $params ? $urlBase.'?'.http_build_query($params) : $urlBase;
+                };
+                $statusOnlyUrl = $request->status ? $urlBase.'?status='.$request->status : $urlBase;
             @endphp
-            <div class="d-flex flex-wrap gap-3">
-                <a href="{{ chipUrl($urlBase, null) }}" class="me-2 mr-2 chip {{ $st==='' ? 'active':'' }}"><span class="dot"></span> Todos</a>
-                <a href="{{ chipUrl($urlBase, 'novos') }}" class="mr-2 chip {{ $st==='novos' ? 'active':'' }}"><span class="dot"></span> Novos</a>
-                <a href="{{ chipUrl($urlBase, 'assinados') }}" class="mr-2 chip {{ $st==='assinados' ? 'active':'' }}"><span class="dot"></span> Assinados</a>
-                <a href="{{ chipUrl($urlBase, 'aprovados') }}" class="mr-2 chip {{ $st==='aprovados' ? 'active':'' }}"><span class="dot"></span> Aprovados</a>
-                <a href="{{ chipUrl($urlBase, 'instalandos') }}" class="mr-2 chip {{ $st==='instalandos' || $st==='instalando' ? 'active':'' }}"><span class="dot"></span> Instalando</a>
-                <a href="{{ chipUrl($urlBase, 'finalizados') }}" class="mr-2 chip {{ $st==='finalizados' ? 'active':'' }}"><span class="dot"></span> Finalizados</a>
+            <div class="d-flex flex-wrap gap-3 mb-3">
+                <a href="{{ $chipUrl(null) }}" class="me-2 mr-2 chip {{ $st==='' ? 'active':'' }}"><span class="dot"></span> Todos</a>
+                <a href="{{ $chipUrl('novos') }}" class="mr-2 chip {{ $st==='novos' ? 'active':'' }}"><span class="dot"></span> Novos</a>
+                <a href="{{ $chipUrl('assinados') }}" class="mr-2 chip {{ $st==='assinados' ? 'active':'' }}"><span class="dot"></span> Assinados</a>
+                <a href="{{ $chipUrl('aprovados') }}" class="mr-2 chip {{ $st==='aprovados' ? 'active':'' }}"><span class="dot"></span> Aprovados</a>
+                <a href="{{ $chipUrl('instalandos') }}" class="mr-2 chip {{ $st==='instalandos' || $st==='instalando' ? 'active':'' }}"><span class="dot"></span> Instalando</a>
+                <a href="{{ $chipUrl('finalizados') }}" class="mr-2 chip {{ $st==='finalizados' ? 'active':'' }}"><span class="dot"></span> Finalizados</a>
             </div>
+
+            {{-- Busca por cliente, vendedor ou ID --}}
+            <form class="d-flex flex-wrap align-items-end gap-2 mb-2">
+                <input type="hidden" name="status" value="{{ $request->status }}">
+                <div class="flex-grow-1" style="min-width:220px">
+                    <x-inputs.input label="Buscar" name="busca" type="text" value="{{ $request->busca }}"
+                                    placeholder="Cliente, vendedor ou #ID"></x-inputs.input>
+                </div>
+                <button type="submit" class="btn btn-primary px-4">Pesquisar</button>
+                @if($request->filled('busca'))
+                    <a href="{{ $statusOnlyUrl }}" class="btn btn-outline-secondary">Limpar</a>
+                @endif
+            </form>
         </div>
 
         <x-tables.data-table-clickable>
@@ -86,6 +95,15 @@
                             str_contains($s,'final') => 'badge-finalizado',
                             default => 'badge-novo',
                         };
+
+                        $c = $clientesMap[$item->clientes_id] ?? null;
+                        $nomeCliente = match(true) {
+                            !$c => '-',
+                            (bool) ($c->nome && $c->razao_social) => "{$c->nome} - {$c->razao_social}",
+                            (bool) $c->nome => $c->nome,
+                            (bool) $c->razao_social => $c->razao_social,
+                            default => '-',
+                        };
                     @endphp
                     <tr>
                         <td><strong>#{{ $item->id }}</strong></td>
@@ -100,7 +118,7 @@
                         </td>
 
                         <td>
-                            {{ getNomeCliente($item->clientes_id) }}
+                            {{ $nomeCliente }}
                         </td>
 
                         <td>

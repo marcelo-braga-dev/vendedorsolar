@@ -1,13 +1,6 @@
 <x-layout menu="contratos" submenu="contratos-gerados">
     @push('css')
         <style>
-            .card-soft {
-                border: 1px solid #eef2f6;
-                border-radius: 16px;
-                box-shadow: 0 8px 26px rgba(0, 0, 0, .04);
-                background: #fff;
-            }
-
             .btn-brand {
                 display: inline-flex;
                 align-items: center;
@@ -125,7 +118,6 @@
         </div>
     </x-layout.container>
 
-
     @push('js')
         <script>
             (function () {
@@ -184,5 +176,4 @@
         </script>
     @endpush
 </x-layout>
-
 

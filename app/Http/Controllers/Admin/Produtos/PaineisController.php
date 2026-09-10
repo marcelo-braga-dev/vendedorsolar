@@ -14,7 +14,14 @@ class PaineisController extends Controller
         $produtos = new Produtos();
         $paineis = $produtos->paineis();
 
-        return view('pages.admin.produtos.paineis.index', compact('paineis'));
+        $kitsPorMarca = Kits::query()
+            ->whereIn('marca_painel', array_keys($paineis))
+            ->selectRaw('marca_painel as marca_id, count(*) as total, sum(status = 1) as ativos')
+            ->groupBy('marca_painel')
+            ->get()
+            ->keyBy('marca_id');
+
+        return view('pages.admin.produtos.paineis.index', compact('paineis', 'kitsPorMarca'));
     }
 
     public function create()

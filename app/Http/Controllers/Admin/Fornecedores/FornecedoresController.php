@@ -10,12 +10,28 @@ use Illuminate\Http\Request;
 
 class FornecedoresController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $fornecedores = new Fornecedores();
-        $fornecedores = $fornecedores->get();
+        $fornecedores = (new Fornecedores())->newQuery()
+            ->when($request->filled('busca'), function ($query) use ($request) {
+                $busca = $request->busca;
+                $query->where(function ($q) use ($busca) {
+                    $q->where('nome', 'like', "%{$busca}%")
+                        ->orWhere('representante', 'like', "%{$busca}%")
+                        ->orWhere('email', 'like', "%{$busca}%");
+                });
+            })
+            ->orderBy('nome')
+            ->get();
 
-        return view('pages.admin.fornecedores.index', compact('fornecedores'));
+        $kitsPorFornecedor = Kits::query()
+            ->whereIn('fornecedor', $fornecedores->pluck('id'))
+            ->selectRaw('fornecedor, count(*) as total, sum(status = 1) as ativos')
+            ->groupBy('fornecedor')
+            ->get()
+            ->keyBy('fornecedor');
+
+        return view('pages.admin.fornecedores.index', compact('fornecedores', 'kitsPorFornecedor', 'request'));
     }
 
     public function create()

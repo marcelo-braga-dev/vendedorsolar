@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Produtos;
 
 use App\Http\Controllers\Controller;
+use App\Models\Fornecedores;
 use App\Models\Produtos;
 use App\Models\Trafos;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class TrafosController extends Controller
             ->orderBy('potencia')
             ->get();
         $img = (new Produtos())->trafos();
+        $fornecedores = (new Fornecedores())->fornecedores();
 
-        return view('pages.admin.produtos.trafos.index', compact('trafos', 'img'));
+        return view('pages.admin.produtos.trafos.index', compact('trafos', 'img', 'fornecedores'));
     }
 
     public function create()

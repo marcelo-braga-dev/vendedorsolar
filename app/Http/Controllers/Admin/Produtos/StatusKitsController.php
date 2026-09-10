@@ -47,5 +47,7 @@ class StatusKitsController extends Controller
         $kits = new Kits();
 
         $kits->updateStatus($request->fornecedor, $request->potencia, $request->inversor, $request->painel, $request->status);
+
+        return response()->json(['success' => true]);
     }
 }

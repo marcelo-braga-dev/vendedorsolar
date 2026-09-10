@@ -1,233 +1,165 @@
 /* =========================================
-   THEME / BRAND OVERRIDES (Bootstrap 5)
+   THEME / BRAND OVERRIDES
    Primária: #e25507
+   -----------------------------------------
+   Carregado em toda a plataforma (admin + vendedor), depois do
+   argon.css (framework base, Bootstrap 4). Este arquivo é a ÚNICA
+   fonte de: paleta da marca, sobrescrita de cor dos componentes do
+   Argon, e os poucos componentes de UI realmente reaproveitados
+   entre páginas (card-soft, divider, btn-ghost, badge-pill,
+   filter-head). Prefira editar aqui a redeclarar em @push('css')
+   de uma página — o que for específico de uma tela continua lá.
    ======================================= */
 :root{
     --brand: #e25507;
-    --brand-600: #cc4c06;
-    --brand-700: #b44405;
+    --brand-050: #fff4ed;
     --brand-100: #ffe7da;
     --brand-200: #ffd6c2;
     --brand-300: #ffbe9f;
+    --brand-600: #cc4c06;
+    --brand-700: #b44405;
     --brand-900: #3b1704;
-
-    --bs-primary: var(--brand);
-    --bs-primary-rgb: 226,85,7;
-    --bs-link-color: var(--brand);
-    --bs-link-hover-color: var(--brand-600);
-    --bs-focus-ring-color: rgba(226,85,7,.25);
-    --bs-border-color: #e9ecef;
-    --bs-body-color: #222;
-    --bs-body-bg: #fff;
 }
 
-/* Botões primários */
-.btn-primary{
-    --bs-btn-color:#fff;
-    --bs-btn-bg:var(--brand);
-    --bs-btn-border-color:var(--brand);
-    --bs-btn-hover-bg:var(--brand-600);
-    --bs-btn-hover-border-color:var(--brand-600);
-    --bs-btn-active-bg:var(--brand-700);
-    --bs-btn-active-border-color:var(--brand-700);
-    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
-    background-image: linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.06));
+/* ---------- Botões primários ----------
+   O Argon fixa a cor do .btn-primary no indigo padrão (#5e72e4) com
+   propriedades comuns (background-color/border-color), não variáveis
+   do Bootstrap 5 — por isso a sobrescrita usa as mesmas propriedades
+   reais (a versão anterior só definia --bs-btn-* soltas, que o Argon
+   nunca lê, então a marca não aparecia nos botões na maior parte do
+   site, exceto nas telas que tinham sua própria cópia local disso). */
+.btn-primary,
+.btn-primary.disabled,
+.btn-primary:disabled{
+    color:#fff; border-color:var(--brand); background-color:var(--brand);
 }
-.btn-outline-primary{
-    --bs-btn-color:var(--brand);
-    --bs-btn-border-color:var(--brand);
-    --bs-btn-hover-bg:var(--brand);
-    --bs-btn-hover-border-color:var(--brand);
-    --bs-btn-hover-color:#fff;
-    --bs-btn-active-bg:var(--brand-700);
-    --bs-btn-active-border-color:var(--brand-700);
+.btn-primary:hover{
+    color:#fff; border-color:var(--brand-600); background-color:var(--brand-600);
 }
-.text-primary{ color: var(--brand)!important; }
-.bg-primary-subtle{ background-color: var(--brand-100)!important; }
-.border-primary{ border-color: var(--brand)!important; }
-
-a{ text-decoration:none; }
-a:hover{ text-decoration:underline; }
-
-/* Navbar com sombra ao rolar */
-.navbar{
-    --bs-navbar-brand-hover-color: var(--brand-700);
-    background:#fff; transition: box-shadow .2s ease;
+.btn-primary:focus,
+.btn-primary.focus{
+    box-shadow:0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08), 0 0 0 .15rem rgba(226,85,7,.35);
 }
-.navbar.scrolled{ box-shadow:0 6px 20px rgba(0,0,0,.06); }
-
-/* Hero */
-.hero{
-    background: radial-gradient(1200px 600px at 10% -10%, var(--brand-100), transparent 60%),
-    radial-gradient(1200px 600px at 90% 10%, var(--brand-200), transparent 50%),
-    linear-gradient(180deg, #fff, #fff);
-}
-.hero .badge{
-    background: var(--brand-100);
-    color: var(--brand-700);
-    border:1px solid var(--brand-200);
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle{
+    color:#fff; border-color:var(--brand); background-color:var(--brand-700);
 }
 
-/* Cards elegantes */
-.card{
-    border:1px solid #eef0f2; border-radius:16px; overflow:hidden;
-    box-shadow:0 4px 16px rgba(0,0,0,.04);
-    transition: transform .2s ease, box-shadow .2s ease;
+.btn-outline-primary,
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled{
+    color:var(--brand); border-color:var(--brand); background-color:transparent;
 }
-.card:hover{ transform: translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.08); }
-.card-img-top{ aspect-ratio:16/9; object-fit:cover; }
-.card .media-badges{
-    position:absolute; left:.75rem; bottom:.75rem; display:flex; gap:.35rem;
+.btn-outline-primary:hover{
+    color:#fff; border-color:var(--brand); background-color:var(--brand);
 }
-.card .media-badges .badge{
-    backdrop-filter: blur(6px);
-    background: rgba(255,255,255,.85);
-    color:#111; border:1px solid rgba(0,0,0,.06);
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.show > .btn-outline-primary.dropdown-toggle{
+    color:#fff; border-color:var(--brand); background-color:var(--brand-700);
 }
 
-/* Pills roláveis */
-.category-pills{ display:flex; gap:.5rem; overflow:auto hidden; padding-bottom:.25rem; scrollbar-width:thin; }
-.category-pills .btn{ border-radius:999px; }
+.text-primary{ color:var(--brand)!important; }
+.bg-primary-subtle{ background-color:var(--brand-100)!important; }
+.border-primary{ border-color:var(--brand)!important; }
 
-/* CTA */
-.cta{ background:linear-gradient(135deg, var(--brand-100), #fff); border:1px solid var(--brand-200); border-radius:20px; }
+a{ color:var(--brand); text-decoration:none; }
+a:hover{ color:var(--brand-600); text-decoration:underline; }
 
-/* Footer */
-footer{ border-top:1px solid #eef0f2; background:#fff; }
+.navbar{ background:#fff; transition:box-shadow .2s ease; }
 
-/* Back to top */
-#backToTop{
-    position:fixed; right:16px; bottom:16px; z-index:1080;
-    opacity:0; visibility:hidden; transform:translateY(10px); transition:all .2s ease;
+/* Indicador do item ativo no menu lateral (Argon usa indigo fixo aqui) */
+.navbar-vertical .navbar-nav .nav-link.active:before{
+    border-left-color:var(--brand);
 }
-#backToTop.show{ opacity:1; visibility:visible; transform:translateY(0); }
 
-/* =========================
-   Utilitários visuais extras
-   ========================= */
-.truncate-1, .truncate-2, .truncate-3{
-    display:-webkit-box; -webkit-box-orient: vertical; overflow: hidden;
-}
-.truncate-1{ -webkit-line-clamp:1; }
-.truncate-2{ -webkit-line-clamp:2; }
-.truncate-3{ -webkit-line-clamp:3; }
-
-/* Avatar inline (meta autor) */
-.meta-inline{
-    display:flex; align-items:center; gap:.5rem; font-size:.9rem; color:#6c757d;
-}
-.meta-inline img{ width:28px; height:28px; border-radius:50%; object-fit:cover; }
-
-/* Input group search mais “limpo” */
-.input-group.search .input-group-text{ background:#fff; }
-
-/* Botão favorito “pill” */
-.btn-fav{ --_c: var(--brand); color: var(--_c); border-color: var(--_c); }
-.btn-fav.active, .btn-fav[aria-pressed="true"]{ background: var(--brand); color:#fff; }
-
-/* Área de foco mais evidente */
+/* Foco visível e consistente em campos e botões */
 .form-control:focus, .form-select:focus, .btn:focus{
-    box-shadow: 0 0 0 .25rem rgba(226,85,7,.2);
+    box-shadow:0 0 0 .2rem rgba(226,85,7,.2);
 }
 
-/* ==== Sidebar visual: ícones + setas, subitens recuados ==== */
-.sidebar{
-    width: 260px; flex:0 0 260px; background:#fff; border-right:1px solid #eef0f2;
-    min-height:100vh; position:sticky; top:0;
-}
-.sidebar .brand{ padding:18px 16px 8px; display:flex; align-items:center; gap:10px; }
-.sidebar .brand img{ max-height:34px; }
-.sidebar .menu{ padding:8px; }
+/* =========================================
+   COMPONENTES REAPROVEITADOS ENTRE PÁGINAS
+   -----------------------------------------
+   Definição única para os padrões visuais copiados (com pequenas
+   variações) em várias telas de listagem. Uma página que precisa de
+   algo genuinamente diferente pode continuar sobrescrevendo essas
+   classes no seu próprio @push('css') — carrega depois deste arquivo
+   e vence normalmente pela cascata.
+   ======================================= */
 
-.sidebar .nav-link{
-    border-radius:10px; color:#3b3b3b; padding:.6rem .65rem;
-}
-.sidebar .nav-link:hover{ background:#f6f7f9; }
-.sidebar .nav-link.active{ background:var(--brand-100); color:var(--brand-700); font-weight:600; }
-
-.sidebar-link{
-    display:flex; align-items:center; gap:.6rem; position:relative;
-}
-.sidebar-link .icon{ width:22px; display:inline-flex; justify-content:center; color:#6b7280; }
-.sidebar-link .label{ flex:1 1 auto; }
-.sidebar-link .chev{ color:#9aa0a6; transition: transform .2s ease; }
-
-[data-sidebar-group].show ~ .chev,
-.sidebar-link[aria-expanded="true"] .chev{ transform: rotate(180deg); }
-
-/* Subitens */
-.nav-sub{
-    padding-left:2.2rem; color:#8a8f98;
-}
-.nav-sub:hover{ color:#5a5f66; background:transparent; }
-.nav-sub.active{ color:var(--brand-700); font-weight:600; }
-.nav-sub.disabled{
-    pointer-events:none; opacity:.45;
+/* Card com borda suave e sombra leve (filtros, painéis) */
+.card-soft{
+    border:1px solid #eef2f6; border-radius:16px;
+    box-shadow:0 8px 26px rgba(0,0,0,.04); background:#fff;
 }
 
-/* Foco acessível */
-.sidebar .nav-link:focus{
-    box-shadow: 0 0 0 .15rem rgba(226,85,7,.18);
+/* Linha divisória tracejada entre seções de um card */
+.divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
+
+/* Botão "fantasma" contornado na cor da marca (ex.: ação "Ver" em tabelas) */
+.btn-ghost{
+    display:inline-flex; align-items:center; gap:.45rem;
+    border:1px solid var(--brand); color:var(--brand); background:#fff;
+    border-radius:10px; padding:.35rem .65rem; font-weight:800;
+}
+.btn-ghost:hover{ color:#fff; background:var(--brand); border-color:var(--brand); }
+
+/* Badge neutro em formato pílula (contadores, tags simples) */
+.badge-pill{
+    border-radius:999px; padding:.35rem .65rem;
+    font-weight:600; font-size:.78rem; white-space:nowrap;
 }
 
-/*template*/
-:root{
-    --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-    --brand-100:#ffe7da; --brand-200:#ffd6c2; --brand-300:#ffbe9f; --brand-900:#3b1704;
-    --bs-primary:var(--brand); --bs-primary-rgb:226,85,7;
-    --bs-link-color:var(--brand); --bs-link-hover-color:var(--brand-600);
-    --bs-focus-ring-color:rgba(226,85,7,.25);
-    --bs-border-color:#e9ecef; --bs-body-color:#222; --bs-body-bg:#f8f9fb;
+/* Cabeçalho de bloco de filtros ("Filtros" + contador) */
+.filter-head{
+    display:flex; align-items:center; justify-content:space-between; gap:.75rem;
 }
-.btn-primary{
-    --bs-btn-color:#fff; --bs-btn-bg:var(--brand); --bs-btn-border-color:var(--brand);
-    --bs-btn-hover-bg:var(--brand-600); --bs-btn-hover-border-color:var(--brand-600);
-    --bs-btn-active-bg:var(--brand-700); --bs-btn-active-border-color:var(--brand-700);
-    --bs-btn-focus-shadow-rgb:var(--bs-primary-rgb);
-    background-image:linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.06));
-}
-.btn-outline-primary{
-    --bs-btn-color:var(--brand); --bs-btn-border-color:var(--brand);
-    --bs-btn-hover-bg:var(--brand); --bs-btn-hover-border-color:var(--brand); --bs-btn-hover-color:#fff;
-    --bs-btn-active-bg:var(--brand-700); --bs-btn-active-border-color:var(--brand-700);
-}
-.sidebar{
-    width:280px; flex:0 0 280px; background:#fff; border-right:1px solid #eef0f2;
-    min-height:100vh; position:sticky; top:0;
-}
-.sidebar .brand{
-    padding:20px 20px 8px 20px; display:flex; align-items:center; gap:10px;
-}
-.sidebar .brand img{ max-height:36px; }
-.sidebar .menu { padding:12px 12px 24px 12px; }
-.sidebar .menu .nav-link{
-    display:flex; align-items:center; gap:.6rem;
-    color:#333; border-radius:10px; padding:.65rem .75rem;
-}
-.sidebar .menu .nav-link:hover{ background:#f5f6f8; }
-.sidebar .menu .nav-link.active{ background:var(--brand-100); color:var(--brand-700); font-weight:600; }
-.sidebar .menu .collapse .nav-link{ padding-left:2.4rem; }
 
-.content-wrap{ flex:1; min-width:0; }
-.topbar{
-    background:#fff; border-bottom:1px solid #eef0f2;
-    position:sticky; top:0; z-index:1030;
+/* Cabeçalho de tabela padrão nas listagens */
+.table thead th{
+    font-weight:700; font-size:.9rem; color:#4a5568;
+    background:#fafafa; border-bottom:2px solid #e9ecef; white-space:nowrap;
 }
-.page-title{
-    margin:0; padding:16px 0; font-weight:700;
+.table td, .table th{ vertical-align:middle; }
+
+/* =========================================
+   UTILITÁRIOS DE ESPAÇAMENTO (Bootstrap 5) AUSENTES NO ARGON
+   -----------------------------------------
+   O tema base (Argon) é Bootstrap 4 e não define os utilitários de
+   gap do Bootstrap 5. Várias telas já usam classes .gap-1..5
+   assumindo esse comportamento; sem esta definição elas não tinham
+   nenhum efeito (itens ficavam colados, sem espaço entre si).
+   ======================================= */
+.gap-1{ gap:.25rem !important; }
+.gap-2{ gap:.5rem !important; }
+.gap-3{ gap:1rem !important; }
+.gap-4{ gap:1.5rem !important; }
+.gap-5{ gap:3rem !important; }
+
+/* =========================================
+   ALINHAMENTO: input com label ao lado de botão
+   -----------------------------------------
+   Os componentes x-inputs.* (input, select, input-box-left/right,
+   date-time) renderizam dentro de um .form-group (e o input-box-*
+   ainda tem um .input-group.mb-4 interno), que carregam margem
+   inferior própria (1.5rem no Argon). Quando esse campo divide uma
+   linha com um botão que deveria alinhar na mesma base — sinalizado
+   explicitamente por align-items-end, na linha ou no próprio botão —
+   essa margem entra na altura da "caixa" do campo e o botão acaba
+   alinhado à base da margem invisível, não à base visível do input:
+   ele sempre aparece deslocado para baixo da linha do campo.
+   Aplicado só onde há esse sinal explícito de alinhamento (não em
+   formulários empilhados comuns, que continuam com o espaçamento
+   padrão); o row-gap abaixo repõe o espaçamento vertical entre
+   colunas quando elas quebram linha em telas estreitas. */
+.d-flex.align-items-end .form-group,
+.d-flex.align-items-end .input-group.mb-4,
+.row.align-items-end .form-group,
+.row.align-items-end .input-group.mb-4{
+    margin-bottom: 0;
 }
-.container-app{ padding:24px; }
-.app-card{
-    background:#fff; border:1px solid #eef0f2; border-radius:16px;
-    box-shadow:0 8px 32px rgba(0,0,0,.04);
-}
-.pill-filter .btn{
-    border-radius:999px; padding:.45rem 1rem; border:1px solid #dee2e6;
-    background:#fff;
-}
-.pill-filter .btn.active, .pill-filter .btn:focus{ border-color:var(--brand); color:var(--brand-700); background:var(--brand-100); }
-.divider-v{ width:1px; background:#eef0f2; min-height:40px; margin:0 1rem; }
-@media (max-width: 991.98px){
-    .sidebar{ display:none; }
-    .content-wrap{ width:100%; }
+.row.align-items-end{
+    row-gap: 1rem;
 }

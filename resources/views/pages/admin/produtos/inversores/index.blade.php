@@ -1,35 +1,157 @@
 <x-layout menu="produtos" submenu="inversores">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-100:#ffe7da; --brand-200:#ffd6c2;
+            /* ===== Grid de marcas ===== */
+            .marca-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1.5rem;
             }
 
-            /* tabela */
-            .table thead th{
-                font-weight:700; font-size:.9rem;
-                color:#4a5568; background:#fafafa;
-                border-bottom:2px solid #e9ecef;
-            }
-            .table tbody tr{ transition:background .15s ease; }
-            .table tbody tr:hover{ background:#fff8f5; }
-            .table td, .table th{ vertical-align:middle; }
-
-            /* imagens */
-            .brand-img{
-                width:60px; height:60px; object-fit:contain;
-                border-radius:8px; background:#fff;
-                border:1px solid #edf2f7; padding:.25rem;
+            .marca-card {
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                border: 1px solid #eef2f6;
+                border-radius: 16px;
+                overflow: hidden;
             }
 
-            /* botões */
-            .btn-success{
-                background:var(--brand); border-color:var(--brand);
-                font-weight:600;
+            .marca-card:hover {
+                box-shadow: 0 16px 40px rgba(0, 0, 0, .06);
+                transform: translateY(-2px);
+                transition: .18s ease;
             }
-            .btn-success:hover{
-                background:var(--brand-600); border-color:var(--brand-600);
+
+            /* Foto do produto — tamanho fixo, padronizado com as demais páginas */
+            .marca-photo {
+                width: 100%;
+                height: 130px;
+                background: #fafbfc;
+                border-bottom: 1px solid #eef2f6;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .marca-photo img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+            .marca-photo .no-photo {
+                color: #d5dae0;
+                font-size: 2.4rem;
+            }
+
+            .marca-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: .55rem;
+                padding: 1.1rem 1.15rem 1rem;
+            }
+
+            .marca-logo-row {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 30px;
+            }
+
+            .marca-logo-row img {
+                max-width: 130px;
+                max-height: 100%;
+                object-fit: contain;
+            }
+
+            .marca-title {
+                margin: 0;
+                font-weight: 800;
+                font-size: .98rem;
+                text-align: center;
+                color: #212529;
+            }
+
+            .marca-badges {
+                display: flex;
+                gap: .35rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .badge-soft {
+                border-radius: 999px;
+                padding: .3rem .6rem;
+                font-weight: 700;
+                font-size: .68rem;
+                border: 1px solid transparent;
+                white-space: nowrap;
+            }
+
+            .badge-categoria {
+                background: #eef2f7;
+                color: #495057;
+                border-color: #e2e8f0;
+            }
+
+            .marca-garantia {
+                min-height: 2.05rem;
+                font-size: .74rem;
+                color: #8891a0;
+                text-align: center;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                line-height: 1.35;
+            }
+
+            .marca-stat {
+                margin-top: auto;
+                text-align: center;
+                font-size: .78rem;
+                font-weight: 600;
+                color: #495057;
+                background: #f8f9fb;
+                border: 1px solid #eef2f6;
+                border-radius: 8px;
+                padding: .4rem .5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: .1rem;
+                line-height: 1.3;
+            }
+
+            .marca-actions {
+                padding-top: .65rem;
+                border-top: 1px dashed #eef2f6;
+                display: flex;
+                justify-content: center;
+            }
+
+            .btn-marca-edit {
+                display: inline-flex;
+                align-items: center;
+                gap: .45rem;
+                background: var(--brand);
+                border: 1px solid var(--brand);
+                color: #fff;
+                border-radius: 10px;
+                padding: .4rem .9rem;
+                font-weight: 700;
+                font-size: .82rem;
+            }
+
+            .btn-marca-edit:hover {
+                background: var(--brand-600);
+                border-color: var(--brand-600);
+                color: #fff;
+                text-decoration: none;
             }
         </style>
     @endpush
@@ -38,44 +160,51 @@
             class="p-0"
             text-button="Cadastrar Marca de Inversor"
             url-button="{{ route('admin.produtos.inversores.create') }}">
-        <x-tables.table-default>
-            <x-slot name="head">
-                <tr class="text-center">
-                    <th style="width: 80px">Produto</th>
-                    <th>Marca</th>
-                    <th style="width: 80px">Logo</th>
-                    <th style="width: 80px"></th>
-                </tr>
-            </x-slot>
 
-            <x-slot name="body">
-                @forelse($inversores as $item)
-                    <tr class="text-center">
-                        <td>
-                            <img src="{{ asset('storage/'.$item->img_produto) }}"
-                                 class="brand-img" alt="produto">
-                        </td>
-                        <td><strong>{{ $item->nome }}</strong></td>
-                        <td>
-                            <img src="{{ asset('storage/'.$item->img_logo) }}"
-                                 class="brand-img" alt="logo">
-                        </td>
-                        <td>
-                            <a class="btn btn-sm btn-success"
-                               href="{{ route('admin.produtos.inversores.edit', $item->id) }}"
-                               title="Editar Inversor">
-                                <i class="fas fa-edit"></i>
+        <div class="marca-grid p-3">
+            @forelse($inversores as $item)
+                @php($stat = $kitsPorMarca[$item->id] ?? null)
+                <div class="marca-card">
+                    <div class="marca-photo">
+                        @if($item->img_produto)
+                            <img src="{{ asset('storage/'.$item->img_produto) }}" alt="Foto do inversor {{ $item->nome }}" loading="lazy">
+                        @else
+                            <i class="fas fa-bolt no-photo"></i>
+                        @endif
+                    </div>
+                    <div class="marca-body">
+                        <div class="marca-logo-row">
+                            @if($item->img_logo)
+                                <img src="{{ asset('storage/'.$item->img_logo) }}" alt="Logo {{ $item->nome }}">
+                            @endif
+                        </div>
+                        <h6 class="marca-title">{{ $item->nome }}</h6>
+                        @if($item->categoria)
+                            <div class="marca-badges">
+                                <span class="badge-soft badge-categoria">{{ ucfirst($item->categoria) }}</span>
+                            </div>
+                        @endif
+                        <div class="marca-garantia" title="{{ $item->garantia }}">
+                            @if($item->garantia)
+                                <i class="fas fa-shield-alt"></i> {{ $item->garantia }}
+                            @endif
+                        </div>
+                        <div class="marca-stat">
+                            <span>{{ $stat->total ?? 0 }} kit(s)</span>
+                            <span>{{ $stat->ativos ?? 0 }} ativo(s)</span>
+                        </div>
+                        <div class="marca-actions">
+                            <a class="btn-marca-edit" href="{{ route('admin.produtos.inversores.edit', $item->id) }}">
+                                <i class="fas fa-edit"></i> Editar
                             </a>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4" class="text-center text-muted py-4">
-                            <i class="fas fa-info-circle"></i> Nenhuma marca de inversor cadastrada.
-                        </td>
-                    </tr>
-                @endforelse
-            </x-slot>
-        </x-tables.table-default>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="alert alert-info text-center mb-0">
+                    <i class="fas fa-info-circle"></i> Nenhuma marca de inversor cadastrada.
+                </div>
+            @endforelse
+        </div>
     </x-body>
 </x-layout>

@@ -2,9 +2,12 @@
     @push('css')
         <style>
             :root {
-                --ink: #0f172a; --muted: #64748b; --line: #e5e7eb;
-                --brand: #e25507; --brand-600: #cc4c06; --brand-050: #fff4ed;
-                --green: #16a34a; --red: #dc2626; --yellow: #ca8a04;
+                --ink: #0f172a;
+                --muted: #64748b;
+                --line: #e5e7eb;
+                --green: #16a34a;
+                --red: #dc2626;
+                --yellow: #ca8a04;
             }
             .card-glass {
                 background: #fff;

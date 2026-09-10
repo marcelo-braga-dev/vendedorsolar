@@ -2,9 +2,8 @@
     @push('css')
         <style>
             :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-                --purple:#6f42c1; --purple-600:#5a32a3;
+                --purple:#6f42c1;
+                --purple-600:#5a32a3;
             }
 
             /* ====== Botões padrão com ícone à esquerda ====== */
@@ -45,10 +44,6 @@
             .kpi-bubble .bi{ font-size:1.2rem; }
 
             .mono{ font-variant-numeric: tabular-nums; }
-
-            /* ====== Cards ====== */
-            .card-soft{ border:1px solid #eef2f6; border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.04); background:#fff; }
-            .divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
 
             /* ====== Badge suave ====== */
             .badge-soft{

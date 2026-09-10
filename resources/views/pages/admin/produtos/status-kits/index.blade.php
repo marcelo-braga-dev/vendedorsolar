@@ -1,16 +1,10 @@
 <x-layout menu="kits_fv" submenu="kits_fv_status">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
-
             /* ---------- Cards / util ---------- */
-            .card-soft{ border:1px solid #eef2f6; border-radius:16px; box-shadow:0 8px 26px rgba(0,0,0,.04); background:#fff; }
+            
             .card-body--tight{ padding:1rem 1.25rem; }
             .section-subtle{ font-size:.925rem; color:#6c757d; }
-            .divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
 
             /* ---------- Fornecedores (chips com scroll e busca) ---------- */
             .nav-scroller{ position:relative; overflow-x:auto; overflow-y:hidden; }
@@ -95,7 +89,8 @@
         </style>
     @endpush
 
-    <x-layout.container title="Alterar Status dos Kits do Fornecedor">
+    <x-body title="Alterar Status dos Kits do Fornecedor" class="p-0">
+      <div class="p-3">
         {{-- Fornecedores como chips + busca --}}
         <div class="card card-soft mb-3">
             <div class="card-body card-body--tight">
@@ -277,7 +272,8 @@
                 </div>
             </div>
         </div>
-    </x-layout.container>
+      </div>
+    </x-body>
 
     @push('js')
         <script>
@@ -329,8 +325,9 @@
 
                         $.ajax({
                             url: "{{ route('admin.produtos.alterar-status-kits') }}",
-                            method: "GET",
+                            method: "POST",
                             dataType: "json",
+                            headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}" },
                             data: { fornecedor, inversor, painel, potencia, status },
                         }).fail(function(){
                             // Reverte se deu erro

@@ -1,14 +1,12 @@
 <style>
     :root {
-        --brand: #e25507;
-        --brand-600: #cc4c06;
-        --ink: #0f172a;
-        --muted: #64748b;
-        --line: #e5e7eb;
-        --bg: #ffffff;
-        --chip: #fff7f1;
-        --chip-b: #ffd9c6;
-    }
+                --ink: #0f172a;
+                --muted: #64748b;
+                --line: #e5e7eb;
+                --bg: #ffffff;
+                --chip: #fff7f1;
+                --chip-b: #ffd9c6;
+            }
 
     /* ===== Wrapper do sidenav ===== */
     .sidenav { padding: .5rem .25rem; }
@@ -72,7 +70,6 @@
     .sidenav .nav-sm .nav-link:hover{ background:#fff; border-color:#eef2f6; }
     .sidenav .nav-sm .nav-link.active .ti{ color:var(--brand); }
 </style>
-
 
 <ul class="navbar-nav sidenav mb-md-5">
     @if ((new \App\src\Usuarios\TiposUsuarios())->isAdminVendedor())
@@ -278,7 +275,6 @@
         </div>
     </li>
 </ul>
-
 
 <script>
     (function(){

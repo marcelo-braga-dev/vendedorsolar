@@ -1,11 +1,6 @@
 <x-layout menu="financeiro" submenu="comissao-venda">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
-
             /* Tabela */
             .table thead th{
                 font-weight:700; font-size:.9rem; color:#4a5568;

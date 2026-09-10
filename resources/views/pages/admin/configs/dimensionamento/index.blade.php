@@ -1,10 +1,6 @@
 <x-layout menu="configs" submenu="dimensionamento">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
             /* container interno do x-body */
             .section-head{
                 display:flex; align-items:center; justify-content:space-between;
@@ -20,7 +16,6 @@
             .subhead .dot{
                 width:10px; height:10px; border-radius:999px; background:var(--brand);
             }
-            .divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
 
             /* grid dos inputs */
             .field-col{ min-width: 220px; }

@@ -13,7 +13,14 @@ class InversoresController extends Controller
     {
         $inversores = (new Produtos())->inversores();
 
-        return view('pages.admin.produtos.inversores.index', compact('inversores'));
+        $kitsPorMarca = Kits::query()
+            ->whereIn('marca_inversor', array_keys($inversores))
+            ->selectRaw('marca_inversor as marca_id, count(*) as total, sum(status = 1) as ativos')
+            ->groupBy('marca_inversor')
+            ->get()
+            ->keyBy('marca_id');
+
+        return view('pages.admin.produtos.inversores.index', compact('inversores', 'kitsPorMarca'));
     }
 
     public function create()

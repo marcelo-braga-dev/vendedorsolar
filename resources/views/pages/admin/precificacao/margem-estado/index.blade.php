@@ -1,10 +1,6 @@
 <x-layout menu="margens" submenu="margem-estado">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
             /* Cabeçalho da seção (dentro do x-body) */
             .section-head{
                 display:flex; align-items:center; justify-content:space-between;
@@ -12,8 +8,6 @@
             }
             .section-title{ margin:0; font-weight:800; letter-spacing:.2px; }
             .hint{ color:#6c757d; font-size:.9rem; }
-
-            .divider{ border-top:1px dashed #e9ecef; margin:1rem 0; }
 
             /* grid dos inputs */
             .uf-grid{ row-gap:1rem; }

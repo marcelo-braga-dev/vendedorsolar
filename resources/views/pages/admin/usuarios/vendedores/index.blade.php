@@ -1,16 +1,44 @@
 <x-layout menu="usuarios" submenu="vendedores">
     @push('css')
         <style>
-            :root {
-                --brand: #e25507;
-                --brand-600: #cc4c06;
-                --brand-700: #b44405;
-                --brand-100: #ffe7da;
-                --brand-200: #ffd6c2;
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: .35rem;
+                height: 32px;
+                padding: 0 .75rem;
+                border: 1px solid #e7eaef;
+                background: #fff;
+                color: #495057;
+                border-radius: 999px;
+                font-weight: 600;
+                font-size: .85rem;
+                transition: all .2s ease;
+            }
+
+            .chip:hover {
+                background: #f8f9fb;
+                text-decoration: none;
+            }
+
+            .chip .dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 999px;
+                background: #adb5bd;
+            }
+
+            .chip.active {
+                border-color: var(--brand);
+                color: var(--brand-700);
+                background: var(--brand-100);
+            }
+
+            .chip.active .dot {
+                background: var(--brand);
             }
 
             /* ---------- Tabela moderna ---------- */
-
             .table-modern {
                 margin-bottom: 0;
             }
@@ -41,15 +69,42 @@
             }
 
             .table-modern .col-actions {
-                width: 120px;
+                width: 130px;
                 text-align: right;
             }
 
-            .badge-pill {
-                border-radius: 999px;
-                padding: .35rem .65rem;
-                font-weight: 600;
-                font-size: .78rem;
+            /* ---------- Identidade do vendedor ---------- */
+            .vendedor-avatar {
+                --_size: 42px;
+                width: var(--_size);
+                height: var(--_size);
+                border-radius: 50%;
+                background: var(--brand-100);
+                color: var(--brand-700);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 800;
+                font-size: .85rem;
+                flex-shrink: 0;
+            }
+
+            .vendedor-id {
+                flex-shrink: 0;
+                width: 46px;
+                font-size: .74rem;
+                color: #adb5bd;
+            }
+
+            .vendedor-nome {
+                font-weight: 700;
+                color: #212529;
+                line-height: 1.25;
+            }
+
+            .vendedor-email {
+                font-size: .8rem;
+                color: #8891a0;
             }
 
             .badge-active {
@@ -62,6 +117,22 @@
                 background: rgba(220, 53, 69, .08);
                 color: #dc3545;
                 border: 1px solid rgba(220, 53, 69, .25);
+            }
+
+            .badge-comissao {
+                background: var(--brand-100);
+                color: var(--brand-700);
+                border: 1px solid var(--brand-200);
+            }
+
+            .badge-clientes {
+                background: #eef2f7;
+                color: #495057;
+                border: 1px solid #e2e8f0;
+            }
+
+            .text-muted-soft {
+                color: #c3c9d1;
             }
 
             /* Botões de ação como ícones */
@@ -86,6 +157,18 @@
                 color: #fff;
                 background: var(--brand);
                 border-color: var(--brand);
+            }
+
+            .btn-icon-success {
+                color: #198754;
+                border-color: #198754;
+                background: #fff;
+            }
+
+            .btn-icon-success:hover {
+                color: #fff;
+                background: #198754;
+                border-color: #198754;
             }
 
             .btn-icon-warning {
@@ -113,47 +196,117 @@
             text-button="Cadastrar Vendedor"
             url-button="{{ route('admin.usuarios.vendedores.create') }}"
             class="p-0">
+        <div class="px-3 pt-3 pb-1">
+            <form>
+                <div class="filter-head mb-3">
+                    <h2 class="h6 mb-0">Filtros</h2>
+                    <small class="text-muted">Mostrando {{ $usuarios->total() }} vendedor(es)</small>
+                </div>
+
+                <div class="mb-3 d-flex flex-wrap gap-2">
+                    @php
+                        $todos = $request->status === null || $request->status === '';
+                        $ativos = $request->status === '1';
+                        $inativos = $request->status === '0';
+                    @endphp
+                    <a href="?{{ http_build_query(array_merge($request->except('status', 'page'), [])) }}"
+                       class="chip {{ $todos ? 'active' : '' }}"><span class="dot"></span> Todos</a>
+                    <a href="?{{ http_build_query(array_merge($request->except('page'), ['status' => 1])) }}"
+                       class="chip {{ $ativos ? 'active' : '' }}"><span class="dot"></span> Ativos</a>
+                    <a href="?{{ http_build_query(array_merge($request->except('page'), ['status' => 0])) }}"
+                       class="chip {{ $inativos ? 'active' : '' }}"><span class="dot"></span> Inativos</a>
+                </div>
+
+                <div class="row g-3 align-items-end">
+                    <div class="col-12 col-md-4">
+                        <x-inputs.input label="Nome" name="nome" type="text" value="{{ $request->nome }}"
+                                        placeholder="Buscar por nome"></x-inputs.input>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <x-inputs.input label="Email" name="email" type="text" value="{{ $request->email }}"
+                                        placeholder="Buscar por email"></x-inputs.input>
+                    </div>
+                    <input type="hidden" name="status" value="{{ $request->status }}">
+                    <div class="col-12 col-md-auto d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-4">Pesquisar</button>
+                        <a href="{{ url()->current() }}" class="btn btn-outline-secondary">Limpar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="table-responsive">
             <table class="table table-hover table-modern align-middle">
                 <thead>
-                <tr class="text-center">
-                    <th>ID</th>
-                    <th>Status</th>
-                    <th class="text-start">Nome</th>
-                    <th class="text-start">Email</th>
-                    <th>Data do Cadastro</th>
+                <tr>
+                    <th class="text-center" style="width:46px"></th>
+                    <th class="text-start">Vendedor</th>
+                    <th>Celular</th>
+                    <th class="text-center">Comissão</th>
+                    <th class="text-center">Clientes</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Cadastro</th>
                     <th class="col-actions"></th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($usuarios as $usuario)
+                @forelse($usuarios as $usuario)
+                    @php
+                        $iniciais = collect(explode(' ', trim($usuario->name)))
+                            ->filter()
+                            ->map(fn($p) => mb_strtoupper(mb_substr($p, 0, 1)))
+                            ->take(2)
+                            ->implode('');
+                        $comissao = $comissoes[$usuario->id] ?? null;
+                        $totalClientes = $clientesCount[$usuario->id] ?? 0;
+                    @endphp
                     <tr>
                         <td class="text-center">
-                            <span class="mono">#{{ $usuario->id }}</span>
+                            <span class="vendedor-avatar">{{ $iniciais ?: '?' }}</span>
+                        </td>
+
+                        <td style="white-space: normal">
+                            <div class="vendedor-nome">{{ $usuario->name }}</div>
+                            <div class="vendedor-email">{{ $usuario->email }}</div>
+                        </td>
+
+                        <td>
+                            @if(!empty($celulares[$usuario->id]))
+                                {{ $celulares[$usuario->id] }}
+                            @else
+                                <span class="text-muted-soft">-</span>
+                            @endif
+                        </td>
+
+                        <td class="text-center">
+                            @if($comissao !== null)
+                                <span class="badge badge-pill badge-comissao">{{ $comissao }}%</span>
+                            @else
+                                <span class="text-muted-soft">-</span>
+                            @endif
+                        </td>
+
+                        <td class="text-center">
+                            <a href="{{ route('admin.usuarios.vendedor.clientes', $usuario->id) }}"
+                               class="badge badge-pill badge-clientes text-decoration-none">
+                                {{ $totalClientes }}
+                            </a>
                         </td>
 
                         <td class="text-center">
                             @if ($usuario->status)
                                 <span class="badge badge-pill badge-active">
-                                            <i class="fas fa-check-circle me-1"></i> Ativo
-                                        </span>
+                                    <i class="fas fa-check-circle me-1"></i> Ativo
+                                </span>
                             @else
                                 <span class="badge badge-pill badge-inactive">
-                                            <i class="fas fa-times-circle me-1"></i> Inativo
-                                        </span>
+                                    <i class="fas fa-times-circle me-1"></i> Inativo
+                                </span>
                             @endif
                         </td>
 
-                        <td style="white-space: normal">
-                            {{ $usuario->name }}
-                        </td>
-
-                        <td>
-                            {{ $usuario->email }}
-                        </td>
-
                         <td class="text-center">
-                            {{ date('d/m/y H:i', strtotime($usuario->created_at)) }}
+                            {{ date('d/m/y', strtotime($usuario->created_at)) }}
                         </td>
 
                         <td class="col-actions">
@@ -169,14 +322,32 @@
                                    data-bs-toggle="tooltip" data-bs-title="Ver detalhes">
                                     <i class="fas fa-eye"></i>
                                 </a>
+
+                                <a href="{{ route('admin.usuarios.vendedores.edit', $usuario->id) }}"
+                                   class="btn btn-sm btn-outline-success btn-icon btn-icon-success"
+                                   data-bs-toggle="tooltip" data-bs-title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">
+                            <i class="fas fa-info-circle"></i> Nenhum vendedor encontrado.
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
     </x-body>
+
+    <div class="row justify-content-center my-4">
+        <div class="col-auto">
+            {{ $usuarios->onEachSide(1)->links() }}
+        </div>
+    </div>
 
     @push('js')
         <script>

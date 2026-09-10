@@ -1,11 +1,6 @@
 <x-layout menu="perfil" submenu="senha">
     @push('css')
         <style>
-            :root{
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --brand-050:#fff4ed; --brand-100:#ffe7da; --brand-200:#ffd6c2;
-            }
-
             .card-soft{
                 border:1px solid #eef2f6; border-radius:16px;
                 box-shadow:0 8px 26px rgba(0,0,0,.04); background:#fff;
@@ -16,11 +11,7 @@
                 background:#fff; border-right:0; color:#6c757d;
             }
             .form-control{ border-left:0; }
-            .btn-primary{
-                background:var(--brand); border-color:var(--brand);
-                font-weight:700; letter-spacing:.3px;
-            }
-            .btn-primary:hover{ background:var(--brand-600); border-color:var(--brand-600); }
+            .btn-primary{ font-weight:700; letter-spacing:.3px; }
         </style>
     @endpush
 

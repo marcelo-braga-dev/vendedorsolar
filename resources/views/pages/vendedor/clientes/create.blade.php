@@ -2,7 +2,6 @@
     @push('css')
         <style>
             :root {
-                --brand: #e25507;
                 --line: #eef1f5;
                 --muted: #6b7280;
                 --card: #fff;

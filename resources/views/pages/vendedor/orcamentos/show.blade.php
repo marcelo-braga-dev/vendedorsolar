@@ -3,10 +3,21 @@
         <style>
             :root{
                 /* Paleta e tokens */
-                --brand:#e25507; --brand-600:#cc4c06; --brand-700:#b44405;
-                --ink:#0b132b; --muted:#6c757d; --line:#e9ecef; --card:#fff; --page:#f8fafc;
-                --good:#2ecc71; --info:#4dabf7; --danger:#e03131;
-                --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem; --space-5:1.25rem; --space-6:1.5rem;
+                --brand:#e25507;
+                --ink:#0b132b;
+                --muted:#6c757d;
+                --line:#e9ecef;
+                --card:#fff;
+                --page:#f8fafc;
+                --good:#2ecc71;
+                --info:#4dabf7;
+                --danger:#e03131;
+                --space-1:.25rem;
+                --space-2:.5rem;
+                --space-3:.75rem;
+                --space-4:1rem;
+                --space-5:1.25rem;
+                --space-6:1.5rem;
             }
 
             body{ background:var(--page); }
