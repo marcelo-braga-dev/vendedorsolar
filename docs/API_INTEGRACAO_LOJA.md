@@ -1,14 +1,14 @@
-# API de Sincronização de Produtos — AppSolar → Loja Online
+# API de Sincronização de Produtos — CRM Solar → Loja Online
 
-Este documento descreve a API REST exposta pelo **AppSolar** (CRM/ERP solar) para que a
+Este documento descreve a API REST exposta pelo **CRM Solar** (CRM/ERP solar) para que a
 **loja online** consuma e sincronize seu catálogo de produtos. É destinado a quem vai
 implementar o lado consumidor (cliente HTTP) na loja — incluindo agentes de IA como o
 Claude Code, que podem usar este documento como especificação completa para gerar o
-serviço de integração sem precisar inspecionar o código-fonte do AppSolar.
+serviço de integração sem precisar inspecionar o código-fonte do CRM Solar.
 
 > ⚠️ **Placeholder de domínio:** todos os exemplos abaixo usam
-> `https://<host-do-appsolar>` como espaço reservado para a URL real de produção do
-> AppSolar. Substitua por todo o documento antes de usar os exemplos literalmente —
+> `https://<host-do-crmsolar>` como espaço reservado para a URL real de produção do
+> CRM Solar. Substitua por todo o documento antes de usar os exemplos literalmente —
 > o domínio definitivo ainda não foi informado.
 
 ## Visão geral
@@ -22,7 +22,7 @@ serviço de integração sem precisar inspecionar o código-fonte do AppSolar.
   `status_fornecedor` ativo, e que possuam SKU preenchido. Produtos inativos ou sem SKU
   nunca aparecem — nem na listagem, nem na busca direta.
 - **Formato:** JSON, REST, somente leitura (`GET`). Não há endpoints de escrita.
-- **Base URL:** `https://<host-do-appsolar>/api/v1/loja` (em ambiente local de
+- **Base URL:** `https://<host-do-crmsolar>/api/v1/loja` (em ambiente local de
   desenvolvimento: `http://localhost:8000/api/v1/loja`).
 
 ## Autenticação
@@ -33,13 +33,13 @@ Todas as rotas exigem um **Bearer token estático** enviado no header `Authoriza
 Authorization: Bearer <LOJA_API_TOKEN>
 ```
 
-- O token é uma string fixa, configurada no lado do AppSolar (`.env` →
+- O token é uma string fixa, configurada no lado do CRM Solar (`.env` →
   `LOJA_API_TOKEN`, `config/services.php` → `services.loja.api_token`). Solicite o
-  valor atual ao time do AppSolar — não é gerado pela loja.
+  valor atual ao time do CRM Solar — não é gerado pela loja.
 - Não há expiração nem renovação automática (não é OAuth/JWT). Se o token for rotacionado
-  no AppSolar, a loja precisa atualizar a configuração manualmente.
+  no CRM Solar, a loja precisa atualizar a configuração manualmente.
 - Requisição sem token, com token vazio, ou com token incorreto retorna `401`.
-- Cada chamada (autorizada ou não) é registrada em um histórico de auditoria no AppSolar
+- Cada chamada (autorizada ou não) é registrada em um histórico de auditoria no CRM Solar
   (IP, rota, parâmetros, SKU consultado e status HTTP retornado).
 
 ## Configuração no `.env` da loja
@@ -49,26 +49,26 @@ Adicione no `.env` da loja (e no `.env.example`, sem o valor real) as seguintes
 variáveis:
 
 ```env
-# URL base da API do AppSolar (sem barra final, sem o /produtos)
-APPSOLAR_API_BASE_URL=https://<host-do-appsolar>/api/v1/loja
+# URL base da API do CRM Solar (sem barra final, sem o /produtos)
+CRMSOLAR_API_BASE_URL=https://<host-do-crmsolar>/api/v1/loja
 
-# Token de autenticação fornecido pelo time do AppSolar
-APPSOLAR_API_TOKEN=<solicitar ao time do AppSolar>
+# Token de autenticação fornecido pelo time do CRM Solar
+CRMSOLAR_API_TOKEN=<solicitar ao time do CRM Solar>
 ```
 
-- `APPSOLAR_API_BASE_URL`: em produção, deve apontar para o domínio real do AppSolar
+- `CRMSOLAR_API_BASE_URL`: em produção, deve apontar para o domínio real do CRM Solar
   (ex.: `https://crm.suaempresa.com.br/api/v1/loja`). Em desenvolvimento/homologação,
-  use a URL correspondente do ambiente de teste do AppSolar, se houver, ou
+  use a URL correspondente do ambiente de teste do CRM Solar, se houver, ou
   `http://localhost:8000/api/v1/loja` ao testar contra uma instância local.
-- `APPSOLAR_API_TOKEN`: mesmo valor configurado em `LOJA_API_TOKEN` no `.env` do
-  AppSolar — precisa ser solicitado ao time responsável pelo AppSolar, não é gerado
+- `CRMSOLAR_API_TOKEN`: mesmo valor configurado em `LOJA_API_TOKEN` no `.env` do
+  CRM Solar — precisa ser solicitado ao time responsável pelo CRM Solar, não é gerado
   pela loja.
-- Construa as chamadas concatenando `APPSOLAR_API_BASE_URL` com o path do endpoint
-  (ex.: `${APPSOLAR_API_BASE_URL}/produtos`, `${APPSOLAR_API_BASE_URL}/produtos/{sku}`),
+- Construa as chamadas concatenando `CRMSOLAR_API_BASE_URL` com o path do endpoint
+  (ex.: `${CRMSOLAR_API_BASE_URL}/produtos`, `${CRMSOLAR_API_BASE_URL}/produtos/{sku}`),
   em vez de fixar o domínio em qualquer lugar do código.
 - Se a loja tiver ambientes separados (local/staging/produção), cada um deve ter seu
-  próprio `.env` com a `APPSOLAR_API_BASE_URL` e `APPSOLAR_API_TOKEN` correspondentes
-  àquele ambiente do AppSolar.
+  próprio `.env` com a `CRMSOLAR_API_BASE_URL` e `CRMSOLAR_API_TOKEN` correspondentes
+  àquele ambiente do CRM Solar.
 
 ## Endpoints
 
@@ -93,7 +93,7 @@ Retorna uma lista paginada de produtos.
 ```bash
 curl -s \
   -H "Authorization: Bearer SEU_TOKEN_AQUI" \
-  "https://<host-do-appsolar>/api/v1/loja/produtos?per_page=50&atualizados_desde=2026-06-01"
+  "https://<host-do-crmsolar>/api/v1/loja/produtos?per_page=50&atualizados_desde=2026-06-01"
 ```
 
 **Exemplo de resposta (`200 OK`):**
@@ -110,12 +110,12 @@ curl -s \
             "preco_venda": 5519.15,
             "disponivel": true,
             "marca_inversor": "DEYE (Convencional)",
-            "marca_inversor_logo": "https://<host-do-appsolar>/storage/produtos/D3kJ....jpg",
-            "marca_inversor_imagem": "https://<host-do-appsolar>/storage/produtos/rjnE....jpg",
+            "marca_inversor_logo": "https://<host-do-crmsolar>/storage/produtos/D3kJ....jpg",
+            "marca_inversor_imagem": "https://<host-do-crmsolar>/storage/produtos/rjnE....jpg",
             "potencia_inversor": 3,
             "marca_painel": "Jinko",
-            "marca_painel_logo": "https://<host-do-appsolar>/storage/produtos/i4sh....jpg",
-            "marca_painel_imagem": "https://<host-do-appsolar>/storage/produtos/MktE....png",
+            "marca_painel_logo": "https://<host-do-crmsolar>/storage/produtos/i4sh....jpg",
+            "marca_painel_imagem": "https://<host-do-crmsolar>/storage/produtos/MktE....png",
             "potencia_painel": 555,
             "estrutura": "Sem Estrutura",
             "categoria": "GERADOR FOTOVOLTAICO",
@@ -132,16 +132,16 @@ curl -s \
         }
     ],
     "links": {
-        "first": "https://<host-do-appsolar>/api/v1/loja/produtos?page=1",
-        "last": "https://<host-do-appsolar>/api/v1/loja/produtos?page=30662",
+        "first": "https://<host-do-crmsolar>/api/v1/loja/produtos?page=1",
+        "last": "https://<host-do-crmsolar>/api/v1/loja/produtos?page=30662",
         "prev": null,
-        "next": "https://<host-do-appsolar>/api/v1/loja/produtos?page=2"
+        "next": "https://<host-do-crmsolar>/api/v1/loja/produtos?page=2"
     },
     "meta": {
         "current_page": 1,
         "from": 1,
         "last_page": 30662,
-        "path": "https://<host-do-appsolar>/api/v1/loja/produtos",
+        "path": "https://<host-do-crmsolar>/api/v1/loja/produtos",
         "per_page": 50,
         "to": 50,
         "total": 61324
@@ -164,7 +164,7 @@ GET /api/v1/loja/produtos/{sku}
 ```bash
 curl -s \
   -H "Authorization: Bearer SEU_TOKEN_AQUI" \
-  "https://<host-do-appsolar>/api/v1/loja/produtos/278327"
+  "https://<host-do-crmsolar>/api/v1/loja/produtos/278327"
 ```
 
 **Resposta (`200 OK`):**
@@ -180,12 +180,12 @@ curl -s \
         "preco_venda": 5519.15,
         "disponivel": true,
         "marca_inversor": "DEYE (Convencional)",
-        "marca_inversor_logo": "https://<host-do-appsolar>/storage/produtos/D3kJ....jpg",
-        "marca_inversor_imagem": "https://<host-do-appsolar>/storage/produtos/rjnE....jpg",
+        "marca_inversor_logo": "https://<host-do-crmsolar>/storage/produtos/D3kJ....jpg",
+        "marca_inversor_imagem": "https://<host-do-crmsolar>/storage/produtos/rjnE....jpg",
         "potencia_inversor": 3,
         "marca_painel": "Jinko",
-        "marca_painel_logo": "https://<host-do-appsolar>/storage/produtos/i4sh....jpg",
-        "marca_painel_imagem": "https://<host-do-appsolar>/storage/produtos/MktE....png",
+        "marca_painel_logo": "https://<host-do-crmsolar>/storage/produtos/i4sh....jpg",
+        "marca_painel_imagem": "https://<host-do-crmsolar>/storage/produtos/MktE....png",
         "potencia_painel": 555,
         "estrutura": "Sem Estrutura",
         "categoria": "GERADOR FOTOVOLTAICO",
@@ -231,13 +231,13 @@ Se o SKU não existir, estiver inativo, ou pertencer a outro fornecedor, a respo
 | `fornecedor`                 | string          | Sempre `"EDELTEC"` atualmente.                                                                |
 | `componentes`                | string (HTML)   | Tabela HTML (`<table>...</table>`) com a lista de itens que compõem o kit (SKU interno, quantidade, descrição). Trate como HTML/texto livre, não como JSON estruturado. |
 | `observacoes`                | string\|null    | Observações gerais do produto.                                                                |
-| `atualizado_em`              | string (ISO 8601) | Data/hora da última atualização no AppSolar. Use para sincronização incremental e para decidir se precisa atualizar o registro local. |
+| `atualizado_em`              | string (ISO 8601) | Data/hora da última atualização no CRM Solar. Use para sincronização incremental e para decidir se precisa atualizar o registro local. |
 
 **Observações importantes para quem for implementar o consumidor:**
 
 - `marca_inversor_logo`, `marca_inversor_imagem`, `marca_painel_logo` e
   `marca_painel_imagem` podem vir `null` quando a marca correspondente não tem imagem
-  cadastrada no AppSolar. Trate `null` graciosamente (ex.: exibir uma imagem placeholder).
+  cadastrada no CRM Solar. Trate `null` graciosamente (ex.: exibir uma imagem placeholder).
 - `componentes` é HTML simples (uma tabela), pensado para ser embutido direto numa página
   de produto. Caso a loja precise dos dados estruturados (SKU interno + quantidade +
   descrição de cada item do kit), terá que fazer parsing do HTML — não há um campo JSON
@@ -261,7 +261,7 @@ Se o SKU não existir, estiver inativo, ou pertencer a outro fornecedor, a respo
 3. **Produtos que saem do catálogo:** a API nunca informa exclusões explicitamente. Se um
    produto deixou de ser retornado em uma sincronização completa (comparado à rodada
    anterior), trate como "descontinuado" e desative-o no catálogo da loja (não foi
-   atualizado porque ficou inativo ou sem SKU no AppSolar).
+   atualizado porque ficou inativo ou sem SKU no CRM Solar).
 4. Use o `sku` como chave de unicidade/upsert — é estável e único por produto.
 
 ## Erros e códigos de status
@@ -289,17 +289,17 @@ Todas as respostas de erro são JSON (mesmo que o cliente não envie
 
 ## Limites e comportamento
 
-- **Rate limit:** 60 requisições por minuto (padrão do AppSolar para toda a API).
+- **Rate limit:** 60 requisições por minuto (padrão do CRM Solar para toda a API).
 - **Paginação:** `per_page` máximo é `200`. Para uma sincronização completa rápida, use
   `per_page=200` e pagine sequencialmente.
 - **Somente leitura:** não há endpoints `POST`/`PUT`/`DELETE` — a loja não envia dados
-  para o AppSolar através desta API, apenas consome.
+  para o CRM Solar através desta API, apenas consome.
 - **Escopo fixo:** a API sempre filtra por fornecedor Edeltec + ativo + com SKU. Não há
   parâmetro para alterar esse comportamento.
 
 ## Resumo rápido para implementação (checklist)
 
-- [ ] Criar `APPSOLAR_API_BASE_URL` e `APPSOLAR_API_TOKEN` no `.env` (e a entrada
+- [ ] Criar `CRMSOLAR_API_BASE_URL` e `CRMSOLAR_API_TOKEN` no `.env` (e a entrada
       correspondente, sem valor, no `.env.example`) da loja — nunca hardcodar domínio
       ou token no código.
 - [ ] Cliente HTTP envia `Authorization: Bearer <token>` em toda requisição.

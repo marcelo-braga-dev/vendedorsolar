@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project is
 
-**AppSolar** is a B2B solar energy CRM and quoting platform (Laravel 12, PHP 8.2). It manages the full sales pipeline: leads → quotes (orçamentos) → contracts → technical visits → installations. Two distinct user roles drive separate UI areas: **Admin** and **Vendedor** (salesperson).
+**CRM Solar** is a B2B solar energy CRM and quoting platform (Laravel 12, PHP 8.2). It manages the full sales pipeline: leads → quotes (orçamentos) → contracts → technical visits → installations. Two distinct user roles drive separate UI areas: **Admin** and **Vendedor** (salesperson).
 
 ## Development commands
 
