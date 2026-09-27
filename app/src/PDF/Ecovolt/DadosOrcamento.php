@@ -37,10 +37,7 @@ abstract class DadosOrcamento
 
     private function setCliente()
     {
-        return Clientes::where([
-            ['id', '=', $this->orcamento->clientes_id],
-            ['users_id', '=', $this->orcamento->users_id]
-        ])->first();
+        return Clientes::find($this->orcamento->clientes_id);
     }
 
     private function setClienteDados()

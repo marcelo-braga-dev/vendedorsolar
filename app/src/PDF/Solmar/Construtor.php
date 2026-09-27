@@ -48,28 +48,43 @@ class Construtor extends DadosOrcamento
 
     public function gerar()
     {
+        $orcamento = $this->getOrcamento();
+
+        if (empty($orcamento)) {
+            Log::error('Erro ao gerar PDF Solmar: orçamento não encontrado.');
+            return response()->json(['error' => 'Orçamento não encontrado.'], 404);
+        }
+
+        if (empty($this->getCliente())) {
+            Log::error("Erro ao gerar PDF Solmar: orçamento #{$orcamento->id} sem cliente vinculado.");
+            return response()->json(['error' => 'Este orçamento não possui um cliente vinculado.'], 422);
+        }
+
+        if (empty($this->getOrcamentoKit()) || empty($this->getKit())) {
+            Log::error("Erro ao gerar PDF Solmar: orçamento #{$orcamento->id} sem kit vinculado.");
+            return response()->json(['error' => 'Este orçamento não possui um kit de produtos vinculado.'], 422);
+        }
+
         $this->config();
         $this->layout();
         $pageBreakAfter = '<div style="page-break-after: always;"></div>';
 
         $body = new Body();
-        $this->mpdf = $body->execute(new Capa(), $this);
-        $this->mpdf = $body->execute(new Introducao(), $this);
-        $this->mpdf = $body->execute(new Bancos(), $this);
-        $this->mpdf = $body->execute(new Beneficios(), $this);
+        $body->execute(new Capa(), $this);
+        $body->execute(new Introducao(), $this);
+        $body->execute(new Bancos(), $this);
+        $body->execute(new Beneficios(), $this);
         $this->mpdf->WriteHTML($pageBreakAfter);
-        $this->mpdf = $body->execute(new InfoPredio(), $this);
-        $this->mpdf = $body->execute(new InfoKit(), $this);
-        $this->mpdf = $body->execute(new Imagenskit(), $this);
+        $body->execute(new InfoPredio(), $this);
+        $body->execute(new InfoKit(), $this);
+        $body->execute(new Imagenskit(), $this);
         $this->mpdf->WriteHTML($pageBreakAfter);
-        $this->mpdf = $body->execute(new Graficos($this->graficoGeracao, $this->graficoPayback), $this);
+        $body->execute(new Graficos($this->graficoGeracao, $this->graficoPayback), $this);
         $this->mpdf->WriteHTML($pageBreakAfter);
-        $this->mpdf = $body->execute(new Portfolio(), $this);
+        $body->execute(new Portfolio(), $this);
         $this->mpdf->WriteHTML($pageBreakAfter);
-        $this->mpdf = $body->execute(new Regulamentacao(), $this);
-        $this->mpdf = $body->execute(new Assinaturas(), $this);
-
-        $orcamento = $this->getOrcamento();
+        $body->execute(new Regulamentacao(), $this);
+        $body->execute(new Assinaturas(), $this);
 
         $nomeArquivo = getNomeCliente($orcamento->clientes_id) . '_' . $orcamento->geracao . 'kwh_' . uniqid() . '.pdf';
         $caminhoRelativo = 'public/pdfs/' . $nomeArquivo;

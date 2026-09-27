@@ -29,8 +29,8 @@ abstract class DadosOrcamento
         $this->vendedor = $this->setVendedor();
         $this->orcamentoKits = $this->setOrcamentoKits($idOrcamento);
         $this->kit = $this->setKit();
-        $this->trafo = $this->setTrafo($this->orcamento->trafo);
-        $this->dadosCliente = $this->setDadosCliente($this->orcamento->clientes_id);
+        $this->trafo = $this->setTrafo($this->orcamento?->trafo);
+        $this->dadosCliente = $this->setDadosCliente($this->orcamento?->clientes_id);
     }
 
     private function setOrcamento()
@@ -40,14 +40,15 @@ abstract class DadosOrcamento
 
     private function setCliente()
     {
-        return Clientes::where([
-            ['id', '=', $this->orcamento->clientes_id],
-            ['users_id', '=', $this->orcamento->users_id]
-        ])->first();
+        return Clientes::find($this->orcamento?->clientes_id);
     }
 
     private function setKit()
     {
+        if (empty($this->orcamentoKits)) {
+            return null;
+        }
+
         return Kits::find($this->orcamentoKits->kits_id);
     }
 
@@ -58,7 +59,7 @@ abstract class DadosOrcamento
 
     public function setVendedor()
     {
-        return User::find($this->orcamento->users_id);
+        return User::find($this->orcamento?->users_id);
     }
 
     public function getOrcamento()
@@ -95,6 +96,10 @@ abstract class DadosOrcamento
 
     private function setTrafo($id)
     {
+        if (empty($id)) {
+            return null;
+        }
+
         return (new Trafos())->newQuery()
             ->find($id);
     }

@@ -15,10 +15,6 @@ class Config
     {
         $this->mpdf->SetTitle('Orçamento Gerador Solar');
         $this->mpdf->SetAuthor('Autor');
-        $this->mpdf->SetWatermarkText("Modelo 1");
-        $this->mpdf->showWatermarkText = false;
-        $this->mpdf->watermark_font = 'DejaVuSansCondensed';
-        $this->mpdf->watermarkTextAlpha = 0.5;
         $this->mpdf->SetDisplayMode('fullpage');
         $this->mpdf->allow_charset_conversion = true;
 
