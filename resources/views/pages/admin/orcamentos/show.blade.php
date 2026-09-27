@@ -172,6 +172,11 @@
                                 </button>
                             </div>
                             <div class="col-md-3">
+                                <button id="btnGerarPdfCasaVerde" class="btn btn-icon btn-outline-success w-100" type="button" onclick="generatePdfCasaVerde()">
+                                    <i class="bi bi-filetype-pdf"></i><span>PDF Casa Verde</span>
+                                </button>
+                            </div>
+                            <div class="col-md-3">
                                 <a class="btn btn-icon btn-success w-100"
                                    href="{{ route('admin.orcamentos.edit', $orcamento->id) }}">
                                     <i class="bi bi-pencil-square"></i><span>Editar</span>
@@ -441,12 +446,40 @@
                         body: JSON.stringify(payload)
                     });
                     const data = await response.json();
+                    if (!response.ok) {
+                        alert(data.error || 'Erro ao gerar o PDF.');
+                        return;
+                    }
                     const link = document.createElement('a');
                     link.href = data.urlPdf;
                     link.setAttribute('download', "{{ getNomeCliente($orcamento->clientes_id).'_'.$orcamento->geracao.'kwh.pdf'}}");
                     link.setAttribute('target', '_blank');
                     document.body.appendChild(link); link.click();
                 } catch (error) { console.error('Erro ao gerar PDF:', error); }
+            }
+
+            // Gerar PDF Casa Verde
+            async function generatePdfCasaVerde() {
+                const payload = {
+                    id: {{ $orcamento->id }}
+                };
+                try {
+                    const response = await fetch("{{ route('admin.orcamento.pdf-casa-verde') }}", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "X-CSRF-TOKEN": "{{ csrf_token() }}" },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        alert(data.error || 'Erro ao gerar o PDF Casa Verde.');
+                        return;
+                    }
+                    const link = document.createElement('a');
+                    link.href = data.urlPdf;
+                    link.setAttribute('download', "{{ getNomeCliente($orcamento->clientes_id).'_'.$orcamento->geracao.'kwh_casa-verde.pdf'}}");
+                    link.setAttribute('target', '_blank');
+                    document.body.appendChild(link); link.click();
+                } catch (error) { console.error('Erro ao gerar PDF Casa Verde:', error); }
             }
         </script>
     @endpush

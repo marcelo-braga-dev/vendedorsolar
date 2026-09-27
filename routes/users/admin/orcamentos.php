@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Orcamentos\GerarPdfCasaVerdeController;
 use App\Http\Controllers\Admin\Orcamentos\OrcamentosController;
 use App\Http\Controllers\Admin\Orcamentos\Servicos\GerarPdfServicoController;
 use App\Http\Controllers\Admin\Orcamentos\Servicos\ServicosController;
@@ -8,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::name('admin.')
     ->group(function () {
         Route::resource('orcamentos', OrcamentosController::class);
+        Route::post('orcamento/gerar-pdf-casa-verde', GerarPdfCasaVerdeController::class)
+            ->name('orcamento.pdf-casa-verde');
     });
 
 Route::name('admin.orcamento.')
