@@ -45,12 +45,12 @@
             ( 5 ) conectar o inversor na Internet no dia da manutenção  <br/>
             ( 6 ) conferir se há placas com ponto de aquecimento  <br/>
             <br/>
-            (Obs) nossos técnicos possuem seguro de vida, todas NRS (NR10, NR35 e NR38)
-            <br/>RECOMENDAMOS QUE EXIJA O USO DOS EPIS, ANCORAGEM E CINTO DE SEGURANÇA
+            (Obs) Nossos técnicos possuem seguro de vida, todas NR's (NR10, NR35 e NR38).
+            <br/>RECOMENDAMOS QUE EXIJA O USO DOS EPIS, ANCORAGEM E CINTO DE SEGURANÇA.
             <br/><br/>
             Obs: chave pix energiasolmar@gmail.com Solmar energia solar
             <br/>Enviar comprovante para (44) 999903092 watsapp
-            <br/>Nao esta incluso: Troca de disjuntor, Dps, cabos, estrutura, placas, inversor e realização de placas.
+            <br/>Nao esta incluso: Troca de disjuntor, Dps, cabos, estrutura, placas, inversor e adequações de placas.
         </p>
     </div>
 
