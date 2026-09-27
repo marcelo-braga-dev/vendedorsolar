@@ -15,4 +15,5 @@ yarn-error.log
 /.vscode
 /sail-mysql
 /.well-known/
+/public/.well-known/
 /public/.user.ini
